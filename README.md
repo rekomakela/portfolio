@@ -79,3 +79,10 @@ Tämän koosterepon seuraavat vaiheet:
 ## HTML landing page
 
 - [Portfolio landing page](index.html)
+
+## Proof cards
+
+- [AIAuditLab proof card](proof-cards/ai-audit-lab.md)
+- [Content Ops Platform proof card](proof-cards/content-ops-platform.md)
+- [SearchAudit proof card](proof-cards/search-audit.md)
+- [Piwik PRO Workspace proof card](proof-cards/piwik-pro-workspace.md)
