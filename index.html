@@ -138,6 +138,17 @@
       font-weight: 700;
     }
 
+    .screenshot {
+      display: block;
+      width: 100%;
+      max-height: 620px;
+      object-fit: cover;
+      object-position: top center;
+      margin: 16px 0 0;
+      border: 1px solid var(--line);
+      background: #ffffff;
+    }
+
     .links {
       margin-top: 14px;
       display: flex;
@@ -188,22 +199,35 @@
     </header>
 
     <section>
-      <h2>Päädemot</h2>
+      <h2>Pääcase</h2>
+      <article class="card">
+        <span class="tag">AI-työnkulut</span>
+        <h3>AIAuditLab</h3>
+        <p>
+          Paikallinen työtila AI-näkyvyyden, prompt-pohjien, AI-vastausten,
+          manuaalisten löydösten ja arviointien hallintaan.
+        </p>
+        <p>
+          Case näyttää, miten yksittäisistä AI-kokeiluista rakennetaan
+          toistettava tarkistusprosessi markkinointi- ja sisältötyöhön.
+        </p>
+        <img
+          src="assets/screenshots/ai-audit-lab/ai-audit-lab-run-overview.png"
+          alt="AIAuditLab run overview"
+          class="screenshot"
+        >
+        <div class="links">
+          <a href="case-studies/ai-audit-lab/">Avaa case</a>
+          <a href="scenarios/ai-audit-lab-scenario.md">Käyttöskenaario</a>
+          <a href="demos/01-ai-audit-lab/">Demo-kuvaus</a>
+        </div>
+      </article>
+    </section>
+
+    <section>
+      <h2>Muut demot</h2>
 
       <div class="grid">
-        <article class="card">
-          <span class="tag">AI-työnkulut</span>
-          <h3>AIAuditLab</h3>
-          <p>
-            Paikallinen tarkistustyökalu AI-näkyvyyden, prompt-pohjien,
-            AI-vastausten, manuaalisten löydösten ja pisteytysten hallintaan.
-          </p>
-          <div class="links">
-            <a href="demos/01-ai-audit-lab/">Avaa kuvaus</a>
-            <a href="scenarios/ai-audit-lab-scenario.md">Skenaario</a>
-            <a href="case-studies/ai-audit-lab/">Case study</a>
-          </div>
-        </article>
 
         <article class="card">
           <span class="tag">Content Ops</span>
@@ -214,7 +238,7 @@
           </p>
           <div class="links">
             <a href="demos/02-content-ops-platform/">Avaa kuvaus</a>
-            <a href="scenarios/content-ops-platform-scenario.md">Skenaario</a>
+            <a href="scenarios/content-ops-platform-scenario.md">Käyttöskenaario</a>
           </div>
         </article>
 
@@ -227,7 +251,7 @@
           </p>
           <div class="links">
             <a href="demos/03-search-audit/">Avaa kuvaus</a>
-            <a href="scenarios/search-audit-scenario.md">Skenaario</a>
+            <a href="scenarios/search-audit-scenario.md">Käyttöskenaario</a>
           </div>
         </article>
 
@@ -240,7 +264,7 @@
           </p>
           <div class="links">
             <a href="demos/04-piwik-pro-workspace/">Avaa kuvaus</a>
-            <a href="scenarios/piwik-pro-workspace-scenario.md">Skenaario</a>
+            <a href="scenarios/piwik-pro-workspace-scenario.md">Käyttöskenaario</a>
           </div>
         </article>
       </div>
