@@ -86,3 +86,4 @@ Tämän koosterepon seuraavat vaiheet:
 - [Content Ops Platform proof card](proof-cards/content-ops-platform.md)
 - [SearchAudit proof card](proof-cards/search-audit.md)
 - [Piwik PRO Workspace proof card](proof-cards/piwik-pro-workspace.md)
+- [Demo status](docs/demo-status.md)
