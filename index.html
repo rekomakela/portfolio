@@ -13,6 +13,7 @@
       --line: #e5e7eb;
       --accent: #14306b;
       --soft: #eef3ff;
+      --soft-2: #f8fafc;
     }
 
     * {
@@ -28,14 +29,19 @@
     }
 
     .page {
-      max-width: 1080px;
+      max-width: 1120px;
       margin: 0 auto;
       padding: 42px 22px 56px;
     }
 
-    header {
+    header,
+    .card,
+    .panel {
       background: var(--card);
       border: 1px solid var(--line);
+    }
+
+    header {
       padding: 34px;
       margin-bottom: 22px;
     }
@@ -49,7 +55,7 @@
     }
 
     .lead {
-      max-width: 820px;
+      max-width: 850px;
       margin: 0 0 18px;
       color: var(--muted);
       font-size: 18px;
@@ -66,7 +72,7 @@
     }
 
     section {
-      margin-top: 24px;
+      margin-top: 26px;
     }
 
     h2 {
@@ -75,33 +81,10 @@
       font-size: 22px;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      padding: 22px;
-    }
-
-    .card h3 {
+    h3 {
       margin: 0 0 8px;
       color: var(--accent);
       font-size: 20px;
-    }
-
-    .tag {
-      display: inline-block;
-      margin-bottom: 12px;
-      padding: 5px 8px;
-      background: var(--soft);
-      color: var(--accent);
-      border: 1px solid #dbe4ff;
-      font-size: 13px;
-      font-weight: 700;
     }
 
     p {
@@ -117,11 +100,49 @@
       margin-bottom: 6px;
     }
 
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      padding: 22px;
+    }
+
+    .panel {
+      padding: 22px;
+      background: var(--soft-2);
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 5px 8px;
+      background: var(--soft);
+      color: var(--accent);
+      border: 1px solid #dbe4ff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .proof {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .proof-title {
+      margin: 0 0 6px;
+      color: var(--ink);
+      font-weight: 700;
+    }
+
     .links {
       margin-top: 14px;
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 10px 16px;
     }
 
     a {
@@ -144,8 +165,10 @@
         grid-template-columns: 1fr;
       }
 
-      header {
-        padding: 24px;
+      header,
+      .card,
+      .panel {
+        padding: 22px;
       }
     }
   </style>
@@ -175,17 +198,8 @@
             Paikallinen tarkistustyökalu AI-näkyvyyden, prompt-pohjien,
             AI-vastausten, manuaalisten löydösten ja pisteytysten hallintaan.
           </p>
-          <p>
-            Näyttää, miten epämääräinen AI-kysymys voidaan muuttaa hallituksi
-            tarkistusprosessiksi.
-          </p>
-          <ul>
-            <li>AI-käyttötapausten rajaaminen</li>
-            <li>ihmisen ja AI:n roolien erottaminen</li>
-            <li>paikallinen työnkulkuhistoria</li>
-          </ul>
           <div class="links">
-            <a href="demos/01-ai-audit-lab/">Lue demo</a>
+            <a href="demos/01-ai-audit-lab/">Avaa kuvaus</a>
           </div>
         </article>
 
@@ -196,17 +210,8 @@
             Päätöstyötila laajan sisältö- ja sivumassan tarkistamiseen,
             priorisointiin ja päätösten valmisteluun.
           </p>
-          <p>
-            Näyttää, miten hajanaisista havainnoista rakennetaan hallittava
-            työjono.
-          </p>
-          <ul>
-            <li>lähdearvojen ja päätösten erottaminen</li>
-            <li>tarkistusjonot ja priorisointi</li>
-            <li>turvallinen read-only- ja dry-run-ajattelu</li>
-          </ul>
           <div class="links">
-            <a href="demos/02-content-ops-platform/">Lue demo</a>
+            <a href="demos/02-content-ops-platform/">Avaa kuvaus</a>
           </div>
         </article>
 
@@ -217,17 +222,8 @@
             Työkalu sisäisen haun termikandidaattien, kohdesivuprofiilien,
             tarkistustilojen ja vientipakettien käsittelyyn.
           </p>
-          <p>
-            Näyttää, miten hakudata ja termilistat muutetaan arvioitavaksi
-            työjonoksi.
-          </p>
-          <ul>
-            <li>termikandidaattien arviointi</li>
-            <li>tarkistuspakettien muodostaminen</li>
-            <li>SEO-havaintojen muuttaminen jatkotyöksi</li>
-          </ul>
           <div class="links">
-            <a href="demos/03-search-audit/">Lue demo</a>
+            <a href="demos/03-search-audit/">Avaa kuvaus</a>
           </div>
         </article>
 
@@ -238,34 +234,22 @@
             Paikallinen työtila käyttäjäpolkujen, pudotuskohtien,
             diagnoosikorttien ja prioriteettitaulukoiden mallintamiseen.
           </p>
-          <p>
-            Näyttää, miten analytiikka muuttuu operatiivisen kehittämisen tueksi.
-          </p>
-          <ul>
-            <li>funnel-ajot ja pudotuskohtien tulkinta</li>
-            <li>diagnoosikortit</li>
-            <li>prioriteettitaulukot</li>
-          </ul>
           <div class="links">
-            <a href="demos/04-piwik-pro-workspace/">Lue demo</a>
+            <a href="demos/04-piwik-pro-workspace/">Avaa kuvaus</a>
           </div>
         </article>
       </div>
     </section>
 
+
     <section>
-      <h2>Mitä portfolio kertoo</h2>
-      <div class="card">
-        <p>
-          Portfolio näyttää tapani rakentaa silta havainnon ja käytännön tekemisen välille.
-          En jätä analyysiä irralliseksi raportiksi, vaan muotoilen siitä työnkulun,
-          tarkistusmallin, toteutettavan tehtävän tai seuraavan kehitysaskeleen.
-        </p>
+      <h2>Taustamateriaalit</h2>
+      <div class="panel">
         <ul>
-          <li>jäsennän epäselviä ongelmia</li>
-          <li>rakennan tarkistus- ja päätöksentekotyönkulkuja</li>
-          <li>yhdistän SEO:n, analytiikan, sisällön ja AI:n käytännön työhön</li>
-          <li>muutan dataa seuraaviksi toimenpiteiksi</li>
+          <li><a href="docs/reviewer-guide.md">Reviewer guide</a></li>
+          <li><a href="docs/portfolio-positioning.md">Portfolio positioning</a></li>
+          <li><a href="docs/demo-selection-rationale.md">Demo selection rationale</a></li>
+          <li><a href="docs/publication-checklist.md">Publication checklist</a></li>
         </ul>
       </div>
     </section>
