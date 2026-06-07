@@ -87,3 +87,10 @@ Tämän koosterepon seuraavat vaiheet:
 - [SearchAudit proof card](proof-cards/search-audit.md)
 - [Piwik PRO Workspace proof card](proof-cards/piwik-pro-workspace.md)
 - [Demo status](docs/demo-status.md)
+
+## Scenarios
+
+- [AIAuditLab scenario](scenarios/ai-audit-lab-scenario.md)
+- [Content Ops Platform scenario](scenarios/content-ops-platform-scenario.md)
+- [SearchAudit scenario](scenarios/search-audit-scenario.md)
+- [Piwik PRO Workspace scenario](scenarios/piwik-pro-workspace-scenario.md)
