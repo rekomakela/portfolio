@@ -50,3 +50,22 @@ En tee vain raportteja tai yksittäisiä kokeiluja. Rakennan työnkulkuja, joiss
 - Salaisuuksia, API-avaimia tai palvelutilitiedostoja ei tule julkaista.
 - Osa demoista on paikallisia kehitystyökaluja, ei tuotantojärjestelmiä.
 - AI toimii työn valmistelun ja jäsentämisen tukena; ihminen säilyy päätöksentekijänä.
+
+## Seuraavat parannukset
+
+Tämän koosterepon seuraavat vaiheet:
+
+1. Lisätä jokaiselle demolle yksi kuvakaappaus tai lyhyt GIF.
+2. Lisätä jokaiselle demolle “mitä tämä todistaa osaamisestani” -osio.
+3. Tehdä `docs/demo-selection-rationale.md`, jossa perustellaan miksi juuri nämä demot nostetaan portfolioon.
+4. Lisätä public-safe huomio: demot eivät sisällä asiakasdataa, salaisuuksia tai tuotantojärjestelmien tietoja.
+5. Linkittää varsinaisiin demo-repoihin, kun niiden README:t on siistitty.
+
+## Demo-repojen tila
+
+| Demo | Tila | Seuraava askel |
+|---|---|---|
+| AIAuditLab | Valittu päädemoksi | Siisti README ja lisää kuvakaappaus |
+| Content Ops Platform | Valittu päädemoksi | Tee public-safe yleiskuvaus |
+| SearchAudit | Valittu päädemoksi | Korosta sisäisen haun ja termikandidaattien työnkulkua |
+| Piwik PRO Workspace | Tukidemo | Korosta analytiikan muuttamista prioriteeteiksi |
