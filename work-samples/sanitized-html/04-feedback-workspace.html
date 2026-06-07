@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html lang="fi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Feedback Workspace – sanitoitu portfolio-demo</title>
+<style>
+
+
+
+
+
+:root{
+  --tt-blue:#0046AD; --tt-navy:#1A244A; --tt-black:#212322; --tt-ice:#E8EDEE; --tt-white:#fff;
+  --muted:#59646f; --border:#D8E0E6; --surface:#fff; --soft:#F7F9FA; --focus:#FCD757;
+  --negative:#8F2B25; --positive:#1F6F50; --neutral:#5B6470; --radius:6px;
+  --font:system-ui,system-ui,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --display:system-ui,system-ui,system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--tt-ice);color:var(--tt-black);font-family:var(--font);line-height:1.45;-webkit-font-smoothing:antialiased}
+.wrap{width:min(1160px,calc(100% - 32px));margin:0 auto;padding:34px 0 72px}
+.hero{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:30px 32px;margin-bottom:18px}
+.hero-top{display:flex;justify-content:space-between;gap:24px;align-items:flex-start}
+.logo-img{width:116px;height:auto;display:block}.logo-text{font-weight:800;color:var(--tt-blue);font-size:22px}
+.meta-right{text-align:right;color:var(--muted);font-size:12px;line-height:1.55}
+.eyebrow{margin-top:34px;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--tt-blue);font-weight:800}
+h1{font-family:var(--display);font-weight:900;letter-spacing:-.04em;line-height:.94;color:var(--tt-blue);font-size:clamp(36px,5.5vw,54px);margin:6px 0 12px}
+.lead{font-size:17px;max-width:760px;margin:0 0 16px;color:var(--tt-black)}
+.notice{background:var(--soft);border-left:3px solid var(--tt-blue);padding:13px 14px;border-radius:var(--radius);font-size:13px;max-width:900px}
+.notice strong{color:var(--tt-navy)}
+.controls{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:16px}
+.controls-head{display:flex;justify-content:space-between;align-items:end;gap:14px;margin-bottom:12px}
+.controls h2{font-size:17px;color:var(--tt-navy);margin:0}
+.range-summary{font-size:12px;color:var(--muted)}
+.control-grid{display:grid;grid-template-columns:2.1fr repeat(5,1fr);gap:10px;align-items:end}
+label{display:block;font-weight:700;font-size:12px;color:var(--tt-navy);margin-bottom:5px}
+input,select,button{font:inherit}
+input,select{width:100%;height:38px;border:1px solid #C9D3DB;border-radius:var(--radius);background:#fff;padding:7px 9px;color:var(--tt-black)}
+input:focus,select:focus,button:focus-visible,.row:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.button-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.btn{border:1px solid #C7D2DB;border-radius:var(--radius);background:#fff;color:var(--tt-navy);font-weight:800;min-height:38px;padding:8px 12px;cursor:pointer}
+.btn.primary{background:var(--tt-blue);border-color:var(--tt-blue);color:#fff}
+.btn[aria-pressed="true"]{background:var(--tt-navy);border-color:var(--tt-navy);color:#fff}
+.coverage{margin-left:auto;color:var(--muted);font-size:12px}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:15px}
+.k-label{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:800}
+.k-value{font-family:var(--display);font-weight:900;color:var(--tt-blue);font-size:30px;line-height:1;margin:7px 0}
+.k-hint{font-size:12px;color:var(--muted)}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 410px;gap:16px;align-items:start}
+.panel{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:16px}
+.panel h2{font-size:20px;color:var(--tt-navy);margin:0 0 5px;letter-spacing:-.01em}
+.section-note{font-size:13px;color:var(--muted);margin:0 0 12px}
+.queue-meta{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted);margin-bottom:8px}
+.queue{display:grid;gap:8px}
+.row{display:grid;grid-template-columns:74px 64px minmax(160px,1fr);gap:12px;text-align:left;width:100%;border:1px solid var(--border);border-radius:var(--radius);background:#fff;padding:12px;cursor:pointer;align-items:start}
+.row:hover,.row[aria-current="true"]{border-color:var(--tt-blue);box-shadow:inset 3px 0 0 var(--tt-blue)}
+.row-small{font-size:11px;color:var(--muted);font-weight:800}
+.row-value{font-family:var(--display);font-size:24px;color:var(--tt-blue);font-weight:900;line-height:1.05}
+.row-main{min-width:0}
+.tag{display:inline-block;border:1px solid #E1CBD0;background:#FFF7F8;color:#7B2A32;border-radius:4px;padding:2px 7px;font-size:12px;font-weight:800;margin-right:7px}
+.tag.neutral{background:#F2F4F6;border-color:#DADFE5;color:#505A64}.tag.positive{background:#EDF7F2;border-color:#C7E3D4;color:#1F6F50}
+.row-title{font-weight:700;color:var(--tt-black);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.row-sub{font-size:12px;color:var(--muted);margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.detail{position:sticky;top:16px}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.field{background:var(--soft);border:1px solid #E2E8ED;border-radius:var(--radius);padding:9px}
+.field-label{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.field-value{font-weight:800;color:var(--tt-black);margin-top:3px;word-break:break-word}
+.full-text{white-space:pre-wrap;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin:10px 0;font-size:14px}
+.sentence{border-top:1px solid var(--border);padding:10px 0}
+.sentence:first-child{border-top:0}
+.sentence-meta{font-size:12px;color:var(--muted);font-weight:800;margin-bottom:4px}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.summary-list{display:grid;gap:7px}
+.summary-item{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;border-top:1px solid #E8EDF1;padding-top:7px;font-size:13px}
+.summary-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.summary-count{font-weight:900;color:var(--tt-blue)}
+.link-btn{background:transparent;border:0;color:var(--tt-blue);font-weight:800;cursor:pointer;padding:4px}
+.empty{border:1px dashed #C8D2DB;border-radius:var(--radius);padding:22px;text-align:center;color:var(--muted)}
+footer{margin-top:24px;color:var(--muted);font-size:12px}
+
+.floating-open{position:fixed;right:24px;bottom:24px;z-index:50;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:12px 16px;border-radius:8px;border:1px solid var(--tt-blue);background:var(--tt-blue);color:#fff;font-weight:900;text-decoration:none;box-shadow:0 2px 8px rgba(26,36,74,.16)}
+.floating-open:hover{text-decoration:underline;background:#003F9B}
+.floating-open:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.floating-open[hidden]{display:none}
+.floating-open.is-disabled{background:#EEF2F5;color:var(--muted);border-color:var(--border);pointer-events:none;box-shadow:none}
+@media(max-width:1060px){.control-grid{grid-template-columns:1fr 1fr 1fr}.kpis{grid-template-columns:repeat(3,1fr)}.layout{grid-template-columns:1fr}.detail{position:static}}
+@media(max-width:680px){.floating-open{left:16px;right:16px;bottom:16px;justify-content:center}
+.wrap{width:min(100% - 20px,1160px);padding-top:18px}.hero{padding:22px 18px}.hero-top{display:block}.meta-right{text-align:left;margin-top:14px}.control-grid,.kpis,.summary-grid{grid-template-columns:1fr}.row{grid-template-columns:58px 52px minmax(0,1fr)}.detail-grid{grid-template-columns:1fr}.coverage{width:100%;margin-left:0}}
+@media print{body{background:#fff}.controls,.summary-panel{display:none}.wrap{width:100%;padding:0}.hero,.panel,.kpi{break-inside:avoid;box-shadow:none}.layout{grid-template-columns:1fr}.detail{position:static}}
+</style>
+<style>
+.portfolio-sanitized-note{
+  margin:16px auto;
+  max-width:1120px;
+  padding:12px 16px;
+  border:1px solid rgba(96,165,250,.35);
+  border-radius:14px;
+  background:rgba(15,23,42,.72);
+  color:#dbeafe;
+  font:500 14px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.sanitized-logo-box{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:8px 14px;
+  border:1px solid currentColor;
+  border-radius:999px;
+  font:700 13px/1.2 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:inherit;
+  opacity:.85;
+}
+</style></head>
+<body><div class="portfolio-sanitized-note">Sanitoitu portfolio-demo: asiakas-, brändi-, URL- ja henkilötiedot on poistettu tai korvattu esimerkkisisällöllä.</div>
+<div class="wrap">
+<header class="hero">
+<div class="hero-top"><div><div class="logo-img sanitized-logo-box">Sanitoitu demo</div></div><div class="meta-right">Lähde: sanitoitu demo-aineisto<br/>Aikaväli: esimerkkijakso<br/>Luotu: portfolio-demo</div></div>
+<div class="eyebrow">Sanitoitu palauteaineisto</div>
+<h1>Feedback Workspace</h1>
+<p class="lead">Työpöytä auttaa rajaamaan palautteita, tunnistamaan toistuvia aiheita ja avaamaan yksittäisen palautteen taustatiedot ilman taulukkolaskentaan siirtymistä.</p>
+<div class="notice"><strong>Vain luku:</strong> Paikallinen analyysityöpöytä sanitoidulla demo-aineistolla. Näkymä ei tallenna rajauksia tai päätöksiä.</div>
+</header>
+<section aria-label="Rajaa näkymää" class="controls">
+<div class="controls-head"><h2>Rajaa näkymää</h2><div class="range-summary" id="rangeSummary">Ajanjakso 2026-01-01–2026-06-01</div></div>
+<div class="control-grid">
+<div><label for="q">Tekstihaku</label><input esimerkkisisältö="Hae palautteesta, aiheesta tai sivupolusta" id="q" type="search"/></div>
+<div><label for="fromDate">Alkupäivä</label><input id="fromDate" max="2026-06-01" min="2026-01-01" type="date" value="2026-01-01"/></div>
+<div><label for="toDate">Loppupäivä</label><input id="toDate" max="2026-06-01" min="2026-01-01" type="date" value="2026-06-01"/></div>
+<div><label for="pageType">Sivutyyppi</label><select id="pageType"><option value="">Kaikki sivutyypit</option></select></div>
+<div><label for="typeFilter">Palautteen tyyppi</label><select id="typeFilter"><option value="">Kaikki tyypit</option></select></div>
+<div><label for="topicFilter">Aihe</label><select id="topicFilter"><option value="">Kaikki aiheet</option></select></div>
+</div>
+<div class="button-row">
+<button aria-pressed="false" class="btn" id="negativeOnly" type="button">Vain negatiiviset</button>
+<button aria-pressed="false" class="btn" id="highPriorityOnly" type="button">Vain korkea prioriteetti</button>
+<button class="btn" id="openFirst" type="button">Avaa ensimmäinen rivi</button>
+<button class="btn primary" id="resetBtn" type="button">Tyhjennä rajaus</button>
+<span class="coverage" id="coverage">Rajaus näyttää 0 / 0 riviä.</span>
+</div>
+</section>
+<section aria-label="KPI-luvut" class="kpis">
+<div class="kpi"><div class="k-label">Rivejä</div><div class="k-value" id="kRows">0</div><div class="k-hint">Rajauksen palautteet</div></div>
+<div class="kpi"><div class="k-label">Korkea prioriteetti</div><div class="k-value" id="kPriority">0</div><div class="k-hint" id="kPriorityHint">0 % rajauksesta</div></div>
+<div class="kpi"><div class="k-label">Negatiivisia</div><div class="k-value" id="kNegative">0</div><div class="k-hint" id="kNegativeHint">0 % rajauksesta</div></div>
+<div class="kpi"><div class="k-label">Keskiarvoinen score</div><div class="k-value" id="kScore">–</div><div class="k-hint">Pienempi = kriittisempi</div></div>
+<div class="kpi"><div class="k-label">Sivuja</div><div class="k-value" id="kPages">0</div><div class="k-hint">Uniikit sivupolut</div></div>
+<div class="kpi"><div class="k-label">Kattavuus</div><div class="k-value" id="kCoverage">0 %</div><div class="k-hint">Suodatettu osuus</div></div>
+</section>
+<div class="layout">
+<main>
+<section aria-labelledby="queueTitle" class="panel">
+<h2 id="queueTitle">Tarkistusjono</h2>
+<p class="section-note">Rivi avaa palautteen oikeaan paneeliin. Prioriteetti on laskettu scoresta, palautetyypistä ja negatiivisista lauseista.</p>
+<div class="queue-meta"><span id="queueCount">Rajaus näyttää 0 riviä</span><label for="sortBy" style="display:flex;gap:8px;align-items:center;margin:0">Järjestys <select id="sortBy"><option value="recommended">Suositeltu</option><option value="date-desc">Uusin ensin</option><option value="priority-desc">Prioriteetti suurin ensin</option><option value="score-asc">Score pienin ensin</option><option value="negative-desc">Negatiivisia lauseita eniten</option></select></label></div>
+<div class="queue" id="queue"></div>
+<div class="empty" hidden="" id="emptyState">Tällä rajauksella ei löytynyt rivejä. Poista osa rajauksista.</div>
+</section>
+<section aria-labelledby="summaryTitle" class="panel summary-panel">
+<h2 id="summaryTitle">Dynaamiset yhteenvedot</h2>
+<p class="section-note">Listat päivittyvät rajauksen mukana. Näytä-toiminto rajaa jonon valittuun arvoon.</p>
+<div class="summary-grid"><div><h3>Top-sivut</h3><div class="summary-list" id="topPages"></div></div><div><h3>Top-aiheet</h3><div class="summary-list" id="topTopics"></div></div></div>
+</section>
+</main>
+<aside aria-labelledby="detailTitle" class="panel detail">
+<h2 id="detailTitle">Palautteen taustatiedot</h2>
+<p class="section-note">Read-only-näkymä. Ei tallennusta, hyväksyntää tai päätöstoimintoja.</p>
+<div id="detailContent"><div class="empty">Valitse tarkistusjonosta palaute, niin näet alkuperäisen tekstin, ajankohdan, aiheet, lausekohtaiset analyysit ja tekniset metatiedot.</div></div>
+</aside>
+</div>
+<footer>palautelähde-palautteet · paikallinen HTML · käyttäjädata ei lähde selaimesta ulos.</footer>
+</div>
+<a aria-label="Avaa aktiivisen palautteen sivu uudessa välilehdessä" class="floating-open" hidden="" href="#" id="openPage" rel="noopener noreferrer" target="_blank">Avaa sivu uudessa välilehdessä ↗</a>
+<script id="report-data" type="application/json">{"items": [{"id": "DEMO-001", "comment": "Kirjautuminen ei onnistunut mobiilissa.", "translatedComment": "Kirjautuminen ei onnistunut mobiilissa.", "score": 1, "type": "detractor", "date": "2026-05-01T10:00:00.000", "dateKey": "2026-05-01", "weekKey": "2026-W18", "monthKey": "2026-05", "page": "/palvelu/digipalvelu", "pageType": "Digipalvelu", "primaryTopic": "Digipalvelun käyttökokemus > Kirjautuminen", "topics": ["Digipalvelun käyttökokemus > Kirjautuminen"], "negativeSentenceCount": 1, "positiveSentenceCount": 0, "neutralSentenceCount": 0, "sentenceCount": 1, "priority": 10, "sentimentMean": -0.85, "browser": "demo-selain", "device": "demo-laite", "os": "demo-käyttöjärjestelmä", "trigger": "demo", "environment": "sanitoitu", "language": "fi", "sentences": [{"sentenceId": "DEMO-001_0", "sentenceText": "Kirjautuminen ei onnistunut mobiilissa.", "sentimentCategory": "Negative", "sentimentScore": -0.85, "topics": ["Digipalvelun käyttökokemus > Kirjautuminen"]}]}, {"id": "DEMO-002", "comment": "Ajanvarauksen seuraava askel jäi epäselväksi.", "translatedComment": "Ajanvarauksen seuraava askel jäi epäselväksi.", "score": 2, "type": "detractor", "date": "2026-05-02T10:00:00.000", "dateKey": "2026-05-02", "weekKey": "2026-W18", "monthKey": "2026-05", "page": "/palvelu/ajanvaraus", "pageType": "Ajanvaraus", "primaryTopic": "Käyttäjäpolku > Ajanvaraus", "topics": ["Käyttäjäpolku > Ajanvaraus"], "negativeSentenceCount": 1, "positiveSentenceCount": 0, "neutralSentenceCount": 0, "sentenceCount": 1, "priority": 9, "sentimentMean": -0.7, "browser": "demo-selain", "device": "demo-laite", "os": "demo-käyttöjärjestelmä", "trigger": "demo", "environment": "sanitoitu", "language": "fi", "sentences": [{"sentenceId": "DEMO-002_0", "sentenceText": "Ajanvarauksen seuraava askel jäi epäselväksi.", "sentimentCategory": "Negative", "sentimentScore": -0.7, "topics": ["Käyttäjäpolku > Ajanvaraus"]}]}, {"id": "DEMO-003", "comment": "Hakutulos vei oikealle sivulle, mutta sivulta puuttui selkeä ohjaus.", "translatedComment": "Hakutulos vei oikealle sivulle, mutta sivulta puuttui selkeä ohjaus.", "score": 3, "type": "passive", "date": "2026-05-03T10:00:00.000", "dateKey": "2026-05-03", "weekKey": "2026-W19", "monthKey": "2026-05", "page": "/palvelu/esimerkkipalvelu", "pageType": "Palvelusivu", "primaryTopic": "Sivuston sisältö > Seuraava toimenpide", "topics": ["Sivuston sisältö > Seuraava toimenpide"], "negativeSentenceCount": 0, "positiveSentenceCount": 0, "neutralSentenceCount": 1, "sentenceCount": 1, "priority": 7, "sentimentMean": -0.2, "browser": "demo-selain", "device": "demo-laite", "os": "demo-käyttöjärjestelmä", "trigger": "demo", "environment": "sanitoitu", "language": "fi", "sentences": [{"sentenceId": "DEMO-003_0", "sentenceText": "Hakutulos vei oikealle sivulle, mutta sivulta puuttui selkeä ohjaus.", "sentimentCategory": "Neutral", "sentimentScore": -0.2, "topics": ["Sivuston sisältö > Seuraava toimenpide"]}]}, {"id": "DEMO-004", "comment": "Löysin hinnan ja varauspolun nopeasti.", "translatedComment": "Löysin hinnan ja varauspolun nopeasti.", "score": 5, "type": "promoter", "date": "2026-05-04T10:00:00.000", "dateKey": "2026-05-04", "weekKey": "2026-W19", "monthKey": "2026-05", "page": "/palvelu/esimerkkipalvelu", "pageType": "Palvelusivu", "primaryTopic": "Käyttäjäpolku > Onnistunut polku", "topics": ["Käyttäjäpolku > Onnistunut polku"], "negativeSentenceCount": 0, "positiveSentenceCount": 1, "neutralSentenceCount": 0, "sentenceCount": 1, "priority": 3, "sentimentMean": 0.8, "browser": "demo-selain", "device": "demo-laite", "os": "demo-käyttöjärjestelmä", "trigger": "demo", "environment": "sanitoitu", "language": "fi", "sentences": [{"sentenceId": "DEMO-004_0", "sentenceText": "Löysin hinnan ja varauspolun nopeasti.", "sentimentCategory": "Positive", "sentimentScore": 0.8, "topics": ["Käyttäjäpolku > Onnistunut polku"]}]}, {"id": "DEMO-005", "comment": "Sivun otsikko vastasi hakua, mutta sisältö kaipasi tiivistystä.", "translatedComment": "Sivun otsikko vastasi hakua, mutta sisältö kaipasi tiivistystä.", "score": 3, "type": "passive", "date": "2026-05-05T10:00:00.000", "dateKey": "2026-05-05", "weekKey": "2026-W20", "monthKey": "2026-05", "page": "/artikkeli/esimerkkiaihe", "pageType": "Artikkeli", "primaryTopic": "Sisältötyö > Selkeys", "topics": ["Sisältötyö > Selkeys"], "negativeSentenceCount": 0, "positiveSentenceCount": 0, "neutralSentenceCount": 1, "sentenceCount": 1, "priority": 6, "sentimentMean": -0.1, "browser": "demo-selain", "device": "demo-laite", "os": "demo-käyttöjärjestelmä", "trigger": "demo", "environment": "sanitoitu", "language": "fi", "sentences": [{"sentenceId": "DEMO-005_0", "sentenceText": "Sivun otsikko vastasi hakua, mutta sisältö kaipasi tiivistystä.", "sentimentCategory": "Neutral", "sentimentScore": -0.1, "topics": ["Sisältötyö > Selkeys"]}]}, {"id": "DEMO-006", "comment": "Asiakaspalvelun yhteystieto löytyi helposti.", "translatedComment": "Asiakaspalvelun yhteystieto löytyi helposti.", "score": 5, "type": "promoter", "date": "2026-05-06T10:00:00.000", "dateKey": "2026-05-06", "weekKey": "2026-W20", "monthKey": "2026-05", "page": "/asiakaspalvelu", "pageType": "Asiakaspalvelu", "primaryTopic": "Asiakaspalvelu > Löydettävyys", "topics": ["Asiakaspalvelu > Löydettävyys"], "negativeSentenceCount": 0, "positiveSentenceCount": 1, "neutralSentenceCount": 0, "sentenceCount": 1, "priority": 2, "sentimentMean": 0.75, "browser": "demo-selain", "device": "demo-laite", "os": "demo-käyttöjärjestelmä", "trigger": "demo", "environment": "sanitoitu", "language": "fi", "sentences": [{"sentenceId": "DEMO-006_0", "sentenceText": "Asiakaspalvelun yhteystieto löytyi helposti.", "sentimentCategory": "Positive", "sentimentScore": 0.75, "topics": ["Asiakaspalvelu > Löydettävyys"]}]}, {"id": "DEMO-007", "comment": "Maksupolun ohje oli vaikea löytää.", "translatedComment": "Maksupolun ohje oli vaikea löytää.", "score": 2, "type": "detractor", "date": "2026-05-07T10:00:00.000", "dateKey": "2026-05-07", "weekKey": "2026-W21", "monthKey": "2026-05", "page": "/ohje/maksaminen", "pageType": "Ohjesivu", "primaryTopic": "Käyttäjäpolku > Maksaminen", "topics": ["Käyttäjäpolku > Maksaminen"], "negativeSentenceCount": 1, "positiveSentenceCount": 0, "neutralSentenceCount": 0, "sentenceCount": 1, "priority": 8, "sentimentMean": -0.65, "browser": "demo-selain", "device": "demo-laite", "os": "demo-käyttöjärjestelmä", "trigger": "demo", "environment": "sanitoitu", "language": "fi", "sentences": [{"sentenceId": "DEMO-007_0", "sentenceText": "Maksupolun ohje oli vaikea löytää.", "sentimentCategory": "Negative", "sentimentScore": -0.65, "topics": ["Käyttäjäpolku > Maksaminen"]}]}, {"id": "DEMO-008", "comment": "Sivu latautui hitaasti ja lomake tuntui epävarmalta.", "translatedComment": "Sivu latautui hitaasti ja lomake tuntui epävarmalta.", "score": 1, "type": "detractor", "date": "2026-05-08T10:00:00.000", "dateKey": "2026-05-08", "weekKey": "2026-W21", "monthKey": "2026-05", "page": "/lomake/yhteydenotto", "pageType": "Lomake", "primaryTopic": "Tekninen käyttökokemus > Lomake", "topics": ["Tekninen käyttökokemus > Lomake"], "negativeSentenceCount": 1, "positiveSentenceCount": 0, "neutralSentenceCount": 0, "sentenceCount": 1, "priority": 10, "sentimentMean": -0.8, "browser": "demo-selain", "device": "demo-laite", "os": "demo-käyttöjärjestelmä", "trigger": "demo", "environment": "sanitoitu", "language": "fi", "sentences": [{"sentenceId": "DEMO-008_0", "sentenceText": "Sivu latautui hitaasti ja lomake tuntui epävarmalta.", "sentimentCategory": "Negative", "sentimentScore": -0.8, "topics": ["Tekninen käyttökokemus > Lomake"]}]}, {"id": "DEMO-009", "comment": "Sisäinen haku auttoi löytämään oikean ohjeen.", "translatedComment": "Sisäinen haku auttoi löytämään oikean ohjeen.", "score": 4, "type": "promoter", "date": "2026-05-09T10:00:00.000", "dateKey": "2026-05-09", "weekKey": "2026-W22", "monthKey": "2026-05", "page": "/haku", "pageType": "Haku", "primaryTopic": "Sivuston haku > Onnistuminen", "topics": ["Sivuston haku > Onnistuminen"], "negativeSentenceCount": 0, "positiveSentenceCount": 1, "neutralSentenceCount": 0, "sentenceCount": 1, "priority": 4, "sentimentMean": 0.55, "browser": "demo-selain", "device": "demo-laite", "os": "demo-käyttöjärjestelmä", "trigger": "demo", "environment": "sanitoitu", "language": "fi", "sentences": [{"sentenceId": "DEMO-009_0", "sentenceText": "Sisäinen haku auttoi löytämään oikean ohjeen.", "sentimentCategory": "Positive", "sentimentScore": 0.55, "topics": ["Sivuston haku > Onnistuminen"]}]}, {"id": "DEMO-010", "comment": "Palvelun kuvaus oli hyödyllinen, mutta varauspainike jäi alemmaksi.", "translatedComment": "Palvelun kuvaus oli hyödyllinen, mutta varauspainike jäi alemmaksi.", "score": 3, "type": "passive", "date": "2026-05-10T10:00:00.000", "dateKey": "2026-05-10", "weekKey": "2026-W22", "monthKey": "2026-05", "page": "/palvelu/esimerkkipalvelu-2", "pageType": "Palvelusivu", "primaryTopic": "Konversio > Toimintopainike", "topics": ["Konversio > Toimintopainike"], "negativeSentenceCount": 0, "positiveSentenceCount": 0, "neutralSentenceCount": 1, "sentenceCount": 1, "priority": 6, "sentimentMean": -0.15, "browser": "demo-selain", "device": "demo-laite", "os": "demo-käyttöjärjestelmä", "trigger": "demo", "environment": "sanitoitu", "language": "fi", "sentences": [{"sentenceId": "DEMO-010_0", "sentenceText": "Palvelun kuvaus oli hyödyllinen, mutta varauspainike jäi alemmaksi.", "sentimentCategory": "Neutral", "sentimentScore": -0.15, "topics": ["Konversio > Toimintopainike"]}]}]}</script>
+<script>
+(function(){
+  'use strict';
+  const data = JSON.parse(document.getElementById('report-data').textContent);
+  const items = data.items || [];
+  const $ = (id) => document.getElementById(id);
+  const state = {q:'',from:'2026-01-01',to:'2026-06-01',pageType:'',type:'',topic:'',negative:false,high:false,sort:'recommended',selected:null};
+  const els = {q:$('q'),from:$('fromDate'),to:$('toDate'),pageType:$('pageType'),type:$('typeFilter'),topic:$('topicFilter'),sort:$('sortBy'),neg:$('negativeOnly'),high:$('highPriorityOnly'),queue:$('queue'),empty:$('emptyState')};
+  function norm(v){return String(v==null?'':v).toLowerCase();}
+  function pct(a,b){return b?Math.round((a/b)*100):0;}
+  function uniq(arr){return Array.from(new Set(arr.filter(Boolean)));}
+  function fmtDate(iso){if(!iso)return 'Ei tietoa'; const d=new Date(iso); if(Number.isNaN(d.getTime()))return iso; return d.toLocaleString('fi-FI',{dateStyle:'medium',timeStyle:'short'});}
+  function pageUrl(page){
+    const value = String(page || '').trim();
+    if(!value || value === 'URL puuttuu') return '';
+    if(value.startsWith('http://') || value.startsWith('https://')) return value;
+    if(value.startsWith('/')) return 'https://www.esimerkkisivusto.fi' + value;
+    return '';
+  }
+  function updateOpenPage(it){
+    const link = $('openPage');
+    if(!link) return;
+    const url = it ? pageUrl(it.page) : '';
+    if(url){
+      link.href = url;
+      link.hidden = false;
+      link.classList.remove('is-disabled');
+      link.setAttribute('aria-label','Avaa aktiivisen palautteen sivu uudessa välilehdessä: '+(it.page || url));
+      link.textContent = 'Avaa sivu uudessa välilehdessä ↗';
+    } else {
+      link.href = '#';
+      link.hidden = true;
+      link.classList.add('is-disabled');
+      link.setAttribute('aria-label','Aktiivisella palautteella ei ole avattavaa sivuosoitetta');
+      link.textContent = 'Sivua ei saatavilla';
+    }
+  }
+  function fillSelect(el, vals){ vals.sort((a,b)=>a.localeCompare(b,'fi')).forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;el.appendChild(o);}); }
+  fillSelect(els.pageType, uniq(items.map(i=>i.pageType)));
+  fillSelect(els.type, uniq(items.map(i=>i.type)));
+  fillSelect(els.topic, uniq(items.flatMap(i=>i.topics||[])).filter(v=>v!=='Yleinen > Yleinen > Yleinen'));
+  function matches(it){
+    if(state.from && it.dateKey && it.dateKey < state.from) return false;
+    if(state.to && it.dateKey && it.dateKey > state.to) return false;
+    if(state.pageType && it.pageType !== state.pageType) return false;
+    if(state.type && it.type !== state.type) return false;
+    if(state.topic && !(it.topics||[]).includes(state.topic)) return false;
+    if(state.negative && it.negativeSentenceCount < 1) return false;
+    if(state.high && it.priority < 7) return false;
+    if(state.q){
+      const hay = norm([it.comment,it.translatedComment,it.page,it.pageType,it.primaryTopic,(it.topics||[]).join(' '),it.browser,it.device,it.os,it.trigger,it.environment].join(' '));
+      if(!hay.includes(norm(state.q))) return false;
+    }
+    return true;
+  }
+  function sortItems(arr){
+    return arr.slice().sort((a,b)=>{
+      if(state.sort==='date-desc') return String(b.date||'').localeCompare(String(a.date||''));
+      if(state.sort==='priority-desc') return (b.priority||0)-(a.priority||0);
+      if(state.sort==='score-asc') return (a.score??99)-(b.score??99) || (b.priority||0)-(a.priority||0);
+      if(state.sort==='negative-desc') return (b.negativeSentenceCount||0)-(a.negativeSentenceCount||0) || (b.priority||0)-(a.priority||0);
+      return (b.priority||0)-(a.priority||0) || (a.score??99)-(b.score??99) || String(b.date||'').localeCompare(String(a.date||''));
+    });
+  }
+  function updateState(){state.q=els.q.value.trim();state.from=els.from.value;state.to=els.to.value;state.pageType=els.pageType.value;state.type=els.type.value;state.topic=els.topic.value;state.sort=els.sort.value;}
+  function setText(id, v){$(id).textContent=v;}
+  function render(){
+    updateState();
+    const filtered = sortItems(items.filter(matches));
+    const total = items.length;
+    const negCount = filtered.filter(i=>i.negativeSentenceCount>0).length;
+    const highCount = filtered.filter(i=>i.priority>=7).length;
+    const scores = filtered.map(i=>i.score).filter(v=>typeof v==='number');
+    setText('kRows', filtered.length);
+    setText('kPriority', highCount); setText('kPriorityHint', pct(highCount, filtered.length)+' % rajauksesta');
+    setText('kNegative', negCount); setText('kNegativeHint', pct(negCount, filtered.length)+' % rajauksesta');
+    setText('kScore', scores.length ? (scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(1) : '–');
+    setText('kPages', uniq(filtered.map(i=>i.page)).length);
+    setText('kCoverage', pct(filtered.length,total)+' %');
+    setText('coverage', 'Rajaus näyttää '+filtered.length+' / '+total+' riviä.');
+    setText('queueCount', 'Rajaus näyttää '+filtered.length+' / '+total+' riviä');
+    setText('rangeSummary', 'Ajanjakso '+(state.from||'alku')+'–'+(state.to||'loppu'));
+    renderQueue(filtered);
+    renderSummaries(filtered);
+    if(state.selected && !filtered.some(i=>i.id===state.selected)) state.selected=null;
+    if(!state.selected && filtered.length) state.selected = filtered[0].id;
+    renderDetail(items.find(i=>i.id===state.selected));
+  }
+  function textEl(tag, cls, text){const e=document.createElement(tag); if(cls)e.className=cls; e.textContent=text==null?'':text; return e;}
+  function renderQueue(arr){
+    els.queue.textContent='';
+    $('emptyState').hidden = arr.length !== 0;
+    arr.slice(0,120).forEach(it=>{
+      const btn=document.createElement('button'); btn.type='button'; btn.className='row'; btn.setAttribute('aria-current', it.id===state.selected?'true':'false');
+      btn.addEventListener('click',()=>{state.selected=it.id; renderDetail(it); renderQueue(arr);});
+      const p=document.createElement('div'); p.append(textEl('div','row-small','Prioriteetti'), textEl('div','row-value',it.priority));
+      const s=document.createElement('div'); s.append(textEl('div','row-small','Score'), textEl('div','row-value',it.score ?? '–'));
+      const m=document.createElement('div'); m.className='row-main';
+      const meta=document.createElement('div'); const tag=document.createElement('span'); tag.className='tag '+(it.type==='promoter'?'positive':it.type==='passive'?'neutral':''); tag.textContent=(it.type||'ei tyyppiä')+(it.negativeSentenceCount?' · negatiivinen':''); meta.appendChild(tag); meta.append(document.createTextNode(it.pageType||''));
+      m.append(meta, textEl('div','row-title',it.comment || it.translatedComment || 'Ei kommenttia'), textEl('div','row-sub',fmtDate(it.date)+' · '+(it.page||'URL puuttuu')));
+      btn.append(p,s,m); els.queue.appendChild(btn);
+    });
+  }
+  function renderSummaries(arr){
+    makeList('topPages', arr, i=>i.page, v=>{state.q='';els.q.value='';els.pageType.value='';state.pageType='';state.topic='';els.topic.value=''; state.selected=null; els.q.value=v; render();});
+    makeList('topTopics', arr, i=>i.primaryTopic, v=>{els.topic.value=v;state.topic=v;state.selected=null;render();});
+  }
+  function makeList(id, arr, keyFn, action){
+    const box=$(id); box.textContent=''; const c=new Map(); arr.forEach(i=>{const k=keyFn(i)||'Ei tietoa'; c.set(k,(c.get(k)||0)+1);});
+    Array.from(c.entries()).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'fi')).slice(0,8).forEach(([name,count])=>{
+      const row=document.createElement('div'); row.className='summary-item';
+      row.append(textEl('div','summary-name',name), textEl('div','summary-count',String(count)));
+      const b=document.createElement('button'); b.type='button'; b.className='link-btn'; b.textContent='Näytä'; b.addEventListener('click',()=>action(name)); row.appendChild(b); box.appendChild(row);
+    });
+    if(!box.children.length) box.appendChild(textEl('div','section-note','Ei rivejä.'));
+  }
+  function renderDetail(it){
+    const box=$('detailContent'); box.textContent='';
+    if(!it){updateOpenPage(null); box.appendChild(textEl('div','empty','Valitse tarkistusjonosta palaute.')); return;}
+    updateOpenPage(it);
+    const grid=document.createElement('div'); grid.className='detail-grid';
+    [['Tunniste',it.id],['Prioriteetti',it.priority],['Score',it.score ?? '–'],['Tyyppi',it.type||'Ei tietoa'],['Sentimentti',it.negativeSentenceCount?'negatiivinen':it.positiveSentenceCount?'positiivinen':'neutraali'],['Päivämäärä',fmtDate(it.date)],['Sivutyyppi',it.pageType],['Sivupolku',it.page]].forEach(([l,v])=>{const f=document.createElement('div');f.className='field';f.append(textEl('div','field-label',l),textEl('div','field-value',v));grid.appendChild(f);});
+    box.appendChild(grid);
+    box.append(textEl('h3',null,'Alkuperäinen palaute'));
+    box.append(textEl('div','full-text',it.comment || 'Ei kommenttia'));
+    if(it.translatedComment){box.append(textEl('h3',null,'Käännös')); box.append(textEl('div','full-text',it.translatedComment));}
+    box.append(textEl('h3',null,'Aiheet'));
+    box.append(textEl('div','full-text',(it.topics||[]).join('\\n')));
+    box.append(textEl('h3',null,'Lausekohtainen analyysi'));
+    (it.sentences||[]).forEach(s=>{const d=document.createElement('div'); d.className='sentence'; d.append(textEl('div','sentence-meta',(s.sentimentCategory||'Neutral')+' · score '+(s.sentimentScore ?? '0')+' · '+(s.topics||[]).join(' | ')), textEl('div',null,s.sentenceText||'')); box.appendChild(d);});
+    box.append(textEl('h3',null,'Tekniset metatiedot'));
+    box.append(textEl('div','full-text',['Browser: '+(it.browser||'–'),'Device: '+(it.device||'–'),'OS: '+(it.os||'–'),'Trigger: '+(it.trigger||'–'),'Environment: '+(it.environment||'–'),'Language: '+(it.language||'–')].join('\\n')));
+  }
+  ['input','change'].forEach(ev=>{els.q.addEventListener(ev,()=>{state.selected=null;render();}); els.from.addEventListener(ev,()=>{state.selected=null;render();}); els.to.addEventListener(ev,()=>{state.selected=null;render();});});
+  [els.pageType,els.type,els.topic,els.sort].forEach(el=>el.addEventListener('change',()=>{state.selected=null;render();}));
+  els.neg.addEventListener('click',()=>{state.negative=!state.negative;els.neg.setAttribute('aria-pressed',String(state.negative));state.selected=null;render();});
+  els.high.addEventListener('click',()=>{state.high=!state.high;els.high.setAttribute('aria-pressed',String(state.high));state.selected=null;render();});
+  $('openFirst').addEventListener('click',()=>{const first=sortItems(items.filter(matches))[0]; if(first){state.selected=first.id; renderDetail(first); render();}});
+  $('resetBtn').addEventListener('click',()=>{state.q='';state.from='2026-01-01';state.to='2026-06-01';state.pageType='';state.type='';state.topic='';state.negative=false;state.high=false;state.sort='recommended';state.selected=null;els.q.value='';els.from.value=state.from;els.to.value=state.to;els.pageType.value='';els.type.value='';els.topic.value='';els.sort.value='recommended';els.neg.setAttribute('aria-pressed','false');els.high.setAttribute('aria-pressed','false');render();});
+  render();
+})();
+</script>
+</body>
+</html>

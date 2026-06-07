@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+
+<html lang="fi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Sivustokehityksen backlog ja priorisointimalli – sanitoitu portfolio-demo</title>
+<style>
+
+
+
+
+
+
+
+
+
+
+
+:root{
+  --jarvi:#0046AD;
+  --mustikka:#1A244A;
+  --hiili:#212322;
+  --jaa:#E8EDEE;
+  --white:#FFFFFF;
+  --kuusi:#007672;
+  --hilla:#FCD757;
+  --puolukka:#F09591;
+  --muted:#5B6470;
+  --border:#D9E0E5;
+  --soft:#F7F9FB;
+  --font-display:system-ui,system-ui,Calibri,Arial,sans-serif;
+  --font-sans:system-ui,Calibri,Arial,sans-serif;
+  --font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:#fff}
+body{margin:0;background:#fff;color:var(--hiili);font-family:var(--font-sans);line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.wrap{max-width:1280px;margin:0 auto;padding:48px 56px 64px;background:#fff}
+.brand-row{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;border-bottom:1px solid var(--border);padding-bottom:26px;margin-bottom:48px}
+.logo-box{width:220px;line-height:0}
+.logo-box svg{width:100%;height:auto;display:block}
+.meta{text-align:right;font-size:13px;color:var(--muted)}
+.meta strong{display:block;color:var(--mustikka);font-weight:700}
+.hero{max-width:980px;margin-bottom:30px;background:#fff}
+.eyebrow{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--jarvi);font-weight:700;margin:0 0 16px}
+h1{font-family:var(--font-display);font-size:72px;line-height:.92;letter-spacing:-.035em;color:var(--jarvi);font-weight:900;margin:0 0 24px;max-width:760px}
+.lead{font-size:22px;line-height:1.45;max-width:920px;margin:0 0 28px;color:var(--hiili)}
+.notice{border:1px solid var(--border);border-left:5px solid var(--mustikka);padding:18px 22px;max-width:860px;background:#fff}
+.notice p{margin:0;font-size:15px}
+.nav{display:flex;flex-wrap:wrap;gap:10px;margin:34px 0 46px;background:#fff}
+.nav a{display:inline-flex;align-items:center;min-height:38px;padding:7px 14px;border:1px solid var(--border);text-decoration:none;color:var(--mustikka);font-weight:700;font-size:14px;background:#fff}
+.nav a:hover{border-color:var(--jarvi);color:var(--jarvi)}
+.nav a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--hilla);outline-offset:2px}
+.section{margin:48px 0 0}
+.section-head{margin-bottom:20px;max-width:900px}
+.section-head h2{font-family:var(--font-display);font-size:42px;line-height:.98;color:var(--jarvi);font-weight:900;margin:0 0 12px;letter-spacing:-.025em}
+.section-head p{font-size:16px;color:var(--muted);margin:0;max-width:820px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.kpi{border:1px solid var(--border);border-left:5px solid var(--jarvi);padding:22px;background:#fff}
+.kpi-value{font-family:var(--font-display);font-size:54px;line-height:.9;color:var(--jarvi);font-weight:900;margin-bottom:8px;font-variant-numeric:tabular-nums}
+.kpi-label{font-weight:700;color:var(--mustikka);text-transform:uppercase;letter-spacing:.08em;font-size:12px}
+.kpi p{margin:10px 0 0;color:var(--muted);font-size:14px}
+.next-action{border:1px solid var(--border);border-left:5px solid var(--mustikka);padding:20px 24px;margin-top:22px;max-width:980px;background:#fff}
+.next-action h3{font-size:18px;color:var(--mustikka);margin:0 0 8px}
+.next-action p{margin:0}
+.sprint-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.sprint-card{border:1px solid var(--border);padding:22px;background:#fff}
+.sprint-top{display:flex;gap:10px;align-items:center;font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
+.sprint-card h3{font-size:22px;line-height:1.15;color:var(--jarvi);margin:0 0 12px}
+.sprint-card p{margin:9px 0 0;font-size:15px}
+.section-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.section-card{border:1px solid var(--border);padding:18px;background:#fff}
+.section-card h3{font-size:17px;color:var(--mustikka);margin:0 0 8px}
+.section-card p{margin:0;color:var(--muted);font-size:14px}
+.controls{display:grid;grid-template-columns:1.5fr .65fr .65fr 1fr auto;gap:12px;align-items:end;border:1px solid var(--border);padding:16px;margin-bottom:16px;background:#fff}
+.control label{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;margin-bottom:6px}
+.control input,.control select{width:100%;min-height:40px;border:1px solid var(--border);background:#fff;color:var(--hiili);font:inherit;padding:8px 10px}
+button{min-height:40px;border:1px solid var(--jarvi);background:var(--jarvi);color:#fff;font:inherit;font-weight:700;padding:8px 14px;cursor:pointer}
+button.secondary{background:#fff;color:var(--jarvi)}
+.result-count{font-size:13px;color:var(--muted);margin:0 0 10px}
+.table-card{border:1px solid var(--border);overflow:auto;background:#fff}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:1000px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:800;padding:13px 14px;border-bottom:1px solid var(--border);background:#fff;vertical-align:bottom}
+td{padding:14px;border-bottom:1px solid var(--border);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--soft)}
+td.wide{min-width:260px}
+td.wide strong{display:block;color:var(--mustikka);font-size:15px;line-height:1.25}
+td.wide span{display:block;color:var(--muted);font-size:12px;margin-top:5px}
+.badge{display:inline-flex;align-items:center;justify-content:center;min-width:42px;border:1px solid var(--border);padding:3px 9px;font-weight:800;font-size:12px;color:var(--mustikka);background:#fff}
+.badge.p1{border-color:var(--jarvi);color:var(--jarvi)}
+.badge.p2{border-color:var(--kuusi);color:var(--kuusi)}
+.badge.p3{border-color:var(--puolukka);color:var(--mustikka)}
+.small-table{min-width:760px}
+.method{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.method article{border:1px solid var(--border);padding:18px;background:#fff}
+.method h3{margin:0 0 8px;color:var(--mustikka);font-size:16px}
+.method p{margin:0;color:var(--muted);font-size:14px}
+footer{margin-top:58px;border-top:1px solid var(--border);padding-top:18px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:1080px){.wrap{padding:32px 28px 48px}h1{font-size:56px}.kpis,.section-cards,.method{grid-template-columns:1fr 1fr}.controls{grid-template-columns:1fr 1fr}.sprint-grid{grid-template-columns:1fr}.brand-row{flex-direction:column}.meta{text-align:left}}
+@media(max-width:680px){.wrap{padding:24px 18px 40px}h1{font-size:44px}.lead{font-size:18px}.kpis,.section-cards,.method,.controls{grid-template-columns:1fr}.section-head h2{font-size:34px}.logo-box{width:180px}table{font-size:12px}}
+@media print{.wrap{max-width:none;padding:0}.nav,.controls,button{display:none}.section,.kpi,.sprint-card,.section-card,.method article,.notice{break-inside:avoid}table{min-width:0;font-size:10px}th,td{padding:8px}a{text-decoration:none;color:inherit}}
+</style>
+<style>
+.portfolio-sanitized-note{
+  margin:16px auto;
+  max-width:1120px;
+  padding:12px 16px;
+  border:1px solid rgba(96,165,250,.35);
+  border-radius:14px;
+  background:rgba(15,23,42,.72);
+  color:#dbeafe;
+  font:500 14px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.sanitized-logo-box{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:8px 14px;
+  border:1px solid currentColor;
+  border-radius:999px;
+  font:700 13px/1.2 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:inherit;
+  opacity:.85;
+}
+</style></head>
+<body><div class="portfolio-sanitized-note">Sanitoitu portfolio-demo: asiakas-, brändi-, URL- ja henkilötiedot on poistettu tai korvattu esimerkkisisällöllä.</div>
+<div class="wrap">
+<header class="brand-row">
+<div class="logo-box" aria-label="Sanitoitu esimerkkiorganisaatio">Portfolio Demo</div>
+<div class="meta"><strong>Sprinttisuunnittelu</strong><span>esimerkkisivusto.fi · sivuston kehitys ja työjono</span></div>
+</header>
+<main>
+<section aria-labelledby="title" class="hero">
+<p class="eyebrow">Sprinttisuunnittelu · sanitoitu esimerkkisivusto</p>
+<h1 id="title">Sivuston kehitys ja työjono</h1>
+<p class="lead">Työjonon tarkoitus on parantaa esimerkkisivusto.fiin kehittämisen perustaa, vähentää kiireen tunnetta, helpottaa tiedon löytämistä ja varmistaa, että sisällön, raportoinnin ja palvelusivujen kehittäminen etenee hallitusti.</p>
+<div class="notice"><p><strong>Seuraava askel:</strong> aloita peruspohjan kuntoonlaitosta. Keskitetään ohjeet, dokumentoidaan vastuut, sovitaan pyyntökanava ja rakennetaan ensimmäinen palvelusivujen luokittelumalli.</p></div>
+</section>
+<nav aria-label="Raportin osiot" class="nav">
+<a href="#summary">Yhteenveto</a>
+<a href="#sprint">Suositeltu sprintti</a>
+<a href="#kokonaisuudet">Kokonaisuudet</a>
+<a href="#työjono">Työjono</a>
+<a href="#rules">Valintasääntö</a>
+<a href="#later">Myöhemmäksi</a>
+<a href="#methodology">Metodologia</a>
+</nav>
+<section aria-labelledby="summary-heading" class="section" id="summary">
+<div class="section-head"><p class="eyebrow">Yhteenveto</p><h2 id="summary-heading">Mitä kannattaa tehdä ensin?</h2><p>Työjonoin ydin on peruspohjan kuntoonlaitto: ohjeet, vastuut, pyyntökanavat ja palvelusivujen luokittelumalli pitää saada riittävän selkeiksi, jotta kiireen kehä katkeaa ja kehitystyö voidaan priorisoida paremmin.</p></div>
+<div class="kpis"><article class="kpi"><div class="kpi-value">32</div><div class="kpi-label">aktiivista työjono-riviä</div><p>Laskettu pääkokonaisuuksista 1-6.</p></article>
+<article class="kpi"><div class="kpi-value">16</div><div class="kpi-label">P1-riviä</div><p>Korkein prioriteetti aktiivisessa työjonoissa.</p></article>
+<article class="kpi"><div class="kpi-value">13</div><div class="kpi-label">seuraavien viikkojen riviä</div><p>Nopeimmin käynnistettävät tehtävät.</p></article>
+<article class="kpi"><div class="kpi-value">6</div><div class="kpi-label">suositeltu sprintti</div><p>Riviä erillisessä sprinttiehdotuksessa.</p></article></div>
+<div class="next-action"><h3>Päätöskysymys</h3><p>Mitä tämän perusteella pitäisi tehdä seuraavaksi? Käynnistä rajattu sprintti, jossa on yksi iso päätavoite, kaksi tukitehtävää ja pieni jatkuvan ylläpidon osuus. Älä aloita massapäivityksiä tai automaattisia CMS-muutoksia ennen mallin testausta.</p></div>
+</section>
+<section aria-labelledby="sprint-heading" class="section" id="sprint">
+<div class="section-head"><p class="eyebrow">Sprinttiehdotus</p><h2 id="sprint-heading">Suositeltu seuraava sprintti</h2><p>Nämä kortit on nostettu lähdedokumentin sprinttitaulukosta. Ne eivät ole uusia tehtäviä, vaan sama sisältö on muotoiltu nopeammin silmäiltäväksi.</p></div>
+<div class="sprint-grid"><article class="sprint-card"><div class="sprint-top"><span class="badge p1">P1</span><span>Suositeltu sprinttiin</span></div><h3>Tärkeimpien ohjeiden ja prosessien keskittäminen yhteen paikkaan</h3><p><strong>Miksi:</strong> Tiedon etsiminen vie liikaa aikaa.</p><p><strong>Hyöty:</strong> Työ nopeutuu ja arjen epäselvyys vähenee.</p><p><strong>Valmis, kun:</strong> Yksi paikka sisältää tärkeimmät ohjeet, prosessit, linkit ja työkalut.</p></article>
+<article class="sprint-card"><div class="sprint-top"><span class="badge p1">P1</span><span>Suositeltu sprinttiin</span></div><h3>Vastuualueiden dokumentointi</h3><p><strong>Miksi:</strong> Ei ole aina selvää, kuka tekee mitä ja mistä saa apua.</p><p><strong>Hyöty:</strong> Päätöksenteko nopeutuu ja työ ei jää epäselvyyksien takia seisomaan.</p><p><strong>Valmis, kun:</strong> Vastuumatriisi on tehty tärkeimmille aiheille.</p></article>
+<article class="sprint-card"><div class="sprint-top"><span class="badge p1">P1</span><span>Suositeltu sprinttiin</span></div><h3>Palvelusivujen luokittelumallin ensimmäinen versio</h3><p><strong>Miksi:</strong> Sivujen roolit pitää selkeyttää ennen laajempia korjauksia.</p><p><strong>Hyöty:</strong> Parantaa sivuston rakennetta, sisällön kehittämistä ja priorisointia.</p><p><strong>Valmis, kun:</strong> Sivutyypit on määritelty selkokielellä ja niille on esimerkit.</p></article>
+<article class="sprint-card"><div class="sprint-top"><span class="badge p1">P1</span><span>Suositeltu sprinttiin</span></div><h3>Ensimmäinen 50-100 sivun tarkistusjoukko</h3><p><strong>Miksi:</strong> Tarvitaan rajattu aloitusjoukko.</p><p><strong>Hyöty:</strong> Mallia voidaan testata hallitusti ennen laajempaa käyttöä.</p><p><strong>Valmis, kun:</strong> Tarkistettavat sivut on valittu ja niille on alustava arvio.</p></article>
+<article class="sprint-card"><div class="sprint-top"><span class="badge p2">P2</span><span>Suositeltu sprinttiin</span></div><h3>Selkokieliset ongelmatermit</h3><p><strong>Miksi:</strong> Tekninen sanasto hidastaa päätöksentekoa.</p><p><strong>Hyöty:</strong> Tarkistustyö on ymmärrettävää myös ei-tekniselle lukijalle.</p><p><strong>Valmis, kun:</strong> Jokaisella ongelmatyypillä on ymmärrettävä nimi ja lyhyt selite.</p></article>
+<article class="sprint-card"><div class="sprint-top"><span class="badge p2">P2</span><span>Suositeltu sprinttiin</span></div><h3>Kesän palvelunostojen toimituslista</h3><p><strong>Miksi:</strong> Ajankohtaiset nostot pitää saada toteutukseen ilman, että ne sotkevat muuta kehitystä.</p><p><strong>Hyöty:</strong> Kiireelliset asiat etenevät hallitusti.</p><p><strong>Valmis, kun:</strong> Nostoilla on status, aikataulu, sivu, mittari ja seuraava toimenpide.</p></article></div>
+</section>
+<section aria-labelledby="kok-heading" class="section" id="kokonaisuudet">
+<div class="section-head"><p class="eyebrow">Työjono-kokonaisuudet</p><h2 id="kok-heading">Kuusi pääkokonaisuutta</h2><p>Kokonaisuudet auttavat näkemään, miksi yksittäiset työjono-rivit liittyvät samaan perusongelmaan: työn pohja, päätöksenteko ja tekemiseen siirtyminen pitää saada hallittavaksi.</p></div>
+<div class="section-cards"><article class="section-card"><h3>1. Peruspohjan kuntoonlaittaminen</h3><p>Moni muu kehitystyö hidastuu, jos perustiedot, ohjeet, vastuut ja toimintatavat eivät ole kunnossa.</p></article>
+<article class="section-card"><h3>2. Palvelusivujen ja sivuston rakenteen kehittäminen</h3><p>Palvelusivujen roolit, luokittelu ja tarkistusmalli pitää selkeyttää ennen laajempia korjauksia.</p></article>
+<article class="section-card"><h3>3. Päätöstyön ja työjonojen helpottaminen</h3><p>Tarkistustyö tarvitsee näkymän, jossa ongelma, perustelu ja seuraava päätös ovat samassa paikassa.</p></article>
+<article class="section-card"><h3>4. Raportointi ja datasta tekemiseen siirtyminen</h3><p>Raporttien pitää auttaa priorisoimaan, ei vain kuvata dataa.</p></article>
+<article class="section-card"><h3>5. Sisältötyö, kampanjat ja ajankohtaiset nostot</h3><p>Ajankohtaiset sisällöt tarvitsevat selkeän toimitusmallin, jotta kiire ei sotke muuta kehitystä.</p></article>
+<article class="section-card"><h3>6. Paikallinen näkyvyys, toimipaikat ja sisäinen linkitys</h3><p>Paikallinen löydettävyys ja sisäinen linkitys pitää kytkeä palvelusivujen kehitykseen.</p></article></div>
+</section>
+<section aria-labelledby="työjono-heading" class="section" id="työjono">
+<div class="section-head"><p class="eyebrow">Työjono</p><h2 id="työjono-heading">Aktiiviset työjono-rivit</h2><p>Hae ja rajaa rivejä prioriteetin, ajoituksen ja kokonaisuuden mukaan. Suodatus toimii vain selaimessa eikä tallenna mitään.</p></div>
+<div aria-label="Työjonoin suodattimet" class="controls">
+<div class="control"><label for="search">Hae työjonoista</label><input esimerkkisisältö="Esim. vastuut, palvelusivut, raportointi, linkitys" id="search" type="search"/></div>
+<div class="control"><label for="priority">Prioriteetti</label><select id="priority"><option value="">Kaikki</option><option>P1</option><option>P2</option><option>P3</option></select></div>
+<div class="control"><label for="timing">Ajoitus</label><select id="timing"><option value="">Kaikki</option><option>Seuraavat viikot</option><option>1-2 kk</option><option>2-3 kk</option></select></div>
+<div class="control"><label for="sectionFilter">Kokonaisuus</label><select id="sectionFilter"><option value="">Kaikki</option><option value="1. Peruspohjan kuntoonlaittaminen">1. Peruspohjan kuntoonlaittaminen</option>
+<option value="2. Palvelusivujen ja sivuston rakenteen kehittäminen">2. Palvelusivujen ja sivuston rakenteen kehittäminen</option>
+<option value="3. Päätöstyön ja työjonojen helpottaminen">3. Päätöstyön ja työjonojen helpottaminen</option>
+<option value="4. Raportointi ja datasta tekemiseen siirtyminen">4. Raportointi ja datasta tekemiseen siirtyminen</option>
+<option value="5. Sisältötyö, kampanjat ja ajankohtaiset nostot">5. Sisältötyö, kampanjat ja ajankohtaiset nostot</option>
+<option value="6. Paikallinen näkyvyys, toimipaikat ja sisäinen linkitys">6. Paikallinen näkyvyys, toimipaikat ja sisäinen linkitys</option></select></div>
+<button class="secondary" id="reset" type="button">Tyhjennä</button>
+</div>
+<p aria-live="polite" class="result-count" id="resultCount">Näytetään 32 työjono-riviä.</p>
+<div class="table-card"><table id="työjonoTable">
+<caption class="sr-only">Aktiiviset työjono-rivit</caption>
+<thead><tr><th scope="col">Työjono-idea</th><th scope="col">Ajoitus</th><th scope="col">Prioriteetti</th><th scope="col">Miksi tehdään?</th><th scope="col">Mitä hyötyä syntyy?</th><th scope="col">Konkreettinen lopputulos</th></tr></thead>
+<tbody><tr data-priority="P1" data-section="1. Peruspohjan kuntoonlaittaminen" data-timing="Seuraavat viikot">
+<td class="wide"><strong>Keskitetään tärkeimmät ohjeet ja prosessit yhteen paikkaan</strong><span>1. Peruspohjan kuntoonlaittaminen</span></td>
+<td>Seuraavat viikot</td>
+<td><span class="badge p1">P1</span></td>
+<td>Tieto on hajallaan, ja sen etsimiseen kuluu työaikaa.</td>
+<td>Työ nopeutuu, perehdytys helpottuu ja samat kysymykset eivät toistu jatkuvasti.</td>
+<td>Yksi selkeä paikka, josta löytyvät tärkeimmät ohjeet, prosessit, linkit ja työkalut.</td>
+</tr>
+<tr data-priority="P1" data-section="1. Peruspohjan kuntoonlaittaminen" data-timing="Seuraavat viikot">
+<td class="wide"><strong>Tehdään nykyisistä ohjeista siivouslista</strong><span>1. Peruspohjan kuntoonlaittaminen</span></td>
+<td>Seuraavat viikot</td>
+<td><span class="badge p1">P1</span></td>
+<td>Osa ohjeista on vanhentuneita, epäselviä tai puuttuu kokonaan.</td>
+<td>Saadaan näkyviin, mitä pitää päivittää, poistaa tai luoda alusta.</td>
+<td>Lista: säilytä, päivitä, poista, puuttuu.</td>
+</tr>
+<tr data-priority="P1" data-section="1. Peruspohjan kuntoonlaittaminen" data-timing="Seuraavat viikot">
+<td class="wide"><strong>Dokumentoidaan keskeiset vastuualueet</strong><span>1. Peruspohjan kuntoonlaittaminen</span></td>
+<td>Seuraavat viikot</td>
+<td><span class="badge p1">P1</span></td>
+<td>Aina ei ole selvää, kuka vastaa mistä tai mistä saa apua.</td>
+<td>Työ ei pysähdy epäselvien vastuiden takia.</td>
+<td>Selkeä vastuumatriisi: aihe, vastuutaho, mitä tekee, mistä saa apua, milloin eskaloidaan.</td>
+</tr>
+<tr data-priority="P1" data-section="1. Peruspohjan kuntoonlaittaminen" data-timing="Seuraavat viikot">
+<td class="wide"><strong>Luodaan “näin toimitaan” -perusohje yleisimmille työpyynnöille</strong><span>1. Peruspohjan kuntoonlaittaminen</span></td>
+<td>Seuraavat viikot</td>
+<td><span class="badge p1">P1</span></td>
+<td>Toistuvat työpyynnöt vievät paljon aikaa, jos jokainen käsitellään eri tavalla.</td>
+<td>Työstä tulee tasaisempaa ja ennakoitavampaa.</td>
+<td>Yksinkertaiset toimintamallit verkkosivupäivityksille, sisältöpyynnöille, raportointipyynnöille ja kampanjanostoille.</td>
+</tr>
+<tr data-priority="P2" data-section="1. Peruspohjan kuntoonlaittaminen" data-timing="Seuraavat viikot">
+<td class="wide"><strong>Tehdään selkeä pyyntökanavan malli</strong><span>1. Peruspohjan kuntoonlaittaminen</span></td>
+<td>Seuraavat viikot</td>
+<td><span class="badge p2">P2</span></td>
+<td>Jos pyyntöjä tulee monesta kanavasta, kokonaisuus hajoaa.</td>
+<td>Pyyntöjen priorisointi, seuranta ja valmistuminen helpottuvat.</td>
+<td>Yksi sovittu tapa, jolla uudet pyynnöt kirjataan, priorisoidaan ja viedään eteenpäin.</td>
+</tr>
+<tr data-priority="P2" data-section="1. Peruspohjan kuntoonlaittaminen" data-timing="Seuraavat viikot">
+<td class="wide"><strong>Luodaan “peruspohjan ylläpito” osaksi jokaista sprinttiä</strong><span>1. Peruspohjan kuntoonlaittaminen</span></td>
+<td>Seuraavat viikot</td>
+<td><span class="badge p2">P2</span></td>
+<td>Peruspohjaa yritetään välillä korjata, mutta kiire syrjäyttää sen.</td>
+<td>Kehä katkeaa: perusasioiden kuntoonlaitto ei jää aina kiireen alle.</td>
+<td>Jokaisessa sprintissä varataan pieni osa kapasiteetista ohjeiden, prosessien ja vastuiden ylläpitoon.</td>
+</tr>
+<tr data-priority="P1" data-section="2. Palvelusivujen ja sivuston rakenteen kehittäminen" data-timing="Seuraavat viikot">
+<td class="wide"><strong>Määritellään selkeä tapa luokitella palvelusivut</strong><span>2. Palvelusivujen ja sivuston rakenteen kehittäminen</span></td>
+<td>Seuraavat viikot</td>
+<td><span class="badge p1">P1</span></td>
+<td>Palvelusivuja on paljon, ja niiden roolit voivat olla epäselviä.</td>
+<td>Sivuston rakenne selkeytyy ja käyttäjä löytää oikean palvelun paremmin.</td>
+<td>Yhteinen luokittelumalli: esimerkiksi palvelu, tutkimus, hoito, oire, sairaus, erikoisala tai kokoava sivu.</td>
+</tr>
+<tr data-priority="P1" data-section="2. Palvelusivujen ja sivuston rakenteen kehittäminen" data-timing="Seuraavat viikot">
+<td class="wide"><strong>Valitaan ensimmäinen 50-100 palvelusivun tarkistusjoukko</strong><span>2. Palvelusivujen ja sivuston rakenteen kehittäminen</span></td>
+<td>Seuraavat viikot</td>
+<td><span class="badge p1">P1</span></td>
+<td>Kaikkia sivuja ei kannata tarkistaa kerralla.</td>
+<td>Saadaan nopeasti esiin suurimmat epäselvyydet ja toistuvat ongelmat.</td>
+<td>Rajattu lista sivuista, joissa näkyy alustava tarkistustarve ja perustelu.</td>
+</tr>
+<tr data-priority="P1" data-section="2. Palvelusivujen ja sivuston rakenteen kehittäminen" data-timing="Seuraavat viikot">
+<td class="wide"><strong>Muutetaan tekniset ongelmatermit selkokielelle</strong><span>2. Palvelusivujen ja sivuston rakenteen kehittäminen</span></td>
+<td>Seuraavat viikot</td>
+<td><span class="badge p1">P1</span></td>
+<td>Tekniset termit eivät kerro nopeasti, mitä pitäisi tehdä.</td>
+<td>Myös ei-tekninen lukija ymmärtää, miksi sivu on tarkistuksessa.</td>
+<td>Selkeät ongelmanimet, kuten “Sivun rooli epäselvä”, “Palveluyhteys puuttuu” tai “Sisäinen linkitys vaatii tarkistuksen”.</td>
+</tr>
+<tr data-priority="P1" data-section="2. Palvelusivujen ja sivuston rakenteen kehittäminen" data-timing="1-2 kk">
+<td class="wide"><strong>Tehdään ensimmäinen ehdotusmalli palvelusivujen tarkistamiseen</strong><span>2. Palvelusivujen ja sivuston rakenteen kehittäminen</span></td>
+<td>1-2 kk</td>
+<td><span class="badge p1">P1</span></td>
+<td>Suuren sivumäärän käsin läpikäynti on hidasta ilman apua.</td>
+<td>Tarkistustyö nopeutuu ja työ voidaan kohdistaa tärkeimpiin sivuihin.</td>
+<td>Malli, joka ehdottaa sivun roolia ja näyttää, miksi sivu kannattaa tarkistaa.</td>
+</tr>
+<tr data-priority="P1" data-section="2. Palvelusivujen ja sivuston rakenteen kehittäminen" data-timing="1-2 kk">
+<td class="wide"><strong>Tunnistetaan sivut, joissa rakenne on epäselvä tai ristiriitainen</strong><span>2. Palvelusivujen ja sivuston rakenteen kehittäminen</span></td>
+<td>1-2 kk</td>
+<td><span class="badge p1">P1</span></td>
+<td>Osa sivuista voi olla käyttäjälle, sisällölle tai palveluohjaukselle epäselviä.</td>
+<td>Korjaukset voidaan aloittaa sivuista, joissa hyöty on suurin.</td>
+<td>Priorisoitu tarkistuslista sivuista, joissa on selkeä kehitystarve.</td>
+</tr>
+<tr data-priority="P1" data-section="2. Palvelusivujen ja sivuston rakenteen kehittäminen" data-timing="2-3 kk">
+<td class="wide"><strong>Laajennetaan tarkistusmallia suurempaan sivujoukkoon</strong><span>2. Palvelusivujen ja sivuston rakenteen kehittäminen</span></td>
+<td>2-3 kk</td>
+<td><span class="badge p1">P1</span></td>
+<td>Kun ensimmäinen malli toimii, sitä voidaan käyttää laajemmin.</td>
+<td>Saadaan kokonaiskuva palvelusivujen laadusta ja kehitystarpeista.</td>
+<td>Laajempi lista sivuista ryhmiteltynä kiireellisyyden, hyödyn ja tarkistustyypin mukaan.</td>
+</tr>
+<tr data-priority="P1" data-section="3. Päätöstyön ja työjonojen helpottaminen" data-timing="Seuraavat viikot">
+<td class="wide"><strong>Rakennetaan selkeä tarkistusnäkymä palvelusivuille</strong><span>3. Päätöstyön ja työjonojen helpottaminen</span></td>
+<td>Seuraavat viikot</td>
+<td><span class="badge p1">P1</span></td>
+<td>Tieto on hajallaan eri raporteissa ja taulukoissa.</td>
+<td>Päätöksiä voidaan tehdä nopeammin yhdessä näkymässä.</td>
+<td>Työnäkymä, jossa näkyy sivun perustiedot, ongelmat, suositeltu tarkistus ja taustatiedot.</td>
+</tr>
+<tr data-priority="P1" data-section="3. Päätöstyön ja työjonojen helpottaminen" data-timing="1-2 kk">
+<td class="wide"><strong>Lisätään tarkistusnäkymään haku ja suodattimet</strong><span>3. Päätöstyön ja työjonojen helpottaminen</span></td>
+<td>1-2 kk</td>
+<td><span class="badge p1">P1</span></td>
+<td>Sivuja on liikaa selattavaksi käsin.</td>
+<td>Oikeat sivut löytyvät nopeasti aiheen, ongelmatyypin tai URL:n perusteella.</td>
+<td>Haku ja suodattimet, joilla työjonoa voi rajata helposti.</td>
+</tr>
+<tr data-priority="P1" data-section="3. Päätöstyön ja työjonojen helpottaminen" data-timing="1-2 kk">
+<td class="wide"><strong>Näytetään sivukohtaisesti, miksi sivu tarvitsee tarkistusta</strong><span>3. Päätöstyön ja työjonojen helpottaminen</span></td>
+<td>1-2 kk</td>
+<td><span class="badge p1">P1</span></td>
+<td>Pelkkä “tarkista tämä” ei riitä päätöksentekoon.</td>
+<td>Tarkistaja ymmärtää nopeasti ongelman, hyödyn ja seuraavan päätöksen.</td>
+<td>Jokaisella sivulla näkyy selkeä perustelu ja suositeltu päätöskysymys.</td>
+</tr>
+<tr data-priority="P1" data-section="3. Päätöstyön ja työjonojen helpottaminen" data-timing="2-3 kk">
+<td class="wide"><strong>Lisätään tarkistustyöhön tila: tarkistamatta, tarkistettu, epävarma, odottaa päätöstä</strong><span>3. Päätöstyön ja työjonojen helpottaminen</span></td>
+<td>2-3 kk</td>
+<td><span class="badge p1">P1</span></td>
+<td>Pitkässä työjonossa pitää nähdä, mikä on kesken ja mikä valmis.</td>
+<td>Vähentää päällekkäistä työtä ja helpottaa etenemisen seurantaa.</td>
+<td>Jokaisella tarkistettavalla sivulla on näkyvä työn tila.</td>
+</tr>
+<tr data-priority="P2" data-section="3. Päätöstyön ja työjonojen helpottaminen" data-timing="2-3 kk">
+<td class="wide"><strong>Tehdään kevyt käyttöohje tarkistustyölle</strong><span>3. Päätöstyön ja työjonojen helpottaminen</span></td>
+<td>2-3 kk</td>
+<td><span class="badge p2">P2</span></td>
+<td>Uusi toimintatapa pitää pystyä selittämään nopeasti.</td>
+<td>Työ ei jää yksittäisen tekijän varaan.</td>
+<td>Lyhyt ohje: milloin näkymää käytetään, mitä siellä tarkistetaan ja miten päätökset viedään eteenpäin.</td>
+</tr>
+<tr data-priority="P1" data-section="4. Raportointi ja datasta tekemiseen siirtyminen" data-timing="Seuraavat viikot">
+<td class="wide"><strong>Dokumentoidaan nykyinen kuukausi- ja viikkoraportointi</strong><span>4. Raportointi ja datasta tekemiseen siirtyminen</span></td>
+<td>Seuraavat viikot</td>
+<td><span class="badge p1">P1</span></td>
+<td>Toimiva raportointipohja pitää säilyttää, vaikka sitä kehitetään.</td>
+<td>Raportteja voidaan jatkokehittää turvallisesti.</td>
+<td>Lyhyt kuvaus: mitä raportit näyttävät, mistä data tulee, miten tuloksia tulkitaan ja mitä ei saa rikkoa.</td>
+</tr>
+<tr data-priority="P2" data-section="4. Raportointi ja datasta tekemiseen siirtyminen" data-timing="1-2 kk">
+<td class="wide"><strong>Suunnitellaan hakukysynnän datan hyödyntäminen palvelusivujen priorisoinnissa</strong><span>4. Raportointi ja datasta tekemiseen siirtyminen</span></td>
+<td>1-2 kk</td>
+<td><span class="badge p2">P2</span></td>
+<td>Kaikkia sivuja ei voida kehittää samaan aikaan.</td>
+<td>Työ kohdistuu sivuihin, joilla on suurin löydettävyys- tai asiakasohjaushyöty.</td>
+<td>Malli, jossa hakukysyntädata auttaa valitsemaan seuraavat parannettavat sivut.</td>
+</tr>
+<tr data-priority="P2" data-section="4. Raportointi ja datasta tekemiseen siirtyminen" data-timing="1-2 kk">
+<td class="wide"><strong>Määritellään, miten raporttihavainnosta syntyy tehtävä</strong><span>4. Raportointi ja datasta tekemiseen siirtyminen</span></td>
+<td>1-2 kk</td>
+<td><span class="badge p2">P2</span></td>
+<td>Raportit eivät saa jäädä pelkiksi koosteiksi.</td>
+<td>Raportointi alkaa tuottaa konkreettista tekemistä.</td>
+<td>Yksinkertainen malli: havainto -&gt; suositus -&gt; tehtävä -&gt; valmis lopputulos.</td>
+</tr>
+<tr data-priority="P1" data-section="4. Raportointi ja datasta tekemiseen siirtyminen" data-timing="2-3 kk">
+<td class="wide"><strong>Kehitetään kuukausiraportista päätöksiä tukeva versio</strong><span>4. Raportointi ja datasta tekemiseen siirtyminen</span></td>
+<td>2-3 kk</td>
+<td><span class="badge p1">P1</span></td>
+<td>Raportin pitää kertoa, mitä kannattaa tehdä seuraavaksi.</td>
+<td>Raportista tulee hyödyllisempi priorisoinnissa ja suunnittelussa.</td>
+<td>Kuukausiraportti, jossa tärkeimmät havainnot on muutettu suositelluiksi toimenpiteiksi.</td>
+</tr>
+<tr data-priority="P2" data-section="4. Raportointi ja datasta tekemiseen siirtyminen" data-timing="2-3 kk">
+<td class="wide"><strong>Lisätään raportteihin selkeä “so what” -osio</strong><span>4. Raportointi ja datasta tekemiseen siirtyminen</span></td>
+<td>2-3 kk</td>
+<td><span class="badge p2">P2</span></td>
+<td>Data itsessään ei aina kerro, miksi sillä on merkitystä.</td>
+<td>Lukija ymmärtää nopeasti, mitä havainto tarkoittaa ja miksi sillä on väliä.</td>
+<td>Jokaisessa tärkeässä havainnossa on tulkinta, vaikutus ja suositeltu seuraava askel.</td>
+</tr>
+<tr data-priority="P2" data-section="5. Sisältötyö, kampanjat ja ajankohtaiset nostot" data-timing="Seuraavat viikot">
+<td class="wide"><strong>Tehdään kesän tärkeimmille palvelunostoille toimituslista</strong><span>5. Sisältötyö, kampanjat ja ajankohtaiset nostot</span></td>
+<td>Seuraavat viikot</td>
+<td><span class="badge p2">P2</span></td>
+<td>Ajankohtaiset palvelut pitää saada näkyviin oikeaan aikaan.</td>
+<td>Sesongin kannalta tärkeät palvelut saavat parempaa näkyvyyttä.</td>
+<td>Lista nostoista, sivuista, aikatauluista, vastuista ja mittareista.</td>
+</tr>
+<tr data-priority="P2" data-section="5. Sisältötyö, kampanjat ja ajankohtaiset nostot" data-timing="1-2 kk">
+<td class="wide"><strong>Määritellään sisältöpyyntöjen käsittelymalli</strong><span>5. Sisältötyö, kampanjat ja ajankohtaiset nostot</span></td>
+<td>1-2 kk</td>
+<td><span class="badge p2">P2</span></td>
+<td>Sisältöpyynnöt voivat tulla hajanaisesti ja kiireellä.</td>
+<td>Pyyntöjen läpimeno selkeytyy ja priorisointi helpottuu.</td>
+<td>Malli, jossa näkyy miten pyyntö kirjataan, arvioidaan, priorisoidaan ja toteutetaan.</td>
+</tr>
+<tr data-priority="P2" data-section="5. Sisältötyö, kampanjat ja ajankohtaiset nostot" data-timing="2-3 kk">
+<td class="wide"><strong>Valitaan seuraava palvelusivujen sisältöparannusten erä</strong><span>5. Sisältötyö, kampanjat ja ajankohtaiset nostot</span></td>
+<td>2-3 kk</td>
+<td><span class="badge p2">P2</span></td>
+<td>Sisältötyön pitää perustua hyötyyn, ei pelkkään fiilikseen.</td>
+<td>Työ kohdistuu sivuihin, joilla on selkeä käyttäjä- tai liiketoimintahyöty.</td>
+<td>Lista seuraavista päivitettävistä sivuista, arvioidusta hyödystä ja tarvittavasta työstä.</td>
+</tr>
+<tr data-priority="P3" data-section="5. Sisältötyö, kampanjat ja ajankohtaiset nostot" data-timing="2-3 kk">
+<td class="wide"><strong>Suunnitellaan tulevien kampanja- tai erikoisalasisältöjen tarpeet</strong><span>5. Sisältötyö, kampanjat ja ajankohtaiset nostot</span></td>
+<td>2-3 kk</td>
+<td><span class="badge p3">P3</span></td>
+<td>Tulevat kampanjat on helpompi toteuttaa, jos pohjatyö aloitetaan ajoissa.</td>
+<td>Kiire vähenee ja sivutarpeet voidaan arvioida ennen toteutusvaihetta.</td>
+<td>Alustava lista tulevista kampanjoista, sivutarpeista, mittareista ja päätöspisteistä.</td>
+</tr>
+<tr data-priority="P2" data-section="6. Paikallinen näkyvyys, toimipaikat ja sisäinen linkitys" data-timing="Seuraavat viikot">
+<td class="wide"><strong>Valitaan ensimmäiset paikalliset palvelusivut pilotiksi</strong><span>6. Paikallinen näkyvyys, toimipaikat ja sisäinen linkitys</span></td>
+<td>Seuraavat viikot</td>
+<td><span class="badge p2">P2</span></td>
+<td>Paikallisia sivuja ei kannata tehdä laajasti ennen kuin malli on testattu.</td>
+<td>Löydetään toimiva tapa kertoa, missä palvelu on saatavilla.</td>
+<td>1-3 pilottisivua tai sivumallia paikallisen näkyvyyden testaamiseen.</td>
+</tr>
+<tr data-priority="P2" data-section="6. Paikallinen näkyvyys, toimipaikat ja sisäinen linkitys" data-timing="1-2 kk">
+<td class="wide"><strong>Laajennetaan paikallisten palvelusivujen mallia pilotin perusteella</strong><span>6. Paikallinen näkyvyys, toimipaikat ja sisäinen linkitys</span></td>
+<td>1-2 kk</td>
+<td><span class="badge p2">P2</span></td>
+<td>Pilotti näyttää, mikä toimii ja mikä pitää muuttaa.</td>
+<td>Laajempi sivujoukko voidaan toteuttaa yhtenäisesti.</td>
+<td>Laajennussuunnitelma: mitkä paikkakunnat tai palvelut tehdään seuraavaksi.</td>
+</tr>
+<tr data-priority="P2" data-section="6. Paikallinen näkyvyys, toimipaikat ja sisäinen linkitys" data-timing="1-2 kk">
+<td class="wide"><strong>Tarkistetaan tärkeimpien palvelusivujen sisäinen linkitys</strong><span>6. Paikallinen näkyvyys, toimipaikat ja sisäinen linkitys</span></td>
+<td>1-2 kk</td>
+<td><span class="badge p2">P2</span></td>
+<td>Hyvätkin sivut jäävät heikommiksi, jos niihin ei ohjata muilta sivuilta.</td>
+<td>Käyttäjä löytää paremmin oikean palvelun.</td>
+<td>Linkityskorjauslista: mistä linkitetään, minne, millä tekstillä ja miksi.</td>
+</tr>
+<tr data-priority="P2" data-section="6. Paikallinen näkyvyys, toimipaikat ja sisäinen linkitys" data-timing="2-3 kk">
+<td class="wide"><strong>Rakennetaan paikallisen näkyvyyden kehitysmalli</strong><span>6. Paikallinen näkyvyys, toimipaikat ja sisäinen linkitys</span></td>
+<td>2-3 kk</td>
+<td><span class="badge p2">P2</span></td>
+<td>Paikallinen löydettävyys liittyy palvelusivuihin, toimipaikkoihin ja ajanvaraukseen.</td>
+<td>Käyttäjä löytää paremmin oikean palvelun omalla alueellaan.</td>
+<td>Yhteinen malli paikallisille palvelusivuille, toimipaikkasisällöille, linkitykselle ja mittareille.</td>
+</tr>
+<tr data-priority="P2" data-section="6. Paikallinen näkyvyys, toimipaikat ja sisäinen linkitys" data-timing="2-3 kk">
+<td class="wide"><strong>Tehdään toimipaikkasivujen sisällön tarkistuslista</strong><span>6. Paikallinen näkyvyys, toimipaikat ja sisäinen linkitys</span></td>
+<td>2-3 kk</td>
+<td><span class="badge p2">P2</span></td>
+<td>Toimipaikkasivujen laatua pitää pystyä kehittämään yhtenäisesti.</td>
+<td>Vähentää tapauskohtaista ohjeistamista ja parantaa sivujen laatua.</td>
+<td>Tarkistuslista: mitä hyvällä toimipaikkasivulla pitää olla ja mitä vältetään.</td>
+</tr>
+<tr data-priority="P2" data-section="6. Paikallinen näkyvyys, toimipaikat ja sisäinen linkitys" data-timing="2-3 kk">
+<td class="wide"><strong>Rakennetaan palveluiden, oireiden ja erikoisalojen välinen linkitysmalli</strong><span>6. Paikallinen näkyvyys, toimipaikat ja sisäinen linkitys</span></td>
+<td>2-3 kk</td>
+<td><span class="badge p2">P2</span></td>
+<td>Linkityksen ei pitäisi perustua sattumaan vaan siihen, miten aiheet liittyvät toisiinsa.</td>
+<td>Käyttäjä liikkuu helpommin oireesta palveluun, palvelusta asiantuntijaan ja erikoisalasta oikeaan hoitoon.</td>
+<td>Linkitysmalli, jossa määritellään tärkeimmät yhteydet sivutyyppien välillä.</td>
+</tr></tbody>
+</table></div>
+</section>
+<section aria-labelledby="rules-heading" class="section" id="rules">
+<div class="section-head"><p class="eyebrow">Valintasääntö</p><h2 id="rules-heading">Sprinttien valintasääntö</h2><p>Yhteen sprinttiin kannattaa ottaa vain rajallinen määrä työtä. Tämä suojaa fokusta ja estää peruspohjan korjaamisen hautautumisen kiireen alle.</p></div>
+<div class="table-card"><table class="small-table"><thead><tr><th scope="col">Sprintin osa</th><th scope="col">Suositeltu määrä</th><th scope="col">Esimerkki</th></tr></thead><tbody><tr><td><strong>Iso päätavoite</strong></td><td>1</td><td>Peruspohjan kuntoonlaitto tai palvelusivujen luokittelumalli</td></tr>
+<tr><td><strong>Keskikokoiset tukitehtävät</strong></td><td>2</td><td>Vastuumatriisi, haku tarkistusnäkymään</td></tr>
+<tr><td><strong>Pienet tukitehtävät</strong></td><td>1-2</td><td>Ohjeiden siivouslista, kesän nostojen checklist</td></tr>
+<tr><td><strong>Jatkuva ylläpito</strong></td><td>Aina pieni osa sprintistä</td><td>Ohjeiden, prosessien ja vastuiden päivittäminen</td></tr>
+<tr><td><strong>Ei mukaan</strong></td><td>-</td><td>Massapäivitykset, automaattiset CMS-muutokset, liian laajat kampanjat</td></tr></tbody></table></div>
+</section>
+<section aria-labelledby="later-heading" class="section" id="later">
+<div class="section-head"><p class="eyebrow">Rajaus</p><h2 id="later-heading">Myöhemmäksi jätettävät ideat</h2><p>Nämä ideat voivat olla hyödyllisiä myöhemmin, mutta ne kasvattaisivat riskiä, jos ne aloitetaan ennen mallien, vastuiden ja hyväksyntäpolkujen selkeyttämistä.</p></div>
+<div class="table-card"><table class="small-table"><thead><tr><th scope="col">Idea</th><th scope="col">Miksi ei vielä?</th><th scope="col">Milloin voidaan palata?</th></tr></thead><tbody><tr><td><strong>Kaikkien palvelusivujen automaattinen uudelleenluokittelu</strong></td><td>Liian suuri riski ennen kuin malli on testattu pienemmällä sivujoukolla.</td><td>Kun ensimmäinen tarkistusmalli on toiminut ja virheet tunnetaan.</td></tr>
+<tr><td><strong>Suorat muutokset CMS:ään työkalusta</strong></td><td>Ensin tarvitaan hyväksyntäpolku, vastuut ja mahdollisuus tarkistaa muutokset.</td><td>Kun päätösmalli ja muutosprosessi on määritelty.</td></tr>
+<tr><td><strong>Kaikkien toimipaikkasivujen laaja päivitys</strong></td><td>Ensin pitää olla valmis malli ja priorisointi.</td><td>Kun ensimmäinen toimipaikkasivujen tarkistuslista on testattu.</td></tr>
+<tr><td><strong>Kaikkien dashboardien automatisointi</strong></td><td>Ensin pitää tietää, mitä raportteja oikeasti käytetään päätöksenteossa.</td><td>Kun raporttien käyttötapa on vakiintunut.</td></tr>
+<tr><td><strong>Uudet isot kampanja- tai erikoisalasisällöt ilman selkeää aikataulua</strong></td><td>Ne voivat viedä fokuksen tärkeämmältä perustyöltä.</td><td>Kun niillä on selkeä liiketoimintatarve, omistaja ja deadline.</td></tr>
+<tr><td><strong>Raskas uusi hakuteknologia</strong></td><td>Ensimmäiseen versioon riittää kevyt haku ja selkeät suodattimet.</td><td>Jos sivu- ja datamäärä kasvaa niin suureksi, että kevyt ratkaisu ei riitä.</td></tr></tbody></table></div>
+</section>
+<section aria-labelledby="method-heading" class="section" id="methodology">
+<div class="section-head"><p class="eyebrow">Metodologia</p><h2 id="method-heading">Miten tätä pitää lukea?</h2><p>Raportti erottaa lähdedatan, lasketut arvot, tulkinnan ja suosituksen.</p></div>
+<div class="method">
+<article><h3>Lähdedata</h3><p>Liitteenä toimitettu PDF: sprintti-tyojono-esimerkkisivusto.pdf. Työjono-rivien sisältö, prioriteetit ja ajoitukset on säilytetty.</p></article>
+<article><h3>Lasketut arvot</h3><p>Yläosan määräkortit perustuvat PDF:n omiin lukuihin: 32 aktiivista riviä, 16 P1-riviä, 13 seuraavien viikkojen riviä ja 6 sprinttiehdotuksen riviä.</p></article>
+<article><h3>Tulkinta</h3><p>HTML nostaa seuraavan askeleen ja parantaa silmäiltävyyttä. Se ei muuta työjono-rivien liiketoimintalogiikkaa.</p></article>
+<article><h3>Suositus</h3><p>Aloita sprintti peruspohjan kuntoonlaitosta ja palvelusivujen luokittelumallista. Jätä massamuutokset myöhemmäksi.</p></article>
+</div>
+</section>
+</main>
+<footer><span>Esimerkkiorganisaatio · Sivuston kehitys ja työjono</span><span>Luotu 3.6.2026 · HTML-muunnos</span></footer>
+</div>
+<script>
+(function(){
+  var search = document.getElementById('search');
+  var priority = document.getElementById('priority');
+  var timing = document.getElementById('timing');
+  var section = document.getElementById('sectionFilter');
+  var reset = document.getElementById('reset');
+  var count = document.getElementById('resultCount');
+  var rows = Array.prototype.slice.call(document.querySelectorAll('#työjonoTable tbody tr'));
+  function norm(value){ return (value || '').toLocaleLowerCase('fi-FI').trim(); }
+  function apply(){
+    var q = norm(search.value);
+    var p = priority.value;
+    var t = timing.value;
+    var s = section.value;
+    var visible = 0;
+    rows.forEach(function(row){
+      var textOk = !q || norm(row.textContent).indexOf(q) !== -1;
+      var pOk = !p || row.dataset.priority === p;
+      var tOk = !t || row.dataset.timing === t;
+      var sOk = !s || row.dataset.section === s;
+      var show = textOk && pOk && tOk && sOk;
+      row.hidden = !show;
+      if(show) visible += 1;
+    });
+    count.textContent = 'Näytetään ' + visible + ' työjono-riviä.';
+  }
+  [search, priority, timing, section].forEach(function(el){ el.addEventListener('input', apply); el.addEventListener('change', apply); });
+  reset.addEventListener('click', function(){ search.value=''; priority.value=''; timing.value=''; section.value=''; apply(); search.focus(); });
+  apply();
+}());
+</script>
+</body>
+</html>

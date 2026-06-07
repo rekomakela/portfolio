@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+
+<html lang="fi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Orgaanisen näkyvyyden raportti- ja työjonemalli – sanitoitu portfolio-demo</title>
+<style>
+
+
+
+
+
+
+
+
+
+:root{
+  --jarvi:#0046AD;
+  --mustikka:#1A244A;
+  --hiili:#212322;
+  --jaa:#E8EDEE;
+  --tupasvilla:#FFFFFF;
+  --kuusi:#007672;
+  --hilla:#FCD757;
+  --puolukkapuuro:#F09591;
+  --kanerva:#8246AF;
+  --villivadelma:#CE0F69;
+  --muted:#5B6470;
+  --border:#D7DFE5;
+  --border-strong:#AEBCC8;
+  --font-display:system-ui,system-ui,Calibri,Arial,sans-serif;
+  --font-sans:system-ui,Calibri,Arial,sans-serif;
+  --font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:#fff}
+body{margin:0;background:#fff;color:var(--hiili);font-family:var(--font-sans);font-weight:400;line-height:1.52;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--jarvi)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--hilla);outline-offset:3px}
+.wrap{max-width:1280px;margin:0 auto;padding:42px 44px 56px;background:#fff}
+.brand-row{display:flex;align-items:flex-start;justify-content:space-between;gap:28px;margin-bottom:44px;border-bottom:1px solid var(--border);padding-bottom:24px;background:#fff}
+.logo-box{width:218px;min-width:180px;background:#fff}
+.brand-logo{display:block;width:100%;height:auto;background:#fff}
+.meta{text-align:right;font-size:13px;color:var(--muted);background:#fff}
+.meta strong{display:block;color:var(--mustikka);font-weight:700}
+.hero{display:block;max-width:860px;margin-bottom:36px;background:#fff}
+.eyebrow{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--jarvi);font-weight:700;margin:0 0 16px;background:#fff}
+h1{font-family:var(--font-display);font-weight:900;color:var(--jarvi);font-size:clamp(44px,7vw,86px);letter-spacing:-.035em;line-height:.92;margin:0 0 24px;max-width:10.6ch;background:#fff}
+.lead{font-size:20px;line-height:1.42;max-width:760px;margin:0 0 20px;color:var(--hiili);font-weight:300;background:#fff}
+.lead strong{font-weight:700;color:var(--hiili)}
+.principles{border-left:5px solid var(--jarvi);padding-left:22px;background:#fff}
+.principles h2{font-family:var(--font-display);font-size:34px;line-height:.95;color:var(--jarvi);margin:0 0 14px;font-weight:900;background:#fff}
+.principles p{margin:0 0 12px;color:var(--hiili);background:#fff}
+.principles dl{display:grid;grid-template-columns:104px 1fr;gap:8px 14px;margin:18px 0 0;background:#fff}
+.principles dt{font-weight:700;color:var(--mustikka);background:#fff}
+.principles dd{margin:0;color:var(--hiili);background:#fff}
+.notice{border:1px solid var(--border);border-left:5px solid var(--mustikka);padding:16px 18px;margin:24px 0 0;background:#fff}
+.notice p{margin:0;font-size:14px;color:var(--hiili);background:#fff}
+.nav{display:flex;flex-wrap:wrap;gap:10px;margin:30px 0 38px;background:#fff}
+.nav a{display:inline-flex;align-items:center;min-height:38px;padding:7px 14px;border:1px solid var(--border);text-decoration:none;color:var(--mustikka);font-weight:700;font-size:14px;background:#fff}
+.nav a:hover{border-color:var(--jarvi);color:var(--jarvi)}
+.section{margin:44px 0;background:#fff}
+.section-head{margin:0 0 18px;background:#fff}
+.section-head h2{font-family:var(--font-display);font-weight:900;color:var(--jarvi);font-size:42px;line-height:.96;letter-spacing:-.02em;margin:0 0 8px;background:#fff}
+.section-head p{font-size:15px;color:var(--muted);max-width:860px;margin:0;background:#fff}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;background:#fff}
+.kpi{border:1px solid var(--border);border-top:5px solid var(--jarvi);padding:22px;background:#fff}
+.kpi-value{font-family:var(--font-display);font-size:46px;line-height:.9;color:var(--jarvi);font-weight:900;background:#fff}
+.kpi-label{font-weight:700;color:var(--mustikka);margin-top:10px;background:#fff}
+.kpi p{font-size:14px;color:var(--muted);margin:8px 0 0;background:#fff}
+.next-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;background:#fff}
+.next-card{border:1px solid var(--border);padding:20px;background:#fff}
+.next-card span{display:inline-flex;width:32px;height:32px;align-items:center;justify-content:center;border:2px solid var(--jarvi);color:var(--jarvi);font-weight:900;margin-bottom:16px;background:#fff}
+.next-card h3{margin:0 0 8px;color:var(--mustikka);font-size:18px;line-height:1.16;background:#fff}
+.next-card p{margin:0;color:var(--muted);font-size:14px;background:#fff}
+.controls{display:grid;grid-template-columns:minmax(280px,1.2fr) repeat(3,minmax(150px,.6fr));gap:12px;margin:18px 0 18px;align-items:end;background:#fff}
+.control label{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;margin-bottom:6px;background:#fff}
+input,select{width:100%;height:42px;border:1px solid var(--border-strong);padding:8px 10px;background:#fff;color:var(--hiili);font:inherit;border-radius:0}
+button{height:42px;border:1px solid var(--jarvi);background:#fff;color:var(--jarvi);font-family:var(--font-sans);font-weight:700;padding:0 14px;cursor:pointer;border-radius:0}
+button:hover{border-color:var(--mustikka);color:var(--mustikka)}
+.table-wrap{border:1px solid var(--border);overflow:auto;background:#fff}
+table{width:100%;min-width:1180px;border-collapse:collapse;background:#fff;font-size:13px}
+caption{text-align:left;padding:14px 16px;color:var(--muted);border-bottom:1px solid var(--border);background:#fff}
+th,td{border-bottom:1px solid var(--border);padding:13px 14px;vertical-align:top;background:#fff}
+th{text-align:left;font-size:11px;letter-spacing:.075em;text-transform:uppercase;color:var(--mustikka);font-weight:700;background:#fff;white-space:nowrap}
+td.num,th.num{text-align:right;font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+td strong{display:block;color:var(--hiili);font-weight:700;margin-bottom:5px;background:#fff}
+td small{display:block;color:var(--muted);line-height:1.35;background:#fff}
+.label,.priority{display:inline-flex;align-items:center;border:1px solid var(--border-strong);font-weight:700;font-size:11px;letter-spacing:.03em;color:var(--jarvi);padding:2px 6px;margin:0 0 8px;background:#fff}
+.priority-korkea{border-color:var(--jarvi);color:var(--jarvi)}
+.priority-keskitaso{border-color:var(--kuusi);color:var(--kuusi)}
+.priority-matala{border-color:var(--mustikka);color:var(--mustikka)}
+.matrix-footer{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:13px;color:var(--muted);margin-top:12px;background:#fff}
+.moon-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;background:#fff}
+.moon{border:1px solid var(--border);border-left:5px solid var(--mustikka);padding:18px;background:#fff}
+.moon h3{font-size:18px;line-height:1.15;color:var(--mustikka);margin:0 0 9px;background:#fff}
+.moon p{font-size:14px;color:var(--hiili);margin:0 0 8px;background:#fff}
+.method{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;background:#fff}
+.method article{border:1px solid var(--border);padding:20px;background:#fff}
+.method h3{font-size:18px;color:var(--mustikka);margin:0 0 10px;background:#fff}
+.method p,.method li{font-size:14px;color:var(--hiili);background:#fff}
+ul{padding-left:20px;margin:8px 0 0;background:#fff}
+footer{border-top:1px solid var(--border);padding-top:20px;margin-top:50px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:12px;background:#fff}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:1040px){.hero{grid-template-columns:1fr;gap:28px}.kpis,.next-grid,.moon-grid,.method{grid-template-columns:1fr 1fr}.controls{grid-template-columns:1fr 1fr}.meta{text-align:left}}
+@media(max-width:680px){.wrap{padding:24px 18px 40px}.brand-row{flex-direction:column;margin-bottom:28px}.logo-box{width:180px}h1{font-size:48px}.lead{font-size:18px}.kpis,.next-grid,.moon-grid,.method,.controls{grid-template-columns:1fr}.section-head h2{font-size:34px}.principles dl{grid-template-columns:1fr}}
+@media print{.wrap{max-width:none;padding:0}.nav,.controls{display:none}.brand-row,.section,footer{break-inside:avoid}.moon,.kpi,.next-card,.method article{break-inside:avoid}table{min-width:0;font-size:10px}th,td{padding:8px}a{text-decoration:none;color:inherit}}
+</style>
+<style>
+.portfolio-sanitized-note{
+  margin:16px auto;
+  max-width:1120px;
+  padding:12px 16px;
+  border:1px solid rgba(96,165,250,.35);
+  border-radius:14px;
+  background:rgba(15,23,42,.72);
+  color:#dbeafe;
+  font:500 14px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.sanitized-logo-box{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:8px 14px;
+  border:1px solid currentColor;
+  border-radius:999px;
+  font:700 13px/1.2 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:inherit;
+  opacity:.85;
+}
+</style></head>
+<body><div class="portfolio-sanitized-note">Sanitoitu portfolio-demo: asiakas-, brändi-, URL- ja henkilötiedot on poistettu tai korvattu esimerkkisisällöllä.</div>
+<div class="wrap">
+<header class="brand-row" role="banner">
+<div class="logo-box" aria-label="Sanitoitu esimerkkiorganisaatio">Portfolio Demo</div>
+<div class="meta"><strong>Sivustokehitys / SEO</strong><span>HTML-raportti-ideamatriisi · orgaaninen näkyvyys</span></div>
+</header>
+<main>
+<section aria-labelledby="title" class="hero">
+<div>
+<h1 id="title">Orgaanisen näkyvyyden ideamatriisi</h1>
+<p class="lead"><strong>Jokaisen raportin tarkoitus on vastata yhteen päätöskysymykseen:</strong> mitä tämän perusteella pitäisi tehdä seuraavaksi orgaanisen näkyvyyden ja siihen liittyvien sivujen kehittämiseksi?</p>
+<div class="notice"><p><strong>Rajaus:</strong> ideat eivät muuta faktoja, numeroita tai lääketieteellistä merkitystä. Raportit nostavat työlistoja, tarkistuksia ja priorisointeja GSC-, Semrush-, STAT-, mainonta-, crawler-, julkaisujärjestelmä- ja sivuluokitteludatan perusteella.</p></div>
+</div>
+</section>
+<nav aria-label="Raportin osiot" class="nav">
+<a href="#summary">Yhteenveto</a>
+<a href="#first">Ensimmäiset raportit</a>
+<a href="#matrix">Ideamatriisi</a>
+<a href="#moonshot">Moonshot</a>
+<a href="#methodology">Metodologia</a>
+</nav>
+<section aria-labelledby="summary-heading" class="section" id="summary">
+<div class="section-head"><p class="eyebrow">Yhteenveto</p><h2 id="summary-heading">Mitä tästä kannattaa tehdä ensin?</h2><p>Matriisin käyttökelpoisin aloitus on rakentaa ensin päätösjono, ei lisää passiivisia dashboardeja.</p></div>
+<div class="kpis"><article class="kpi"><div class="kpi-value">38</div><div class="kpi-label">konkreettista raportti-ideaa</div><p>Kaikki rajattu orgaaniseen näkyvyyteen ja sivukohtaisiin toimenpiteisiin.</p></article>
+<article class="kpi"><div class="kpi-value">12</div><div class="kpi-label">moonshot-ideaa</div><p>Pidempää automaatio- ja työjonokehitystä varten.</p></article>
+<article class="kpi"><div class="kpi-value">100 %</div><div class="kpi-label">päätöslähtöinen</div><p>Jokainen idea vastaa: mitä tämän perusteella tehdään seuraavaksi?</p></article></div>
+</section>
+<section aria-labelledby="first-heading" class="section" id="first">
+<div class="section-head"><p class="eyebrow">Suositeltu aloitus</p><h2 id="first-heading">Neljä ensimmäistä raporttia</h2><p>Nämä rakentavat perustan: ensin työjono, sitten sivutason optimointi, näkyvyyden suojaus ja luokittelun laatu.</p></div>
+<div class="next-grid"><article class="next-card"><span>1</span><h3>SEO Sprint Planner</h3><p>Tuo yksittäiset raporttisignaalit yhdeksi toteutusjonoksi.</p></article>
+<article class="next-card"><span>2</span><h3>GSC Opportunity Worklist</h3><p>Antaa nopeimmin sivutason optimointikohteet.</p></article>
+<article class="next-card"><span>3</span><h3>Ranking Drop Triage</h3><p>Suojaa tärkeimpiä palvelusivuja näkyvyyden menetykseltä.</p></article>
+<article class="next-card"><span>4</span><h3>Luokittelemattomien SEO-vaikutus</h3><p>Korjaa raportoinnin ja priorisoinnin perustaa.</p></article></div>
+</section>
+<section aria-labelledby="matrix-heading" class="section" id="matrix">
+<div class="section-head"><p class="eyebrow">Matriisi</p><h2 id="matrix-heading">Automaattiset HTML-raportti-ideat</h2><p>Suodata raportteja tehtävätyypin, prioriteetin tai rytmin mukaan. Interaktiot eivät tallenna mitään.</p></div>
+<div aria-label="Matriisin suodattimet" class="controls">
+<div class="control"><label for="q">Haku</label><input esimerkkisisältö="Hae raporttia, datalähdettä tai seuraavaa tointa" id="q" type="search"/></div>
+<div class="control"><label for="type">Tehtävä</label><select id="type"><option value="">Kaikki</option><option>Täydennä</option><option>Korjaa</option><option>Tarkista</option><option>Uusi sivu</option><option>Yhdistä</option><option>Priorisoi</option><option>Seuraa</option></select></div>
+<div class="control"><label for="priority">Prioriteetti</label><select id="priority"><option value="">Kaikki</option><option>Korkea</option><option>Keskitaso</option><option>Matala</option></select></div>
+<div class="control"><label for="cadence">Rytmi</label><select id="cadence"><option value="">Kaikki</option><option>Viikoittain</option><option>Kuukausittain</option><option>Kvartaaleittain</option></select></div>
+</div>
+<div class="table-wrap"><table id="idea-table">
+<caption>Ideamatriisi: raportti-idea, päätöskysymys, lähdedata, signaali ja seuraava toimi.</caption>
+<thead><tr><th class="num" scope="col">#</th><th scope="col">Raportti ja kysymys</th><th scope="col">Datalähteet</th><th scope="col">Signaali</th><th scope="col">Mitä tehdään seuraavaksi?</th><th scope="col">Sivut</th><th scope="col">Rytmi</th><th scope="col">Prioriteetti</th></tr></thead>
+<tbody><tr data-cadence="Viikoittain" data-priority="Korkea" data-type="Täydennä">
+<td class="num">1</td>
+<td><span class="label">Täydennä</span><strong>GSC Opportunity Worklist</strong><small>Mitkä sivut ovat lähellä selvästi parempaa orgaanista tulosta?</small></td>
+<td>GSC sivu+haku, Semrush volyymi, STAT sijoitus</td>
+<td>Sivuilla on paljon näyttökertoja, sijoitus 4–15 tai CTR alle oman sivutyypin tason.</td>
+<td><strong>Valitse 10 sivua, päivitä otsikointi, title/meta, sisäinen linkitys ja asiantuntija-/ajanvarausohjaus.</strong></td>
+<td>Palvelusivut, oireet, sairaudet</td>
+<td>Viikoittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Viikoittain" data-priority="Korkea" data-type="Korjaa">
+<td class="num">2</td>
+<td><span class="label">Korjaa</span><strong>CTR-laskun hälytys</strong><small>Missä näkyvyys säilyy, mutta klikkiosuus heikkenee?</small></td>
+<td>GSC, SERP-kuvat / STAT SERP-piirteet</td>
+<td>Näyttökerrat ennallaan tai ylös, mutta CTR laskee kuukaudessa.</td>
+<td><strong>Tarkista SERP-kilpailu, title, meta description ja vastaako sivun otsikko hakijan tarkoitusta.</strong></td>
+<td>Top-sivut</td>
+<td>Viikoittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Viikoittain" data-priority="Korkea" data-type="Korjaa">
+<td class="num">3</td>
+<td><span class="label">Korjaa</span><strong>Ranking Drop Triage</strong><small>Mitkä tärkeät sivut putosivat orgaanisessa sijainnissa?</small></td>
+<td>GSC, STAT, Semrush kilpailijat</td>
+<td>Sijoitus laskee usealla tärkeällä termillä tai sivu menettää klikkejä useasta kyselystä.</td>
+<td><strong>Tarkista tekniset muutokset, sisällön vanheneminen, kilpailijoiden uudet sisällöt ja sisäinen linkitys.</strong></td>
+<td>Tärkeät palvelusivut</td>
+<td>Viikoittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Täydennä">
+<td class="num">4</td>
+<td><span class="label">Täydennä</span><strong>Hakutermin intentti vs sivun rooli</strong><small>Vastaako sivu oikeaan kysymykseen vai väärään intenttiin?</small></td>
+<td>GSC kyselyt, sivurooli, sisältöauditointi</td>
+<td>Sama sivu saa hakutermit useasta intentistä: ajanvaraus, oire, hinta, tutkimus, lääkäri.</td>
+<td><strong>Päätä: laajennetaanko sivua, tehdäänkö uusi tukisivu vai vahvistetaanko ohjaus olemassa olevaan sivuun.</strong></td>
+<td>Oire- ja palvelusivut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Uusi sivu">
+<td class="num">5</td>
+<td><span class="label">Uusi sivu</span><strong>Puuttuva sivu -kandidaatit</strong><small>Mistä teemoista saadaan kysyntää, mutta ei ole hyvää kohdesivua?</small></td>
+<td>GSC, Semrush keyword gap, STAT, sitemap</td>
+<td>Hakutermit ohjautuvat epätarkalle sivulle tai usealle sivulle ilman selvää pääkohdetta.</td>
+<td><strong>Luo sisältöehdotus uudelle sivulle tai päätä, mihin olemassa olevaan sivuun kysyntä keskitetään.</strong></td>
+<td>Uudet palvelu- ja oireaiheet</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Yhdistä">
+<td class="num">6</td>
+<td><span class="label">Yhdistä</span><strong>Kannibalisoinnin päätöslista</strong><small>Kilpailevatko omat sivut samasta orgaanisesta näkyvyydestä?</small></td>
+<td>GSC query-page, STAT landing page, sitemap</td>
+<td>Sama hakutermi tuo klikkejä usealle samankaltaiselle sivulle ja sijoitukset vaihtelevat.</td>
+<td><strong>Nimeä ensisijainen sivu, lisää sisäiset linkit, eriytä intentit tai yhdistä päällekkäinen sisältö.</strong></td>
+<td>Palvelu- ja artikkelisivut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Keskitaso" data-type="Tarkista">
+<td class="num">7</td>
+<td><span class="label">Tarkista</span><strong>SERP-piirteiden toimenpideraportti</strong><small>Mihin SERP-piirteisiin kannattaa vastata seuraavaksi?</small></td>
+<td>STAT SERP features, Semrush SERP, GSC</td>
+<td>Kilpailijoilla näkyy FAQ, local pack, video, featured snippet tai people also ask.</td>
+<td><strong>Muuta sivun rakennetta: lisää kysymys-vastaus, tiivis määritelmä, lista, taulukko tai paikallinen ohjaus.</strong></td>
+<td>Informatiiviset palvelusivut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-keskitaso">Keskitaso</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Täydennä">
+<td class="num">8</td>
+<td><span class="label">Täydennä</span><strong>Sisäisen linkityksen aukot</strong><small>Mitkä tärkeät sivut tarvitsevat enemmän sisäistä tukea?</small></td>
+<td>Sitemap, crawler, GSC, sivuluokittelu</td>
+<td>Sivulla on potentiaalia mutta vähän sisäisiä linkkejä tai linkit tulevat epärelevanteista kohdista.</td>
+<td><strong>Lisää 3–8 aiheellista linkkiä kattosivuilta, artikkelista ja läheisistä palvelusivuista.</strong></td>
+<td>Kattopalvelut, palvelusivut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Tarkista">
+<td class="num">9</td>
+<td><span class="label">Tarkista</span><strong>Kattosivun hyötyraportti</strong><small>Toimiiko kattosivu liikenteen jakajana oikeille palveluille?</small></td>
+<td>GSC, Piwik, sisäinen linkkigraafi</td>
+<td>Kattosivu saa näkyvyyttä mutta jatko-ohjaus tärkeille alasivuille on heikko.</td>
+<td><strong>Selkeytä linkkiryhmät, lisää pääpolut ja nosta asiantuntija-/ajanvarausvaihtoehdot näkyviin.</strong></td>
+<td>Kattopalvelut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Korjaa">
+<td class="num">10</td>
+<td><span class="label">Korjaa</span><strong>Vanhenemisen signaali</strong><small>Mitkä sivut menettävät näkyvyyttä todennäköisesti sisällön vanhenemisen takia?</small></td>
+<td>GSC trendi, CMS muokkauspäivä, Semrush kilpailijat</td>
+<td>Pitkä laskeva trendi, muuttunut SERP ja vanha sisältöpäivitys.</td>
+<td><strong>Päivitä sisältö, tarkista lääketieteellinen ajantasaisuus substanssin kanssa ja lisää viimeisin ohjaus.</strong></td>
+<td>Sairaus- ja hoitosivut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Priorisoi">
+<td class="num">11</td>
+<td><span class="label">Priorisoi</span><strong>Palvelusivujen business-prioriteetti</strong><small>Mitkä SEO-toimet vaikuttavat todennäköisimmin ajanvaraukseen?</small></td>
+<td>GSC, Piwik, ajanvaraus-/service ID -signaalit</td>
+<td>Näkyvyys- tai CTR-potentiaali yhdistyy sivuihin, joilla on selkeä booking-polku.</td>
+<td><strong>Nosta nämä sisällöntuotannon sprinttiin ennen puhtaasti informatiivisia sivuja.</strong></td>
+<td>Ajanvarattavat palvelut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Tarkista">
+<td class="num">12</td>
+<td><span class="label">Tarkista</span><strong>Google mainonnan data vs orgaaninen katve</strong><small>Missä maksettu haku ostaa näkyvyyttä, jota orgaaninen ei kata?</small></td>
+<td>Google mainonnan data search terms, GSC, Semrush</td>
+<td>mainonnan data-termit tuovat konversiopotentiaalia mutta orgaanisella ei ole vahvaa sivua tai sijoitusta.</td>
+<td><strong>Päätä: vahvistetaanko orgaaninen sivu, tehdään uusi sivu vai pidetään termi maksetun haun vastuulla.</strong></td>
+<td>Kaupalliset palvelut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Keskitaso" data-type="Tarkista">
+<td class="num">13</td>
+<td><span class="label">Tarkista</span><strong>Orgaanisen ja Adsien päällekkäisyys</strong><small>Missä maksettu haku ja orgaaninen näkyvyys kilpailevat turhaan?</small></td>
+<td>Google mainonnan data, GSC, Semrush</td>
+<td>Maksettu liikenne on kallista samalla termillä, jossa orgaaninen näkyvyys on jo vahva.</td>
+<td><strong>Tarkista voiko budjettia siirtää heikomman orgaanisen näkyvyyden alueille ilman kokonaiskysynnän menetystä.</strong></td>
+<td>Top-palvelut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-keskitaso">Keskitaso</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Korjaa">
+<td class="num">14</td>
+<td><span class="label">Korjaa</span><strong>Title- ja H1-poikkeamien lista</strong><small>Missä otsikkorakenne ei tue hakijan tarkoitusta?</small></td>
+<td>Crawler, CMS, GSC kyselyt</td>
+<td>Title, H1 ja query-intentti eivät vastaa toisiaan tai title on liian geneerinen.</td>
+<td><strong>Kirjoita uusi title/H1-malli sivutyypeittäin ja testaa tärkeimmillä sivuilla.</strong></td>
+<td>Kaikki palvelusivut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Keskitaso" data-type="Täydennä">
+<td class="num">15</td>
+<td><span class="label">Täydennä</span><strong>Meta-kuvauksen toimenpidelista</strong><small>Missä meta description voisi nostaa CTR:ää?</small></td>
+<td>Crawler, GSC CTR, SERP preview</td>
+<td>Paljon näyttökertoja, heikko CTR ja puuttuva/geneerinen meta description.</td>
+<td><strong>Kirjoita hyötylähtöinen meta, jossa on selkeä seuraava askel ilman lääketieteellisiä lisäväitteitä.</strong></td>
+<td>Top-sivut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-keskitaso">Keskitaso</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Keskitaso" data-type="Tarkista">
+<td class="num">16</td>
+<td><span class="label">Tarkista</span><strong>Strukturoidun datan aukot</strong><small>Missä schema voisi parantaa SERP-ymmärrystä?</small></td>
+<td>Crawler, schema validation, GSC enhancements</td>
+<td>Tärkeä sivutyyppi puuttuu sovitusta schema-mallista tai schema on rikki.</td>
+<td><strong>Lisää tai korjaa schema vain hyväksytyn sivutyypin mukaisesti ja varmista validointi.</strong></td>
+<td>FAQ, artikkelit, palvelut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-keskitaso">Keskitaso</span></td>
+</tr>
+<tr data-cadence="Viikoittain" data-priority="Korkea" data-type="Korjaa">
+<td class="num">17</td>
+<td><span class="label">Korjaa</span><strong>Indexability Quality Gate</strong><small>Mitkä tärkeät sivut eivät ole teknisesti löydettävissä tai indeksoitavissa?</small></td>
+<td>Crawler, sitemap, GSC indexing</td>
+<td>Sitemapissa oleva tärkeä sivu on noindex, canonical osoittaa muualle tai status on virheellinen.</td>
+<td><strong>Korjaa indeksoitavuus, canonical tai sitemap; älä muuta URL-logiikkaa ilman teknistä varmistusta.</strong></td>
+<td>Kaikki SEO-sivut</td>
+<td>Viikoittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Korjaa">
+<td class="num">18</td>
+<td><span class="label">Korjaa</span><strong>Canonical-ristiriitojen raportti</strong><small>Ohjaavatko canonicalit orgaanista näkyvyyttä väärälle sivulle?</small></td>
+<td>Crawler, GSC page data, CMS</td>
+<td>Sivu saa GSC-impressioita mutta canonical osoittaa epäloogiseen kohteeseen tai päinvastoin.</td>
+<td><strong>Tarkista URL-pari, sivun rooli ja päätä tekninen korjaus kehityksen kanssa.</strong></td>
+<td>Samankaltaiset palvelut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Korjaa">
+<td class="num">19</td>
+<td><span class="label">Korjaa</span><strong>Redirectien SEO-riskit</strong><small>Onko tärkeissä orgaanisissa poluissa turhia ohjauksia?</small></td>
+<td>Crawler, server status, GSC</td>
+<td>Tärkeä URL ohjaa ketjulla, 404:ään tai vaihtuneeseen sivuun ilman selkeää kohdetta.</td>
+<td><strong>Korjaa ohjausketju, päivitä sisäiset linkit ja varmista että GSC:n kohdesivu säilyy tarkoituksenmukaisena.</strong></td>
+<td>Vanha/uusi URL-rakenne</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Keskitaso" data-type="Tarkista">
+<td class="num">20</td>
+<td><span class="label">Tarkista</span><strong>Sivunopeuden SEO-vaikutuslista</strong><small>Missä hidas sivu voi heikentää orgaanista suoriutumista?</small></td>
+<td>CrUX, Lighthouse, GSC, Piwik</td>
+<td>Tärkeä sivu on hidas tai Core Web Vitals heikko samalla kun orgaaninen potentiaali on suuri.</td>
+<td><strong>Priorisoi kuvat, komponentit, JS ja layout shift -korjaukset sivutason vaikutuksen mukaan.</strong></td>
+<td>Top-palvelusivut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-keskitaso">Keskitaso</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Priorisoi">
+<td class="num">21</td>
+<td><span class="label">Priorisoi</span><strong>Kysynnän kausikalenteri</strong><small>Mitä sivuja pitää päivittää ennen hakupiikkiä?</small></td>
+<td>GSC 24 kk, Semrush trendit, STAT</td>
+<td>Sivulla on ennakoitava kausipiikki 4–8 viikon päässä.</td>
+<td><strong>Päivitä sisältö ja sisäinen linkitys ennen piikkiä; tee muistutus seuraaville vuosille.</strong></td>
+<td>Kausiluonteiset palvelut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Viikoittain" data-priority="Keskitaso" data-type="Tarkista">
+<td class="num">22</td>
+<td><span class="label">Tarkista</span><strong>Uuden sivun early signal</strong><small>Lähteekö uusi sivu keräämään oikeita hakusignaaleja?</small></td>
+<td>GSC, sitemap, CMS julkaisupäivä</td>
+<td>Uusi sivu saa näyttökertoja väärillä termeillä tai ei saa lainkaan signaalia 4–8 viikossa.</td>
+<td><strong>Tarkista indeksointi, sisäinen linkitys, title/H1 ja sisältöpolku.</strong></td>
+<td>Uudet sivut</td>
+<td>Viikoittain</td>
+<td><span class="priority priority-keskitaso">Keskitaso</span></td>
+</tr>
+<tr data-cadence="Viikoittain" data-priority="Korkea" data-type="Tarkista">
+<td class="num">23</td>
+<td><span class="label">Tarkista</span><strong>Päivitetyn sivun jälkiseuranta</strong><small>Toimiko tehty SEO-muutos?</small></td>
+<td>GSC, STAT, muutosloki</td>
+<td>Sivulla on kirjattu muutos ja seurantaikkuna on täyttynyt.</td>
+<td><strong>Päätä: pidetäänkö muutos, jatkokehitetäänkö vai palautetaanko osa muutoksista.</strong></td>
+<td>Muokatut sivut</td>
+<td>Viikoittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Korjaa">
+<td class="num">24</td>
+<td><span class="label">Korjaa</span><strong>No-content-match -raportti</strong><small>Missä hakutermit kertovat, että sivun sisältö ei vastaa odotusta?</small></td>
+<td>GSC kyselyt, sivun tekstisisältö, Semrush</td>
+<td>Kyselyissä toistuu teema, jota sivu ei käsittele tai käsittelee vain ohimennen.</td>
+<td><strong>Lisää selkeä osio, linkitä parempaan sivuun tai siirrä teema uudelle sivulle.</strong></td>
+<td>Oire- ja sairaussivut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Täydennä">
+<td class="num">25</td>
+<td><span class="label">Täydennä</span><strong>Asiantuntijaohjauksen SEO-lista</strong><small>Missä sivu tarvitsee selkeämmän hoitoa tarjoavan asiantuntijan?</small></td>
+<td>Sivuluokittelu, CMS, OSKU/ajanvaraus, GSC</td>
+<td>Sivu saa hoitoon liittyvää hakukysyntää mutta ei kerro selvästi kuka auttaa.</td>
+<td><strong>Lisää tai korjaa asiantuntijaohjaus substanssin hyväksynnällä; älä päättele lääketieteellistä suhdetta automaattisesti.</strong></td>
+<td>Hoito-, oire- ja sairaussivut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Täydennä">
+<td class="num">26</td>
+<td><span class="label">Täydennä</span><strong>Ajanvarauspolun katve</strong><small>Missä orgaaninen sivu tuo kysyntää, mutta booking-polku on epäselvä?</small></td>
+<td>GSC, Piwik, OSKU service ID, CMS</td>
+<td>Sivu saa kaupallista kysyntää, mutta selkeä palvelu-/ajanvarausohjaus puuttuu.</td>
+<td><strong>Päätä palvelu-ID tai ohjauspolku yhdessä palveluomistajan kanssa.</strong></td>
+<td>Ajanvarattavat palvelut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Keskitaso" data-type="Tarkista">
+<td class="num">27</td>
+<td><span class="label">Tarkista</span><strong>OSKU-samankaltaisten palveluiden laatu</strong><small>Vievätkö automaattiset lohkot käyttäjää väärään suuntaan?</small></td>
+<td>Live CMS, OSKU-lohkot, GSC sivuintentti</td>
+<td>Saman kategorian palvelut -lohko näyttää semanttisesti epäloogisia palveluita.</td>
+<td><strong>Liputa UX-/ristilinkityskorjaukseksi; älä käytä lohkoa taksonomian todisteena.</strong></td>
+<td>Palvelusivut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-keskitaso">Keskitaso</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Korjaa">
+<td class="num">28</td>
+<td><span class="label">Korjaa</span><strong>Luokittelemattomien SEO-vaikutus</strong><small>Missä puuttuva luokittelu estää raportointia ja priorisointia?</small></td>
+<td>GSC, nykyinen palvelusivuluokittelu, sitemap</td>
+<td>Paljon liikennettä tuova sivu on ilman erikoisalaa, palvelutyyppiä tai sivuroolia.</td>
+<td><strong>Lisää sivu luokittelun työjonoon ennen uusien automaatiosääntöjen käyttöönottoa.</strong></td>
+<td>Luokittelemattomat sivut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Korjaa">
+<td class="num">29</td>
+<td><span class="label">Korjaa</span><strong>Sivuroolin ristiriita</strong><small>Onko sivu luokiteltu väärään rooliin suhteessa hakukäyttäytymiseen?</small></td>
+<td>GSC queryt, luokittelumalli, CMS</td>
+<td>Sivu on luokiteltu palveluksi, mutta queryt ovat selvästi oire-/tietohaku- tai päinvastoin.</td>
+<td><strong>Tarkista sivurooli ja päätä, muuttuuko sisältö, luokittelu vai sisäinen linkitys.</strong></td>
+<td>Kaikki palvelusivut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Priorisoi">
+<td class="num">30</td>
+<td><span class="label">Priorisoi</span><strong>Erikoisalan kasvu-/laskudashboard</strong><small>Mihin erikoisalaan kannattaa kohdistaa sisältösprintti?</small></td>
+<td>GSC, sivuluokittelu, Semrush</td>
+<td>Erikoisala kasvaa/laskussa usean sivun kautta eikä yksittäisen poikkeaman vuoksi.</td>
+<td><strong>Tee erikoisalakohtainen mini-roadmap: päivitettävät sivut, uudet sivut, linkitys ja mittarit.</strong></td>
+<td>Erikoisalat</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Keskitaso" data-type="Tarkista">
+<td class="num">31</td>
+<td><span class="label">Tarkista</span><strong>Palvelutyypin kehitys</strong><small>Laskeeko jokin palvelutyyppi järjestelmällisesti?</small></td>
+<td>GSC, palvelutyyppi-luokittelu</td>
+<td>Tutkimukset, toimenpiteet, oireet tai asiantuntijasivut muuttuvat eri suuntiin.</td>
+<td><strong>Päätä sivutyyppikohtaiset korjaukset eikä yksittäisiä irrallisia tekstimuutoksia.</strong></td>
+<td>Sivutyypit</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-keskitaso">Keskitaso</span></td>
+</tr>
+<tr data-cadence="Kvartaaleittain" data-priority="Korkea" data-type="Täydennä">
+<td class="num">32</td>
+<td><span class="label">Täydennä</span><strong>Content hub -aukot</strong><small>Puuttuuko erikoisalalta käyttäjän polkua kokoavia sivuja?</small></td>
+<td>Sitemap, GSC, luokittelu, Semrush</td>
+<td>Useita yksittäisiä sivuja saa kysyntää ilman kokoavaa kattosivua.</td>
+<td><strong>Luo tai vahvista kattopalvelu, joka ohjaa oireesta, tutkimuksesta ja asiantuntijasta oikeaan jatkoon.</strong></td>
+<td>Kattopalvelut</td>
+<td>Kvartaaleittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Keskitaso" data-type="Tarkista">
+<td class="num">33</td>
+<td><span class="label">Tarkista</span><strong>Kilpailijan tuore sisältö</strong><small>Missä kilpailija on julkaissut paremman vastauksen?</small></td>
+<td>Semrush pages, SERP, GSC laskijat</td>
+<td>Oma sivu laskee samalla kun kilpailijalle ilmestyy uusi / päivitetty sivu.</td>
+<td><strong>Päivitä oma sisältö vastaamaan hakijan kysymystä paremmin, ei kopioiden kilpailijan rakennetta.</strong></td>
+<td>Tärkeät hakuteemat</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-keskitaso">Keskitaso</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Keskitaso" data-type="Tarkista">
+<td class="num">34</td>
+<td><span class="label">Tarkista</span><strong>Featured snippet -kandidaatit</strong><small>Missä olemme lähellä vastauslaatikkoa?</small></td>
+<td>STAT, Semrush, GSC</td>
+<td>Sijoitus 2–8 kyselyllä, jossa SERPissä on vastauslaatikko tai PAA.</td>
+<td><strong>Lisää selkeä tiivis vastaus, listaus tai taulukko sivulle ja tarkista lääketieteellinen tarkkuus.</strong></td>
+<td>Informatiiviset sivut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-keskitaso">Keskitaso</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Keskitaso" data-type="Täydennä">
+<td class="num">35</td>
+<td><span class="label">Täydennä</span><strong>Paikallisen orgaanisen näkyvyyden katve</strong><small>Missä palvelu näkyy haussa, mutta paikallinen jatkopolku puuttuu?</small></td>
+<td>GSC country/device, Google Business Profile, toimipaikkadata</td>
+<td>Hakukyselyissä on paikkasignaaleja, mutta sivu ei ohjaa toimipaikkaan tai alueeseen.</td>
+<td><strong>Lisää paikallinen ohjaus tai varmista toimipaikkasivujen linkitys relevantisti.</strong></td>
+<td>Toimipaikkaan liittyvät palvelut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-keskitaso">Keskitaso</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Keskitaso" data-type="Tarkista">
+<td class="num">36</td>
+<td><span class="label">Tarkista</span><strong>Mobiili- vs desktop-intentti</strong><small>Mitä sivuja pitää muuttaa mobiilikäytön perusteella?</small></td>
+<td>GSC device, Piwik device, CWV</td>
+<td>Mobiilin CTR, sijainti tai jatkopolku poikkeaa selvästi desktopista.</td>
+<td><strong>Tarkista mobiilin ensimmäinen ruutu, toimintopainike, linkit ja sisältöjärjestys.</strong></td>
+<td>Kaikki top-sivut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-keskitaso">Keskitaso</span></td>
+</tr>
+<tr data-cadence="Kvartaaleittain" data-priority="Keskitaso" data-type="Korjaa">
+<td class="num">37</td>
+<td><span class="label">Korjaa</span><strong>Hakukyselyiden kielipoikkeamat</strong><small>Löytyykö suomi/ruotsi/englanti-kysyntää väärältä sivulta?</small></td>
+<td>GSC queryt, kieliversiot, sitemap</td>
+<td>Vieraskielinen kysyntä osuu suomenkieliselle sivulle tai kieliversio ei löydy.</td>
+<td><strong>Tarkista kieliversiot, hreflang ja sisältötarve; älä automaattikäännä lääketieteellistä sisältöä.</strong></td>
+<td>Kieliversiot</td>
+<td>Kvartaaleittain</td>
+<td><span class="priority priority-keskitaso">Keskitaso</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Keskitaso" data-type="Korjaa">
+<td class="num">38</td>
+<td><span class="label">Korjaa</span><strong>FAQ/accordion -laadun vaikutus</strong><small>Auttavatko usein kysytyt kysymykset hakijaa vai kasvattavatko melua?</small></td>
+<td>GSC kyselyt, CMS, schema</td>
+<td>Sivulla on kysyntää FAQ-teemoille mutta vastaus puuttuu tai on liian geneerinen.</td>
+<td><strong>Lisää vain aidosti hyödylliset kysymykset ja varmista vastausten substanssi.</strong></td>
+<td>Sairaus- ja palvelusivut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-keskitaso">Keskitaso</span></td>
+</tr>
+<tr data-cadence="Viikoittain" data-priority="Korkea" data-type="Priorisoi">
+<td class="num">39</td>
+<td><span class="label">Priorisoi</span><strong>SEO Sprint Planner</strong><small>Mitä 10 toimenpidettä tehdään seuraavassa sprintissä?</small></td>
+<td>Kaikki raporttien signaalit</td>
+<td>Toimenpiteet pisteytetään vaikutuspotentiaalin, varmuuden ja työn koon mukaan.</td>
+<td><strong>Luo työlista: omistaja, deadline, todiste, hyväksymiskriteeri ja seurantaikkuna.</strong></td>
+<td>Koko SEO-roadmap</td>
+<td>Viikoittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr>
+<tr data-cadence="Kuukausittain" data-priority="Korkea" data-type="Seuraa">
+<td class="num">40</td>
+<td><span class="label">Seuraa</span><strong>Muutosloki + vaikutusraportti</strong><small>Mikä tehty muutos vaikutti orgaaniseen tulokseen?</small></td>
+<td>CMS muutosloki, GSC, STAT</td>
+<td>Sivumuutos yhdistyy myöhempään näkyvyys-, CTR- tai klikkimuutokseen.</td>
+<td><strong>Kirjaa opit: mikä kannattaa toistaa, mitä pitää välttää ja mitä seurataan pidempään.</strong></td>
+<td>Muokatut sivut</td>
+<td>Kuukausittain</td>
+<td><span class="priority priority-korkea">Korkea</span></td>
+</tr></tbody>
+</table></div>
+<div class="matrix-footer"><span id="result-count">Näytetään 40 ideaa.</span><button id="reset" type="button">Tyhjennä suodattimet</button></div>
+</section>
+<section aria-labelledby="moon-heading" class="section" id="moonshot">
+<div class="section-head"><p class="eyebrow">Moonshot</p><h2 id="moon-heading">Pidempään kehitykseen</h2><p>Nämä ovat suurempia automaatio- ja työjonokonsepteja. Niitä ei pidä toteuttaa ennen kuin datalähteet, audit trail ja päätösvastuut on määritelty.</p></div>
+<div class="moon-grid"><article class="moon"><h3>SEO Control Tower</h3><p>Yhdistää GSC-, STAT-, Semrush-, crawler-, julkaisujärjestelmä- ja muutoslokisignaalit yhdeksi päivittäiseksi päätösjonoksi.</p><p><strong>Seuraavaksi: yksi työjono, jossa jokaisella rivillä on ehdotettu omistaja ja hyväksymiskriteeri.</strong></p></article>
+<article class="moon"><h3>Automaattinen sivun tarkoitus -tarkistin</h3><p>Mallintaa, onko sivu oire-, sairaus-, tutkimus-, hoito-, toimenpide- vai asiantuntijasivu suhteessa hakukyselyihin.</p><p><strong>Seuraavaksi: read-only ristiriitalista, ei automaattisia muutoksia.</strong></p></article>
+<article class="moon"><h3>SERP Twin</h3><p>Tallentaa tärkeiden hakutermien SERP-näkymän ja vertaa sitä sivun rakenteeseen.</p><p><strong>Seuraavaksi: ehdota rakenne-elementtiä: määritelmä, lista, taulukko, FAQ tai paikallinen ohjaus.</strong></p></article>
+<article class="moon"><h3>Kilpailijan julkaisuhälytin</h3><p>Havaitsee, kun kilpailija julkaisee uuden sivun juuri meidän laskeneeseen teemaan.</p><p><strong>Seuraavaksi: sisältöehdotus sisältöpäivitykseen ja sisäisen linkityksen korjaukseen.</strong></p></article>
+<article class="moon"><h3>SEO-sprintin automaattinen ROI-arvio</h3><p>Pisteyttää toimenpiteet näkyvyyspotentiaalin, sivun liiketoimintaroolin ja toteutustyön mukaan.</p><p><strong>Seuraavaksi: priorisointinäkymä esihenkilölle ja Content/UX/Dev-työjonoon.</strong></p></article>
+<article class="moon"><h3>Hakukysynnän ennakkovaroitin</h3><p>Ennustaa kausipiikit ja muistuttaa sivujen päivityksestä ennen kysynnän nousua.</p><p><strong>Seuraavaksi: vuosikello tärkeimmille palveluille.</strong></p></article>
+<article class="moon"><h3>Ajanvarauspolun semanttinen tarkistus</h3><p>Tarkistaa, onko orgaaniselta sivulta looginen polku oikeaan asiantuntijaan tai palveluun.</p><p><strong>Seuraavaksi: epävarmuusmerkintä ja manuaalinen tarkistus, ei lääketieteellistä automaatiota.</strong></p></article>
+<article class="moon"><h3>Content Graph for SEO</h3><p>Rakentaa palvelusivujen, oireiden, sairauksien, asiantuntijoiden ja ajanvarauspalveluiden suhdeverkon.</p><p><strong>Seuraavaksi: löydä puuttuvat linkit, epäloogiset suhteet ja vahvistettavat hubit.</strong></p></article>
+<article class="moon"><h3>Title/meta experimentation pipeline</h3><p>Luo matalan riskin CTR-testijonon title- ja meta-muutoksille ilman A/B-testialustaa.</p><p><strong>Seuraavaksi: ennen/jälkeen-seuranta GSC:ssä ja muutoslokissa.</strong></p></article>
+<article class="moon"><h3>Organic-to-paid handoff</h3><p>Näyttää automaattisesti milloin orgaaninen näkyvyys on liian heikko ja maksettu haku kannattaa aktivoida väliaikaisesti.</p><p><strong>Seuraavaksi: yhteinen mainonnan data + SEO päätösmatriisi.</strong></p></article>
+<article class="moon"><h3>Substance-safe rewrite assistant</h3><p>Ehdottaa sivun rakenteen ja microcopyn parannuksia muuttamatta lääketieteellistä merkitystä.</p><p><strong>Seuraavaksi: aina substanssihyväksyntä ja muutosdiffi.</strong></p></article>
+<article class="moon"><h3>Automaattinen sisältöehdotusten muodostaja</h3><p>Muodostaa sisältöehdotuksen GSC-, Semrush-, STAT- ja sivuluokitteludatasta.</p><p><strong>Seuraavaksi: sisältöehdotus sisältää lähdedatan, tulkinnan, rajaukset ja seuraavat toimet erillään.</strong></p></article></div>
+</section>
+<section aria-labelledby="method-heading" class="section" id="methodology">
+<div class="section-head"><p class="eyebrow">Metodologia</p><h2 id="method-heading">Miten tätä luetaan?</h2></div>
+<div class="method">
+<article><h3>Lähdedata</h3><p>Ideat perustuvat mahdollisiin lähteisiin: Google Search Console, Semrush, STAT, Google mainonnan data, crawler, sitemap, CMS, sivuluokittelu, Piwik ja OSKU/ajanvaraus-signaalit. Tämä tiedosto ei sisällä oikeita tuloslukuja.</p></article>
+<article><h3>Laskettu arvo</h3><p>Raportti-ideat kuvaavat mahdollisia laskentoja, kuten CTR-poikkeama, sijoitusmuutos, query-page-hajonta, sisäisen linkityksen aukko tai luokittelun kattavuus. Varsinainen laskenta määritellään toteutusvaiheessa.</p></article>
+<article><h3>Tulkinta</h3><p>Tulkinta on aina sääntöpohjainen tarkistusvihje. Se ei todista juurisyytä eikä tee lääketieteellistä päätelmää.</p></article>
+<article><h3>Suositus</h3><p>Suositus on seuraava manuaalinen tai operatiivinen työvaihe: tarkista, korjaa, täydennä, yhdistä, priorisoi tai seuraa.</p></article>
+</div>
+</section>
+</main>
+<footer>
+<span>Esimerkkiorganisaatio · Orgaaninen näkyvyys · HTML-raportti-ideamatriisi</span>
+<span>Self-contained HTML: logo ja järjestelmäfontit upotettu tiedostoon.</span>
+</footer>
+</div>
+<script>
+(function(){
+  const table = document.getElementById('idea-table');
+  const rows = Array.from(table.querySelectorAll('tbody tr'));
+  const q = document.getElementById('q');
+  const type = document.getElementById('type');
+  const priority = document.getElementById('priority');
+  const cadence = document.getElementById('cadence');
+  const result = document.getElementById('result-count');
+  const reset = document.getElementById('reset');
+  function normalize(value){ return (value || '').toString().toLocaleLowerCase('fi-FI').trim(); }
+  function apply(){
+    const query = normalize(q.value);
+    const t = type.value;
+    const p = priority.value;
+    const c = cadence.value;
+    let visible = 0;
+    rows.forEach(row => {
+      const textMatch = !query || normalize(row.textContent).includes(query);
+      const typeMatch = !t || row.dataset.type === t;
+      const priorityMatch = !p || row.dataset.priority === p;
+      const cadenceMatch = !c || row.dataset.cadence === c;
+      const show = textMatch && typeMatch && priorityMatch && cadenceMatch;
+      row.hidden = !show;
+      if(show) visible += 1;
+    });
+    result.textContent = 'Näytetään ' + visible + ' ideaa.';
+  }
+  [q,type,priority,cadence].forEach(el => el.addEventListener('input', apply));
+  reset.addEventListener('click', () => { q.value=''; type.value=''; priority.value=''; cadence.value=''; apply(); q.focus(); });
+  apply();
+})();
+</script>
+</body>
+</html>

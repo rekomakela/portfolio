@@ -215,6 +215,10 @@
       line-height: var(--leading-relaxed);
     }
 
+    .lead + .lead {
+      margin-top: var(--space-3);
+    }
+
     .hero-actions {
       display: flex;
       align-items: center;
@@ -705,26 +709,28 @@
         <div class="hero-mark" aria-hidden="true">RM</div>
         <p class="eyebrow">Portfolio ja CV</p>
         <h1>Reko Mäkelä</h1>
-        <p class="hero-role">Hakukoneoptimointi, konversio-optimointi, analytiikka, sisältötyö ja tekoälyavusteiset työnkulut</p>
+        <p class="hero-role">Hakukoneoptimoinnin ja analytiikkavetoisen sivustokehityksen asiantuntija</p>
         <p class="lead">
-          Autan kehittämään sivustoja, jotka löytyvät paremmin, ohjaavat käyttäjää selkeämmin ja
-          tukevat parempaa päätöksentekoa.
+          Autan muuttamaan hajanaisen datan ja havainnot selkeiksi kehityspäätöksiksi. Rakennan työpohjia ja
+          prosesseja, joiden avulla tiimit tunnistavat tärkeimmät sivusto-, sisältö- ja käyttäjäpolkujen
+          kehityskohteet ja vievät ne nopeammin käytäntöön.
         </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#paanayte">Katso työnäyte</a>
-        </div>
+        <p class="lead">
+          Yhdistän hakukoneoptimoinnin, analytiikan, konversio-optimoinnin ja AI-avusteiset työnkulut niin, että
+          kehitystyö on paremmin priorisoitua, toistettavaa ja mitattavaa.
+        </p>
       </div>
 
       <aside class="hero-contact-card" aria-label="Yhteystiedot">
         <h2 class="hero-contact-title">Yhteystiedot</h2>
         <ul class="hero-contact">
           <li>
-            <span class="hero-contact-label">Sijainti</span>
-            Helsinki, Suomi
+            <span class="hero-contact-label">CV</span>
+            <a href="cv.html">Avaa CV</a>
           </li>
           <li>
             <span class="hero-contact-label">Sähköposti</span>
-            <a href="mailto:reko.makela@gmail.com">reko.makela@gmail.com</a>
+            <a href="mailto:reko.makela@gmail.com">Lähetä sähköposti</a>
           </li>
           <li>
             <span class="hero-contact-label">LinkedIn</span>
@@ -733,8 +739,8 @@
             </a>
           </li>
           <li>
-            <span class="hero-contact-label">CV</span>
-            <a href="cv.html">Avaa CV</a>
+            <span class="hero-contact-label">Sijainti</span>
+            Helsinki, Suomi
           </li>
         </ul>
       </aside>
@@ -745,7 +751,7 @@
         <div class="featured-copy">
           <h3>Content Ops Platform</h3>
           <p>
-            Paikallinen työtila palvelusivujen, sivutyyppien ja hakukysynnän tarkistamiseen.
+            Paikallinen työtila, jossa hakukysyntä, sivuhavainnot ja priorisointi kulkevat yhdessä.
           </p>
           <div class="featured-facts" aria-label="Työnäytön tiivistelmä">
             <div class="featured-fact">
@@ -754,11 +760,11 @@
             </div>
             <div class="featured-fact">
               <strong>Ratkaisu</strong>
-              <span>Työjono, jossa valittu sivu, havainnot ja priorisointi näkyvät yhdessä.</span>
+              <span>Työtila kokoaa valitun sivun, havainnot ja priorisoinnin yhteen päätöstä tukevaan näkymään.</span>
             </div>
             <div class="featured-fact">
               <strong>Hyöty</strong>
-              <span>Nopeampi priorisointi, vähemmän hajanaista selvittelyä ja selkeämpi seuraava askel.</span>
+              <span>Seuraavat kehitystoimet on helpompi valita, perustella ja muuttaa työjonoksi.</span>
             </div>
           </div>
           <div class="action-row">
@@ -793,45 +799,51 @@
     <section class="section">
       <div class="section-head">
         <div>
-          <h2>Muut työnäytteet</h2>
+          <h2>Käytännön työnäytteitä</h2>
+          <p>Kolme avattavaa näkymää, joissa hakukysyntä, analytiikka, priorisointi ja palautetieto muuttuvat käytännön kehitykseksi.</p>
         </div>
       </div>
 
       <div class="demo-grid">
         <article class="demo-card">
-          <span class="tag">AI</span>
-          <h3>AIAuditLab</h3>
+          <span class="tag">Sivustokehitys</span>
+          <h3>Sivustokehityksen backlog ja priorisointimalli</h3>
           <p>
-            AI-näkyvyyden, promptipohjien, vastausten ja löydösten hallintaan tarkoitettu työtila.
+            Kokoaa hajanaiset sivusto-, sisältö- ja raportointitarpeet yhdeksi priorisoiduksi työjonoksi ja seuraaviksi toimenpiteiksi.
+          </p>
+          <p>
+            Osoittaa, miten epäselvästä kokonaisuudesta tehdään näkyvämpi, helpommin johdettava ja tiimin päätöksiä tukeva malli.
           </p>
           <div class="demo-links">
-            <a class="btn-link" href="case-studies/ai-audit-lab/">Avaa AIAuditLab-työnäyte</a>
-            <a class="btn-link" href="scenarios/ai-audit-lab-scenario.md">Käyttöskenaario</a>
-            <a class="btn-link" href="demos/01-ai-audit-lab/">Demo-kuvaus</a>
+            <a class="btn-link" href="work-samples/sanitized-html/02-sivustokehityksen-backlog-ja-priorisointimalli.html">Avaa sanitoitu demo</a>
           </div>
         </article>
 
         <article class="demo-card">
-          <span class="tag">SEO ja haku</span>
-          <h3>SearchAudit</h3>
+          <span class="tag">Hakukoneoptimointi</span>
+          <h3>Orgaanisen näkyvyyden raportti- ja työjonemalli</h3>
           <p>
-            Sisäisen haun hakutermien, kohdesivujen ja tarkistustilojen käsittelyyn.
+            Muuttaa hakukysynnän, sivuhavainnot ja analytiikan tarkistuksiksi, työlistoiksi ja priorisoiduiksi seuraaviksi toimenpiteiksi.
+          </p>
+          <p>
+            Osoittaa, miten hakukoneoptimointi, analytiikka ja automaatioajattelu voidaan yhdistää niin, että raportointi tukee tekemistä.
           </p>
           <div class="demo-links">
-            <a class="btn-link" href="demos/03-search-audit/">Avaa SearchAudit-työnäyte</a>
-            <a class="btn-link" href="scenarios/search-audit-scenario.md">Käyttöskenaario</a>
+            <a class="btn-link" href="work-samples/sanitized-html/03-orgaanisen-nakyvyyden-raportti-ja-tyojonomalli.html">Avaa sanitoitu demo</a>
           </div>
         </article>
 
         <article class="demo-card">
-          <span class="tag">Analytiikka</span>
-          <h3>Piwik PRO Workspace</h3>
+          <span class="tag">Käyttäjäpolut</span>
+          <h3>Feedback Workspace</h3>
           <p>
-            Käyttäjäpolkujen, pudotuskohtien ja prioriteettien mallintamiseen tarkoitettu työtila.
+            Kevyt palautetyöpöytä, joka auttaa rajaamaan palautteita, tunnistamaan toistuvia aiheita ja tarkistamaan yksittäisiä havaintoja.
+          </p>
+          <p>
+            Osoittaa, miten laadullinen palaute voidaan muuttaa jäsennellyksi analyysiksi ja käyttäjäpolkujen kehittämisen tueksi.
           </p>
           <div class="demo-links">
-            <a class="btn-link" href="demos/04-piwik-pro-workspace/">Avaa Piwik PRO Workspace -työnäyte</a>
-            <a class="btn-link" href="scenarios/piwik-pro-workspace-scenario.md">Käyttöskenaario</a>
+            <a class="btn-link" href="work-samples/sanitized-html/04-feedback-workspace.html">Avaa sanitoitu demo</a>
           </div>
         </article>
       </div>
