@@ -94,3 +94,7 @@ Tämän koosterepon seuraavat vaiheet:
 - [Content Ops Platform scenario](scenarios/content-ops-platform-scenario.md)
 - [SearchAudit scenario](scenarios/search-audit-scenario.md)
 - [Piwik PRO Workspace scenario](scenarios/piwik-pro-workspace-scenario.md)
+
+## Case studies
+
+- [AIAuditLab case study](case-studies/ai-audit-lab/README.md)
