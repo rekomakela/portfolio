@@ -98,3 +98,5 @@ Tämän koosterepon seuraavat vaiheet:
 ## Case studies
 
 - [AIAuditLab case study](case-studies/ai-audit-lab/README.md)
+
+- [Content Ops Platform case study](case-studies/content-ops-platform/README.md)
