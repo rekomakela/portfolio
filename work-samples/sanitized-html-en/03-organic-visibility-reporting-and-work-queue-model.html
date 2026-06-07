@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Organic Visibility Reporting and Work-Queue Model – sanitized portfolio demo</title>
+<style>
+
+
+
+
+
+
+
+
+
+:root{
+  --jarvi:#0046AD;
+  --mustikka:#1A244A;
+  --hiili:#212322;
+  --jaa:#E8EDEE;
+  --tupasvilla:#FFFFFF;
+  --knew:#007672;
+  --hilla:#FCD757;
+  --puolukkapuuro:#F09591;
+  --kanerva:#8246AF;
+  --villivadelma:#CE0F69;
+  --muted:#5B6470;
+  --border:#D7DFE5;
+  --border-strong:#AEBCC8;
+  --font-display:system-ui,system-ui,Calibri,Arial,sans-serif;
+  --font-sans:system-ui,Calibri,Arial,sans-serif;
+  --font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:#fff}
+body{margin:0;background:#fff;color:var(--hiili);font-family:var(--font-sans);font-weight:400;line-height:1.52;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--jarvi)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--hilla);outline-offset:3px}
+.wrap{max-width:1280px;margin:0 auto;padding:42px 44px 56px;background:#fff}
+.brand-row{display:flex;align-items:flex-start;justify-content:space-between;gap:28px;margin-bottom:44px;border-bottom:1px solid var(--border);padding-bottom:24px;background:#fff}
+.logo-box{width:218px;min-width:180px;background:#fff}
+.brand-logo{display:block;width:100%;height:auto;background:#fff}
+.meta{text-align:right;font-size:13px;color:var(--muted);background:#fff}
+.meta strong{display:block;color:var(--mustikka);font-weight:700}
+.hero{display:block;max-width:860px;margin-bottom:36px;background:#fff}
+.eyebrow{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--jarvi);font-weight:700;margin:0 0 16px;background:#fff}
+h1{font-family:var(--font-display);font-weight:900;color:var(--jarvi);font-size:clamp(44px,7vw,86px);letter-spacing:-.035em;line-height:.92;margin:0 0 24px;max-width:10.6ch;background:#fff}
+.lead{font-size:20px;line-height:1.42;max-width:760px;margin:0 0 20px;color:var(--hiili);font-weight:300;background:#fff}
+.lead strong{font-weight:700;color:var(--hiili)}
+.principles{border-left:5px solid var(--jarvi);padding-left:22px;background:#fff}
+.principles h2{font-family:var(--font-display);font-size:34px;line-height:.95;color:var(--jarvi);margin:0 0 14px;font-weight:900;background:#fff}
+.principles p{margin:0 0 12px;color:var(--hiili);background:#fff}
+.principles dl{display:grid;grid-template-columns:104px 1fr;gap:8px 14px;margin:18px 0 0;background:#fff}
+.principles dt{font-weight:700;color:var(--mustikka);background:#fff}
+.principles dd{margin:0;color:var(--hiili);background:#fff}
+.notice{border:1px solid var(--border);border-left:5px solid var(--mustikka);padding:16px 18px;margin:24px 0 0;background:#fff}
+.notice p{margin:0;font-size:14px;color:var(--hiili);background:#fff}
+.nav{display:flex;flex-wrap:wrap;gap:10px;margin:30px 0 38px;background:#fff}
+.nav a{display:inline-flex;align-items:center;min-height:38px;padding:7px 14px;border:1px solid var(--border);text-decoration:none;color:var(--mustikka);font-weight:700;font-size:14px;background:#fff}
+.nav a:hover{border-color:var(--jarvi);color:var(--jarvi)}
+.section{margin:44px 0;background:#fff}
+.section-head{margin:0 0 18px;background:#fff}
+.section-head h2{font-family:var(--font-display);font-weight:900;color:var(--jarvi);font-size:42px;line-height:.96;letter-spacing:-.02em;margin:0 0 8px;background:#fff}
+.section-head p{font-size:15px;color:var(--muted);max-width:860px;margin:0;background:#fff}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;background:#fff}
+.kpi{border:1px solid var(--border);border-top:5px solid var(--jarvi);padding:22px;background:#fff}
+.kpi-value{font-family:var(--font-display);font-size:46px;line-height:.9;color:var(--jarvi);font-weight:900;background:#fff}
+.kpi-label{font-weight:700;color:var(--mustikka);margin-top:10px;background:#fff}
+.kpi p{font-size:14px;color:var(--muted);margin:8px 0 0;background:#fff}
+.next-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;background:#fff}
+.next-card{border:1px solid var(--border);padding:20px;background:#fff}
+.next-card span{display:inline-flex;width:32px;height:32px;align-items:center;justify-content:center;border:2px solid var(--jarvi);color:var(--jarvi);font-weight:900;margin-bottom:16px;background:#fff}
+.next-card h3{margin:0 0 8px;color:var(--mustikka);font-size:18px;line-height:1.16;background:#fff}
+.next-card p{margin:0;color:var(--muted);font-size:14px;background:#fff}
+.controls{display:grid;grid-template-columns:minmax(280px,1.2fr) repeat(3,minmax(150px,.6fr));gap:12px;margin:18px 0 18px;align-items:end;background:#fff}
+.control label{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;margin-bottom:6px;background:#fff}
+input,select{width:100%;height:42px;border:1px solid var(--border-strong);padding:8px 10px;background:#fff;color:var(--hiili);font:inherit;border-radius:0}
+button{height:42px;border:1px solid var(--jarvi);background:#fff;color:var(--jarvi);font-family:var(--font-sans);font-weight:700;padding:0 14px;cursor:pointer;border-radius:0}
+button:hover{border-color:var(--mustikka);color:var(--mustikka)}
+.table-wrap{border:1px solid var(--border);overflow:auto;background:#fff}
+table{width:100%;min-width:1180px;border-collapse:collapse;background:#fff;font-size:13px}
+caption{text-align:left;padding:14px 16px;color:var(--muted);border-bottom:1px solid var(--border);background:#fff}
+th,td{border-bottom:1px solid var(--border);padding:13px 14px;vertical-align:top;background:#fff}
+th{text-align:left;font-size:11px;letter-spacing:.075em;text-transform:uppercase;color:var(--mustikka);font-weight:700;background:#fff;white-space:nowrap}
+td.num,th.num{text-align:right;font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+td strong{display:block;color:var(--hiili);font-weight:700;margin-bottom:5px;background:#fff}
+td small{display:block;color:var(--muted);line-height:1.35;background:#fff}
+.label,.priority{display:inline-flex;align-items:center;border:1px solid var(--border-strong);font-weight:700;font-size:11px;letter-spacing:.03em;color:var(--jarvi);padding:2px 6px;margin:0 0 8px;background:#fff}
+.priority-korkea{border-color:var(--jarvi);color:var(--jarvi)}
+.priority-medium{border-color:var(--knew);color:var(--knew)}
+.priority-low{border-color:var(--mustikka);color:var(--mustikka)}
+.matrix-footer{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:13px;color:var(--muted);margin-top:12px;background:#fff}
+.moon-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;background:#fff}
+.moon{border:1px solid var(--border);border-left:5px solid var(--mustikka);padding:18px;background:#fff}
+.moon h3{font-size:18px;line-height:1.15;color:var(--mustikka);margin:0 0 9px;background:#fff}
+.moon p{font-size:14px;color:var(--hiili);margin:0 0 8px;background:#fff}
+.method{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;background:#fff}
+.method article{border:1px solid var(--border);padding:20px;background:#fff}
+.method h3{font-size:18px;color:var(--mustikka);margin:0 0 10px;background:#fff}
+.method p,.method li{font-size:14px;color:var(--hiili);background:#fff}
+ul{padding-left:20px;margin:8px 0 0;background:#fff}
+footer{border-top:1px solid var(--border);padding-top:20px;margin-top:50px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:12px;background:#fff}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:1040px){.hero{grid-template-columns:1fr;gap:28px}.kpis,.next-grid,.moon-grid,.method{grid-template-columns:1fr 1fr}.controls{grid-template-columns:1fr 1fr}.meta{text-align:left}}
+@media(max-width:680px){.wrap{padding:24px 18px 40px}.brand-row{flex-direction:column;margin-bottom:28px}.logo-box{width:180px}h1{font-size:48px}.lead{font-size:18px}.kpis,.next-grid,.moon-grid,.method,.controls{grid-template-columns:1fr}.section-head h2{font-size:34px}.principles dl{grid-template-columns:1fr}}
+@media print{.wrap{max-width:none;padding:0}.nav,.controls{display:none}.brand-row,.section,footer{break-inside:avoid}.moon,.kpi,.next-card,.method article{break-inside:avoid}table{min-width:0;font-size:10px}th,td{padding:8px}a{text-decoration:none;color:inherit}}
+</style>
+<style>
+.portfolio-sanitized-note{
+  margin:16px auto;
+  max-width:1120px;
+  padding:12px 16px;
+  border:1px solid rgba(96,165,250,.35);
+  border-radius:14px;
+  background:rgba(15,23,42,.72);
+  color:#dbeafe;
+  font:500 14px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.sanitized-logo-box{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:8px 14px;
+  border:1px solid currentColor;
+  border-radius:999px;
+  font:700 13px/1.2 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:inherit;
+  opacity:.85;
+}
+</style></head>
+<body><div class="portfolio-sanitized-note">Sanitized portfolio demo: customer, brand, URL and personal data have been removed or replaced with example content.</div>
+<div class="wrap">
+<header class="brand-row" role="banner">
+<div class="logo-box" aria-label="Sanitized example organization">Portfolio Demo</div>
+<div class="meta"><strong>Website improvement / SEO</strong><span>HTML reporting idea matrix · organic visibility</span></div>
+</header>
+<main>
+<section aria-labelledby="title" class="hero">
+<div>
+<h1 id="title">Organic visibility idea matrix</h1>
+<p class="lead"><strong>Each report is designed to answer one decision question:</strong> what should happen next to improve organic visibility and the related pages?</p>
+<div class="notice"><p><strong>Scope:</strong> the ideas do not change facts, numbers or medical meaning. The reports surface worklists, checks and prioritization based on GSC, Semrush, STAT, advertising, crawler, publishing-system and page-classification data.</p></div>
+</div>
+</section>
+<nav aria-label="Report sections" class="nav">
+<a href="#summary">Summary</a>
+<a href="#first">First reports</a>
+<a href="#matrix">Matrix</a>
+<a href="#moonshot">Moonshot</a>
+<a href="#methodology">Methodology</a>
+</nav>
+<section aria-labelledby="summary-heading" class="section" id="summary">
+<div class="section-head"><p class="eyebrow">Summary</p><h2 id="summary-heading">What should be done first?</h2><p>The most useful way to start is to build a decision queue first, not add more passive dashboards.</p></div>
+<div class="kpis"><article class="kpi"><div class="kpi-value">38</div><div class="kpi-label">concrete report ideas</div><p>All ideas are limited to organic visibility and page-level actions.</p></article>
+<article class="kpi"><div class="kpi-value">12</div><div class="kpi-label">moonshot ideas</div><p>For longer-term automation and work-queue development.</p></article>
+<article class="kpi"><div class="kpi-value">100 %</div><div class="kpi-label">decision-led</div><p>Each idea asks: what should be done next based on this?</p></article></div>
+</section>
+<section aria-labelledby="first-heading" class="section" id="first">
+<div class="section-head"><p class="eyebrow">Recommended start</p><h2 id="first-heading">First four reports</h2><p>These build the foundation: first the work queue, then page-level optimization, visibility protection and classification quality.</p></div>
+<div class="next-grid"><article class="next-card"><span>1</span><h3>SEO Sprint Planner</h3><p>Brings individual reporting signals into one execution queue.</p></article>
+<article class="next-card"><span>2</span><h3>GSC Opportunity Worklist</h3><p>Antaa nopeimmin page-level optimointikohteet.</p></article>
+<article class="next-card"><span>3</span><h3>Ranking Drop Triage</h3><p>Protects the most important service pages from visibility loss.</p></article>
+<article class="next-card"><span>4</span><h3>Unclassified SEO impact</h3><p>Fix raportoinnin ja prioritizennin perustaa.</p></article></div>
+</section>
+<section aria-labelledby="matrix-heading" class="section" id="matrix">
+<div class="section-head"><p class="eyebrow">Matrix</p><h2 id="matrix-heading">Automated HTML reporting ideas</h2><p>Filter reports by task type, priority or cadence. Interactions do not save anything.</p></div>
+<div aria-label="Matrixn suodattimet" class="controls">
+<div class="control"><label for="q">Search</label><input placeholder="Search a report, data source or next action" id="q" type="search"/></div>
+<div class="control"><label for="type">Task</label><select id="type"><option value="">All</option><option>Complete</option><option>Fix</option><option>Review</option><option>New page</option><option>Merge</option><option>Prioritize</option><option>Track</option></select></div>
+<div class="control"><label for="priority">Priority</label><select id="priority"><option value="">All</option><option>High</option><option>Medium</option><option>Low</option></select></div>
+<div class="control"><label for="cadence">Cadence</label><select id="cadence"><option value="">All</option><option>Weekly</option><option>Monthly</option><option>Quarterly</option></select></div>
+</div>
+<div class="table-wrap"><table id="idea-table">
+<caption>Matrix: raportti-idea, decision question, source data, signaali ja next action.</caption>
+<thead><tr><th class="num" scope="col">#</th><th scope="col">Report and question</th><th scope="col">Data sources</th><th scope="col">Signal</th><th scope="col">What happens next?</th><th scope="col">Pages</th><th scope="col">Cadence</th><th scope="col">Priority</th></tr></thead>
+<tbody><tr data-cadence="Weekly" data-priority="High" data-type="Complete">
+<td class="num">1</td>
+<td><span class="label">Complete</span><strong>GSC Opportunity Worklist</strong><small>Which pages are close to a clearly better organic result?</small></td>
+<td>GSC page + query, Semrush volume, STAT ranking</td>
+<td>The pages have a lot of impressions, rank 4–15 or CTR below the level typical for their page type.</td>
+<td><strong>Select 10 pages and update titles, title/meta, internal linking and specialist/booking guidance.</strong></td>
+<td>Service pages, symptoms, diseases</td>
+<td>Weekly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Weekly" data-priority="High" data-type="Fix">
+<td class="num">2</td>
+<td><span class="label">Fix</span><strong>CTR decline alert</strong><small>Where does visibility remain stable but click share weakens?</small></td>
+<td>GSC, SERP screenshots / STAT SERP features</td>
+<td>Impressions are flat or up, but CTR drops month over month.</td>
+<td><strong>Review SERP-kilpailu, title, meta description ja vastaako pagen otsikko searcher’s purposeta.</strong></td>
+<td>Top pages</td>
+<td>Weekly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Weekly" data-priority="High" data-type="Fix">
+<td class="num">3</td>
+<td><span class="label">Fix</span><strong>Ranking Drop Triage</strong><small>Which important pages dropped in organic position?</small></td>
+<td>GSC, STAT, Semrush competitort</td>
+<td>The ranking drops for several important terms or the page loses clicks from multiple queries.</td>
+<td><strong>Review technical changes, content freshness decay, competitors’ new content and internal linking.</strong></td>
+<td>Important service pages</td>
+<td>Weekly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="Complete">
+<td class="num">4</td>
+<td><span class="label">Complete</span><strong>Search term intent vs page role</strong><small>Does the page answer the right question or the wrong intent?</small></td>
+<td>GSC queries, page role, content audit</td>
+<td>The same page gets search terms from multiple intents: booking, symptom, price, study, doctor.</td>
+<td><strong>Decide: expand the page, create a new support page, or strengthen the guidance on the existing page.</strong></td>
+<td>Symptom and service pages</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="New page">
+<td class="num">5</td>
+<td><span class="label">New page</span><strong>Missing page candidates</strong><small>Which themes have demand but no good target page?</small></td>
+<td>GSC, Semrush keyword gap, STAT, sitemap</td>
+<td>Search terms route to an imprecise page or to several pages without a clear primary target.</td>
+<td><strong>Create a content recommendation for a new page or decide where the existing demand should be concentrated.</strong></td>
+<td>Uudet palvelu- ja symptomaiheet</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="Merge">
+<td class="num">6</td>
+<td><span class="label">Merge</span><strong>Cannibalization decision list</strong><small>Are our own pages competing for the same organic visibility?</small></td>
+<td>GSC query-page, STAT landing page, sitemap</td>
+<td>The same search term brings clicks to several similar pages and rankings fluctuate.</td>
+<td><strong>Name the primary page, add internal links, separate intents or merge overlapping content.</strong></td>
+<td>Service and article pages</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="Medium" data-type="Review">
+<td class="num">7</td>
+<td><span class="label">Review</span><strong>SERP feature action report</strong><small>Which SERP features should we respond to next?</small></td>
+<td>STAT SERP features, Semrush SERP, GSC</td>
+<td>Competitors show FAQ, local pack, video, featured snippets or people also ask.</td>
+<td><strong>Change the page structure: add a Q&A block, a concise definition, a list, a table or local guidance.</strong></td>
+<td>Informational service pages</td>
+<td>Monthly</td>
+<td><span class="priority priority-medium">Medium</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="Complete">
+<td class="num">8</td>
+<td><span class="label">Complete</span><strong>Internal linking gaps</strong><small>Which important pages need more internal support?</small></td>
+<td>Sitemap, crawler, GSC, page classification</td>
+<td>The page has potential but few internal links or links from irrelevant places.</td>
+<td><strong>Add 3–8 relevant links from hub pages, articles and nearby service pages.</strong></td>
+<td>Hub services, service pages</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="Review">
+<td class="num">9</td>
+<td><span class="label">Review</span><strong>Top-page benefit report</strong><small>Does the hub page act as a traffic distributor to the right services?</small></td>
+<td>GSC, Piwik, internal link graph</td>
+<td>The hub page gets visibility, but follow-up guidance to important subpages is weak.</td>
+<td><strong>Clarify link groups, add main paths and surface specialist/booking options.</strong></td>
+<td>Kattopalvelut</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="Fix">
+<td class="num">10</td>
+<td><span class="label">Fix</span><strong>Freshness decay signal</strong><small>Which pages are likely losing visibility because of content freshness decay?</small></td>
+<td>GSC trend, CMS edit date, Semrush competitor</td>
+<td>A long downward trend, a changed SERP and an old content update.</td>
+<td><strong>Update the content, review medical accuracy with the subject matter expert and add the latest guidance.</strong></td>
+<td>Disease and treatment pages</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="Prioritize">
+<td class="num">11</td>
+<td><span class="label">Prioritize</span><strong>Business priority of service pages</strong><small>Which SEO actions are most likely to affect booking?</small></td>
+<td>GSC, Piwik, ajanvaraus-/service ID -signaalit</td>
+<td>Visibility or CTR potential is tied to pages with a clear booking path.</td>
+<td><strong>Move these into the content sprint before purely informational pages.</strong></td>
+<td>Bookable services</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="Review">
+<td class="num">12</td>
+<td><span class="label">Review</span><strong>Google Ads data vs organic gap</strong><small>Where does paid search buy visibility that organic does not cover?</small></td>
+<td>Google Ads data search terms, GSC, Semrush</td>
+<td>paid media data-termit tuovat konversiopotentiaalia mutta orgaanisella ei ole vahvaa pagea tai rankingta.</td>
+<td><strong>Decide: strengthen the organic page, create a new page or keep the term under paid search.</strong></td>
+<td>Kaupalliset palvelut</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="Medium" data-type="Review">
+<td class="num">13</td>
+<td><span class="label">Review</span><strong>Organic and Ads overlap</strong><small>Where do paid search and organic visibility compete unnecessarily?</small></td>
+<td>Google Ads data, GSC, Semrush</td>
+<td>Paid traffic is expensive for the same term where organic visibility is already strong.</td>
+<td><strong>Review whether budget can be shifted to weaker-organic-visibility areas without losing overall demand.</strong></td>
+<td>Top-palvelut</td>
+<td>Monthly</td>
+<td><span class="priority priority-medium">Medium</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="Fix">
+<td class="num">14</td>
+<td><span class="label">Fix</span><strong>Title and H1 mismatch list</strong><small>Where does the heading structure not support the searcher’s purpose?</small></td>
+<td>Crawler, CMS, GSC kyselyt</td>
+<td>Title, H1 and query intent do not match, or the title is too generic.</td>
+<td><strong>Write a new title/H1 pattern by page type and test it on the most important pages.</strong></td>
+<td>All service pages</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="Medium" data-type="Complete">
+<td class="num">15</td>
+<td><span class="label">Complete</span><strong>Meta description action list</strong><small>Where could the meta description lift CTR?</small></td>
+<td>Crawler, GSC CTR, SERP preview</td>
+<td>Many impressions, weak CTR and a missing/generic meta description.</td>
+<td><strong>Write a benefit-led meta description with a clear next step and no extra medical claims.</strong></td>
+<td>Top pages</td>
+<td>Monthly</td>
+<td><span class="priority priority-medium">Medium</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="Medium" data-type="Review">
+<td class="num">16</td>
+<td><span class="label">Review</span><strong>Structured data gaps</strong><small>Where could schema improve SERP understanding?</small></td>
+<td>Crawler, schema validation, GSC enhancements</td>
+<td>An important page type is missing from the agreed schema model or the schema is broken.</td>
+<td><strong>Add or fix schema only according to the approved page type and make sure it validates.</strong></td>
+<td>FAQ, artikkelit, palvelut</td>
+<td>Monthly</td>
+<td><span class="priority priority-medium">Medium</span></td>
+</tr>
+<tr data-cadence="Weekly" data-priority="High" data-type="Fix">
+<td class="num">17</td>
+<td><span class="label">Fix</span><strong>Indexability Quality Gate</strong><small>Which important pages are not technically discoverable or indexable?</small></td>
+<td>Crawler, sitemap, GSC indexing</td>
+<td>An important page in the sitemap is noindex, the canonical points elsewhere or the status is invalid.</td>
+<td><strong>Fix indexability, canonical or sitemap; do not change URL logic without technical validation.</strong></td>
+<td>All SEO-pages</td>
+<td>Weekly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="Fix">
+<td class="num">18</td>
+<td><span class="label">Fix</span><strong>Canonical conflict report</strong><small>Do canonicals direct organic visibility to the wrong page?</small></td>
+<td>Crawler, GSC page data, CMS</td>
+<td>The page gets GSC impressions but the canonical points to an illogical target or vice versa.</td>
+<td><strong>Review the URL pair, the page role and decide on the technical fix with development.</strong></td>
+<td>Samankaltaiset palvelut</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="Fix">
+<td class="num">19</td>
+<td><span class="label">Fix</span><strong>Redirect SEO risks</strong><small>Are there unnecessary redirects in important organic paths?</small></td>
+<td>Crawler, server status, GSC</td>
+<td>An important URL redirects in a chain, to 404 or to a changed page without a clear target.</td>
+<td><strong>Fix the redirect chain, update internal links and make sure the GSC target page remains appropriate.</strong></td>
+<td>Vanha/new URL-rakenne</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="Medium" data-type="Review">
+<td class="num">20</td>
+<td><span class="label">Review</span><strong>Page speed SEO impact list</strong><small>Where can a slow page hurt organic performance?</small></td>
+<td>CrUX, Lighthouse, GSC, Piwik</td>
+<td>An important page is slow or has weak Core Web Vitals while organic potential is high.</td>
+<td><strong>Prioritize kuvat, komponentit, JS ja layout shift -korjaukset page-level vaikutuksen mukaan.</strong></td>
+<td>Top service pages</td>
+<td>Monthly</td>
+<td><span class="priority priority-medium">Medium</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="Prioritize">
+<td class="num">21</td>
+<td><span class="label">Prioritize</span><strong>Demand seasonality calendar</strong><small>Which pages need an update before the search spike?</small></td>
+<td>GSC 24 kk, Semrush trendit, STAT</td>
+<td>The page has a predictable seasonal spike 4–8 weeks ahead.</td>
+<td><strong>Update the content and internal linking before the spike; create a reminder for future years.</strong></td>
+<td>Kausiluonteiset palvelut</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Weekly" data-priority="Medium" data-type="Review">
+<td class="num">22</td>
+<td><span class="label">Review</span><strong>New page early signal</strong><small>Is the new page starting to collect the right search signals?</small></td>
+<td>GSC, sitemap, CMS publish date</td>
+<td>A new page gets impressions for the wrong terms or no signal at all within 4–8 weeks.</td>
+<td><strong>Review indeksointi, internal linking, title/H1 ja contentpolku.</strong></td>
+<td>New pages</td>
+<td>Weekly</td>
+<td><span class="priority priority-medium">Medium</span></td>
+</tr>
+<tr data-cadence="Weekly" data-priority="High" data-type="Review">
+<td class="num">23</td>
+<td><span class="label">Review</span><strong>Follow-up tracking for an updated page</strong><small>Did the SEO change work?</small></td>
+<td>GSC, STAT, muutosloki</td>
+<td>The page change has been logged and the tracking window has elapsed.</td>
+<td><strong>Decide whether to keep the change, continue developing it or roll back part of it.</strong></td>
+<td>Edited pages</td>
+<td>Weekly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="Fix">
+<td class="num">24</td>
+<td><span class="label">Fix</span><strong>No-content-match report</strong><small>Where do search terms show that the page content does not match the expectation?</small></td>
+<td>GSC queries, page text content, Semrush</td>
+<td>The queries repeatedly surface a theme that the page does not cover or only touches on briefly.</td>
+<td><strong>Add a clear section, link to a better page or move the theme to a new page.</strong></td>
+<td>Symptom and disease pages</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="Complete">
+<td class="num">25</td>
+<td><span class="label">Complete</span><strong>Specialist routing SEO list</strong><small>Where does the page need clearer specialist guidance for treatment?</small></td>
+<td>Page classification, CMS, OSKU/booking, GSC</td>
+<td>The page receives treatment-related search demand but does not clearly say who can help.</td>
+<td><strong>Add or fix the specialist guidance with subject matter approval; do not infer the medical relationship automatically.</strong></td>
+<td>Treatment, symptom and disease pages</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="Complete">
+<td class="num">26</td>
+<td><span class="label">Complete</span><strong>Booking path gap</strong><small>Where does the organic page bring demand but the booking path is unclear?</small></td>
+<td>GSC, Piwik, OSKU service ID, CMS</td>
+<td>The page gets commercial demand, but clear service/booking guidance is missing.</td>
+<td><strong>Decide the service ID or guidance path together with the service owner.</strong></td>
+<td>Bookable services</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="Medium" data-type="Review">
+<td class="num">27</td>
+<td><span class="label">Review</span><strong>OSKU similar-services quality</strong><small>Are the automatic blocks leading the user in the wrong direction?</small></td>
+<td>Live CMS, OSKU-lohkot, GSC page intent</td>
+<td>The “similar services” block shows semantically illogical services.</td>
+<td><strong>Flag it for UX / cross-linking fixes; do not use the block as evidence of taxonomy.</strong></td>
+<td>Service pages</td>
+<td>Monthly</td>
+<td><span class="priority priority-medium">Medium</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="Fix">
+<td class="num">28</td>
+<td><span class="label">Fix</span><strong>Unclassified SEO impact</strong><small>Where does missing classification prevent reporting and prioritization?</small></td>
+<td>GSC, current service-page classification, sitemap</td>
+<td>A high-traffic page has no specialty area, service type or page role assigned.</td>
+<td><strong>Add the page to the classification work queue before introducing new automation rules.</strong></td>
+<td>Unclassified pages</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="Fix">
+<td class="num">29</td>
+<td><span class="label">Fix</span><strong>Page role conflict</strong><small>Is the page classified into the wrong role relative to search behavior?</small></td>
+<td>GSC queries, classification model, CMS</td>
+<td>The page is classified as a service page, but the queries are clearly symptom/information searches or vice versa.</td>
+<td><strong>Review the page role and decide whether content, classification or internal linking should change.</strong></td>
+<td>All service pages</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="Prioritize">
+<td class="num">30</td>
+<td><span class="label">Prioritize</span><strong>Specialty-area growth/decline dashboard</strong><small>Which specialty area should the content sprint target?</small></td>
+<td>GSC, page classification, Semrush</td>
+<td>The specialty area is growing or declining across several pages, not because of a single anomaly.</td>
+<td><strong>Create a specialty-area mini roadmap: pages to update, new pages, linking and metrics.</strong></td>
+<td>Erikoisalat</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="Medium" data-type="Review">
+<td class="num">31</td>
+<td><span class="label">Review</span><strong>Service-type trend</strong><small>Is any service type declining systematically?</small></td>
+<td>GSC, service-type classification</td>
+<td>Investigations, actions, symptoms or specialist pages are moving in different directions.</td>
+<td><strong>Decide page-type-specific fixes instead of isolated text changes.</strong></td>
+<td>Pagesyypit</td>
+<td>Monthly</td>
+<td><span class="priority priority-medium">Medium</span></td>
+</tr>
+<tr data-cadence="Quarterly" data-priority="High" data-type="Complete">
+<td class="num">32</td>
+<td><span class="label">Complete</span><strong>Content hub gaps</strong><small>Are there pages on the specialty area that bring the user journey together?</small></td>
+<td>Sitemap, GSC, classification, Semrush</td>
+<td>Several individual pages get demand without a hub page that ties them together.</td>
+<td><strong>Create or strengthen the hub service that guides users from symptom, investigation and specialist content to the right next step.</strong></td>
+<td>Kattopalvelut</td>
+<td>Quarterly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="Medium" data-type="Review">
+<td class="num">33</td>
+<td><span class="label">Review</span><strong>Competitor fresh content</strong><small>Where has a competitor published a better answer?</small></td>
+<td>Semrush pages, SERP, GSC decliners</td>
+<td>Our page drops while a new or updated page appears for the competitor.</td>
+<td><strong>Update our content to answer the searcher’s question better, not by copying the competitor’s structure.</strong></td>
+<td>Important search themes</td>
+<td>Monthly</td>
+<td><span class="priority priority-medium">Medium</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="Medium" data-type="Review">
+<td class="num">34</td>
+<td><span class="label">Review</span><strong>Featured snippet candidates</strong><small>Where are we close to an answer box?</small></td>
+<td>STAT, Semrush, GSC</td>
+<td>Rank 2–8 for queries where the SERP has an answer box or PAA.</td>
+<td><strong>Add a clear concise answer, list or table to the page and review medical accuracy.</strong></td>
+<td>Informational pages</td>
+<td>Monthly</td>
+<td><span class="priority priority-medium">Medium</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="Medium" data-type="Complete">
+<td class="num">35</td>
+<td><span class="label">Complete</span><strong>Local organic visibility gap</strong><small>Where does the service appear in search but the local next step is missing?</small></td>
+<td>GSC country/device, Google Business Profile, locationdata</td>
+<td>Search queries include location signals, but the page does not guide to a location or area.</td>
+<td><strong>Add local guidance or make sure the location-page linking is relevant.</strong></td>
+<td>Location-related services</td>
+<td>Monthly</td>
+<td><span class="priority priority-medium">Medium</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="Medium" data-type="Review">
+<td class="num">36</td>
+<td><span class="label">Review</span><strong>Mobile vs desktop intent</strong><small>Which pages should be changed based on mobile use?</small></td>
+<td>GSC device, Piwik device, CWV</td>
+<td>Mobile CTR, position or next step differs clearly from desktop.</td>
+<td><strong>Review the first mobile screen, the action button, links and content order.</strong></td>
+<td>All top-pages</td>
+<td>Monthly</td>
+<td><span class="priority priority-medium">Medium</span></td>
+</tr>
+<tr data-cadence="Quarterly" data-priority="Medium" data-type="Fix">
+<td class="num">37</td>
+<td><span class="label">Fix</span><strong>Search query language mismatches</strong><small>Does Finnish/Swedish/English demand land on the wrong page?</small></td>
+<td>GSC queryt, language versions, sitemap</td>
+<td>Foreign-language demand lands on a Finnish page or the language version cannot be found.</td>
+<td><strong>Review language versions, hreflang and content need; do not auto-translate medical content.</strong></td>
+<td>Kieliversiot</td>
+<td>Quarterly</td>
+<td><span class="priority priority-medium">Medium</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="Medium" data-type="Fix">
+<td class="num">38</td>
+<td><span class="label">Fix</span><strong>FAQ/accordion quality impact</strong><small>Do the frequently asked questions help the searcher or just create noise?</small></td>
+<td>GSC kyselyt, CMS, schema</td>
+<td>The page has demand for FAQ themes but the answer is missing or too generic.</td>
+<td><strong>Add only genuinely useful questions and make sure the answers are subject-matter accurate.</strong></td>
+<td>Disease and service pages</td>
+<td>Monthly</td>
+<td><span class="priority priority-medium">Medium</span></td>
+</tr>
+<tr data-cadence="Weekly" data-priority="High" data-type="Prioritize">
+<td class="num">39</td>
+<td><span class="label">Prioritize</span><strong>SEO Sprint Planner</strong><small>Which 10 actions should be done in the next sprint?</small></td>
+<td>All raporttien signaalit</td>
+<td>Actions are scored by impact potential, confidence and work size.</td>
+<td><strong>Create a work list: owner, deadline, evidence, acceptance criteria and tracking window.</strong></td>
+<td>Koko SEO-roadmap</td>
+<td>Weekly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr>
+<tr data-cadence="Monthly" data-priority="High" data-type="Track">
+<td class="num">40</td>
+<td><span class="label">Track</span><strong>Muutosloki + impactraportti</strong><small>Which change affected the organic result?</small></td>
+<td>CMS muutosloki, GSC, STAT</td>
+<td>A page change links to a later change in visibility, CTR or clicks.</td>
+<td><strong>Record the lessons: what should be repeated, what should be avoided and what should be tracked longer.</strong></td>
+<td>Edited pages</td>
+<td>Monthly</td>
+<td><span class="priority priority-korkea">High</span></td>
+</tr></tbody>
+</table></div>
+<div class="matrix-footer"><span id="result-count">Showing 40 ideas.</span><button id="reset" type="button">Clear filters</button></div>
+</section>
+<section aria-labelledby="moon-heading" class="section" id="moonshot">
+<div class="section-head"><p class="eyebrow">Moonshot</p><h2 id="moon-heading">For longer-term development</h2><p>These are larger automation and work-queue concepts. They should not be implemented before the data sources, audit trail and decision responsibilities are defined.</p></div>
+<div class="moon-grid"><article class="moon"><h3>SEO Control Tower</h3><p>Merge GSC, STAT, Semrush, crawler, publishing-system and change-log signals into one daily decision queue.</p><p><strong>Trackable: one work queue where each row has a suggested owner and acceptance criterion.</strong></p></article>
+<article class="moon"><h3>Automatic page-purpose checker</h3><p>Models whether a page is a symptom, disease, study, treatment, action or specialist page relative to the queries.</p><p><strong>Trackable: a read-only conflict list, no automatic changes.</strong></p></article>
+<article class="moon"><h3>SERP Twin</h3><p>Saves the SERP view of important search terms and compares it with the page structure.</p><p><strong>Trackable: suggest a structural element: definition, list, table, FAQ or local guidance.</strong></p></article>
+<article class="moon"><h3>Competitor publication alert</h3><p>Detects when a competitor publishes a new page on a theme that is declining for us.</p><p><strong>Trackable: a content recommendation for a content update and internal-linking fix.</strong></p></article>
+<article class="moon"><h3>Automatic SEO sprint ROI estimate</h3><p>Scores actions by visibility potential, page business role and implementation effort.</p><p><strong>Trackable: a prioritization view for the manager and the Content/UX/Dev work queue.</strong></p></article>
+<article class="moon"><h3>Search demand early warning</h3><p>Predicts seasonal spikes and reminds you to update pages before demand rises.</p><p><strong>Trackable: an annual calendar for the most important services.</strong></p></article>
+<article class="moon"><h3>Semantic review of the booking path</h3><p>Reviews whether the organic page has a logical path to the right specialist or service.</p><p><strong>Trackable: an uncertainty flag and manual review, no medical automation.</strong></p></article>
+<article class="moon"><h3>Content Graph for SEO</h3><p>Builds a relationship graph of service pages, symptoms, diseases, specialists and booking services.</p><p><strong>Trackable: find missing links, illogical relationships and hubs to validate.</strong></p></article>
+<article class="moon"><h3>Title/meta experimentation pipeline</h3><p>Creates a low-risk CTR test queue for title and meta changes without an A/B testing platform.</p><p><strong>Trackable: before/after tracking in GSC and the change log.</strong></p></article>
+<article class="moon"><h3>Organic-to-paid handoff</h3><p>Automatically shows when organic visibility is too weak and paid search should be activated temporarily.</p><p><strong>Trackable: a shared paid media + SEO decision matrix.</strong></p></article>
+<article class="moon"><h3>Substance-safe rewrite assistant</h3><p>Suggests page-structure and microcopy improvements without changing the medical meaning.</p><p><strong>Trackable: always subject matter approval and a change diff.</strong></p></article>
+<article class="moon"><h3>Automatic content recommendation builder</h3><p>Builds a content recommendation from GSC, Semrush, STAT and page-classification data.</p><p><strong>Trackable: the content recommendation keeps source data, interpretation, boundaries and next actions separate.</strong></p></article></div>
+</section>
+<section aria-labelledby="method-heading" class="section" id="methodology">
+<div class="section-head"><p class="eyebrow">Methodology</p><h2 id="method-heading">How should this be read?</h2></div>
+<div class="method">
+<article><h3>Source data</h3><p>Ideas are based on possible sources: Google Search Console, Semrush, STAT, Google Ads data, crawler, sitemap, CMS, page classification, Piwik and OSKU/booking signals. This file does not contain real performance figures.</p></article>
+<article><h3>Calculated values</h3><p>The report ideas describe possible calculations such as CTR deviation, ranking change, query-page spread, an internal-linking gap or classification coverage. The actual calculation is defined during implementation.</p></article>
+<article><h3>Interpretation</h3><p>Interpretation is always a rule-based review hint. It does not prove root cause or make a medical conclusion.</p></article>
+<article><h3>Recommendation</h3><p>Recommendation is the next manual or operational step: review, fix, complete, merge, prioritize or track.</p></article>
+</div>
+</section>
+</main>
+<footer>
+<span>Example organization · Organic visibility · HTML reporting idea matrix</span>
+<span>Self-contained HTML: logo ja systemfontit upotettu tiedostoon.</span>
+</footer>
+</div>
+<script>
+(function(){
+  const table = document.getElementById('idea-table');
+  const rows = Array.from(table.querySelectorAll('tbody tr'));
+  const q = document.getElementById('q');
+  const type = document.getElementById('type');
+  const priority = document.getElementById('priority');
+  const cadence = document.getElementById('cadence');
+  const result = document.getElementById('result-count');
+  const reset = document.getElementById('reset');
+  function normalize(value){ return (value || '').toString().toLocaleLowerCase('fi-FI').trim(); }
+  function apply(){
+    const query = normalize(q.value);
+    const t = type.value;
+    const p = priority.value;
+    const c = cadence.value;
+    let visible = 0;
+    rows.forEach(row => {
+      const textMatch = !query || normalize(row.textContent).includes(query);
+      const typeMatch = !t || row.dataset.type === t;
+      const priorityMatch = !p || row.dataset.priority === p;
+      const cadenceMatch = !c || row.dataset.cadence === c;
+      const show = textMatch && typeMatch && priorityMatch && cadenceMatch;
+      row.hidden = !show;
+      if(show) visible += 1;
+    });
+    result.textContent = 'Showing ' + visible + ' ideas.';
+  }
+  [q,type,priority,cadence].forEach(el => el.addEventListener('input', apply));
+  reset.addEventListener('click', () => { q.value=''; type.value=''; priority.value=''; cadence.value=''; apply(); q.focus(); });
+  apply();
+})();
+</script>
+</body>
+</html>
