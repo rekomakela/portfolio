@@ -3,22 +3,94 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Portfolio Demos – Reko Mäkelä</title>
+  <title>Reko Mäkelä – Portfolio ja CV</title>
   <style>
     :root {
-      --bg: #eef4fb;
-      --card: rgba(255, 255, 255, 0.93);
-      --card-solid: #ffffff;
-      --ink: #0f172a;
-      --muted: #475569;
-      --muted-2: #64748b;
-      --line: rgba(15, 23, 42, 0.08);
-      --accent: #163a72;
-      --accent-2: #2b6cb0;
-      --soft: #e8f1ff;
-      --soft-2: #f6f9fd;
-      --shadow: 0 16px 36px rgba(15, 23, 42, 0.06);
-      --shadow-soft: 0 10px 22px rgba(15, 23, 42, 0.05);
+      --surface-page: #202124;
+      --surface-raised: #2b2c30;
+      --surface-card: #303134;
+      --surface-card-hover: #35363a;
+      --surface-inset: #18191b;
+      --surface-accent: rgba(138, 180, 248, 0.12);
+      --surface-accent-hover: rgba(138, 180, 248, 0.18);
+
+      --text-heading: #e8eaed;
+      --text-body: #bdc1c6;
+      --text-subtle: #9aa0a6;
+      --text-faint: #80868b;
+      --text-on-accent: #ffffff;
+      --text-link: #8ab4f8;
+      --text-link-hover: #aecbfa;
+
+      --border-subtle: #3c4043;
+      --border-strong: #45484c;
+      --border-accent: rgba(138, 180, 248, 0.32);
+      --focus-ring: #8ab4f8;
+
+      --action-primary: #8ab4f8;
+      --action-primary-strong: #1a73e8;
+      --action-primary-strong-hover: #1f7df0;
+      --action-primary-strong-press: #1765cc;
+
+      --status-positive: #81c995;
+      --status-attention: #fdd663;
+      --status-positive-surface: rgba(129, 201, 149, 0.12);
+      --status-attention-surface: rgba(253, 214, 99, 0.12);
+
+      --radius-xs: 4px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-pill: 999px;
+
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --space-7: 2.5rem;
+      --space-8: 3rem;
+      --space-9: 4rem;
+      --space-10: 5rem;
+      --space-11: 6rem;
+      --gap-card: var(--space-5);
+      --gap-grid: var(--space-5);
+      --gap-section: var(--space-10);
+      --pad-card: var(--space-6);
+      --pad-card-sm: var(--space-5);
+      --container-max: 1080px;
+      --container-wide: 1200px;
+      --page-gutter: var(--space-6);
+
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+      --font-mono: ui-monospace, "SF Mono", SFMono-Regular, "Menlo", "Consolas", "Liberation Mono", monospace;
+      --text-display: 2.75rem;
+      --text-h1: 2rem;
+      --text-h2: 1.5rem;
+      --text-h3: 1.1875rem;
+      --text-lead: 1.1875rem;
+      --text-body-size: 1rem;
+      --text-sm: 0.9375rem;
+      --text-xs: 0.8125rem;
+      --text-2xs: 0.75rem;
+      --weight-medium: 500;
+      --weight-semibold: 600;
+      --weight-bold: 700;
+      --leading-tight: 1.15;
+      --leading-snug: 1.3;
+      --leading-normal: 1.6;
+      --tracking-tight: -0.02em;
+      --tracking-snug: -0.01em;
+      --tracking-wide: 0.04em;
+
+      --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.28), 0 1px 1px rgba(0, 0, 0, 0.18);
+      --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.32), 0 2px 4px rgba(0, 0, 0, 0.22);
+      --shadow-featured: 0 8px 28px rgba(0, 0, 0, 0.38), 0 2px 6px rgba(0, 0, 0, 0.24);
+      --shadow-overlay: 0 16px 48px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3);
+      --ring-focus: 0 0 0 2px var(--surface-page), 0 0 0 4px var(--focus-ring);
+      --inset-hairline: inset 0 0 0 1px var(--border-subtle);
     }
 
     * {
@@ -31,370 +103,686 @@
 
     body {
       margin: 0;
-      background: linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
-      color: var(--ink);
-      font-family: "Aptos", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      line-height: 1.55;
+      background: var(--surface-page);
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      line-height: var(--leading-normal);
+    }
+
+    body,
+    a,
+    button,
+    input,
+    select,
+    textarea {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+      color: var(--text-link);
+    }
+
+    a:hover {
+      color: var(--text-link-hover);
+    }
+
+    :focus-visible {
+      outline: none;
+      box-shadow: var(--ring-focus);
+      border-radius: var(--radius-sm);
     }
 
     .page {
-      position: relative;
-      z-index: 1;
-      max-width: 1200px;
+      max-width: var(--container-wide);
       margin: 0 auto;
-      padding: 34px 20px 56px;
+      padding: var(--space-6) var(--page-gutter) var(--space-10);
     }
 
     .hero,
     .featured-card,
+    .theme-card,
     .demo-card,
-    .secondary-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(10px);
+    .cv-card,
+    .docs-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-card);
+      transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
     }
 
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
-      gap: 16px;
-      margin-bottom: 22px;
-      border-radius: 18px;
-      overflow: hidden;
+      grid-template-columns: minmax(0, 1.25fr) minmax(290px, 0.75fr);
+      gap: var(--gap-grid);
+      padding: var(--pad-card);
+      margin-bottom: var(--space-5);
     }
 
     .hero-copy {
       position: relative;
-      overflow: hidden;
-      padding: 28px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(245, 249, 253, 0.9));
-      box-shadow: var(--shadow);
+      min-height: 100%;
+      padding: var(--space-2) 0 var(--space-1);
     }
 
-    .hero-copy::after {
-      content: "";
-      position: absolute;
-      right: -90px;
-      bottom: -80px;
-      width: 240px;
-      height: 240px;
+    .hero-chiprow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-top: var(--space-5);
+    }
+
+    .hero-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 54px;
+      height: 54px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(43, 108, 176, 0.14), transparent 68%);
-      pointer-events: none;
+      background: var(--surface-raised);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-heading);
+      font-size: 14px;
+      font-weight: var(--weight-semibold);
+      letter-spacing: -0.03em;
+      margin-bottom: var(--space-4);
+      box-shadow: var(--shadow-card);
     }
 
     .eyebrow {
-      margin: 0 0 10px;
-      color: var(--accent-2);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
+      margin: 0 0 var(--space-3);
+      color: var(--text-link);
+      font-size: var(--text-2xs);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-wide);
       text-transform: uppercase;
     }
 
     h1 {
-      margin: 0 0 14px;
-      color: var(--accent);
-      font-size: clamp(2.15rem, 3vw, 3.2rem);
-      line-height: 1.02;
-      letter-spacing: -0.05em;
+      margin: 0 0 var(--space-3);
+      color: var(--text-heading);
+      font-size: clamp(2.25rem, 4vw, 3.75rem);
+      line-height: var(--leading-tight);
+      letter-spacing: var(--tracking-tight);
+    }
+
+    .hero-role {
+      margin: 0 0 var(--space-4);
+      color: var(--text-heading);
+      font-size: var(--text-lead);
+      font-weight: var(--weight-semibold);
+      line-height: var(--leading-snug);
+      max-width: 42ch;
     }
 
     .lead {
       max-width: 62ch;
       margin: 0;
-      color: var(--muted);
-      font-size: 17px;
+      color: var(--text-body);
+      font-size: var(--text-body-size);
+      line-height: var(--leading-relaxed);
     }
 
-    .flow {
-      display: inline-flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 22px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: var(--soft);
-      color: var(--accent);
-      font-weight: 700;
-      font-size: 13px;
-    }
-
-    .hero-panel {
+    .hero-actions {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 22px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(240, 245, 251, 0.96));
-    }
-
-    .panel-title {
-      margin: 0;
-      color: var(--accent);
-      font-size: 16px;
-      letter-spacing: -0.02em;
-    }
-
-    .panel-list {
-      display: grid;
-      gap: 12px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .panel-item {
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.82);
-      border: 1px solid rgba(15, 23, 42, 0.06);
-    }
-
-    .panel-item strong {
-      display: block;
-      margin-bottom: 4px;
-      color: var(--ink);
-      font-size: 13px;
-    }
-
-    .panel-item span {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .panel-linkrow,
-    .action-row,
-    .links {
-      display: flex;
+      align-items: center;
       flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .panel-linkrow {
-      margin-top: 2px;
+      gap: var(--space-3);
+      margin-top: var(--space-6);
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 10px 14px;
-      border-radius: 12px;
+      gap: var(--space-2);
+      padding: 0 var(--space-5);
+      height: 40px;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
       text-decoration: none;
-      font-weight: 700;
-      font-size: 13px;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-    }
-
-    .btn:hover,
-    .resource:hover,
-    .demo-links a:hover {
-      transform: translateY(-1px);
+      font-size: var(--text-sm);
+      font-weight: var(--weight-semibold);
+      line-height: 1;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
     }
 
     .btn-primary {
-      background: var(--accent);
-      color: #ffffff;
-      box-shadow: 0 14px 26px rgba(22, 58, 114, 0.18);
+      background: var(--action-primary-strong);
+      color: var(--text-on-accent);
+      border-color: var(--action-primary-strong);
+    }
+
+    .btn-primary:hover {
+      background: var(--action-primary-strong-hover);
+      border-color: var(--action-primary-strong-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-card-hover);
+      color: var(--text-on-accent);
     }
 
     .btn-secondary {
-      background: #ffffff;
-      color: var(--accent);
-      border: 1px solid rgba(22, 58, 114, 0.16);
+      background: transparent;
+      color: var(--text-heading);
+      border-color: var(--border-strong);
     }
 
-    section {
-      margin-top: 24px;
+    .btn-secondary:hover {
+      background: var(--surface-raised);
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-card-hover);
+      color: var(--text-heading);
     }
 
-    h2 {
-      margin: 0 0 14px;
-      color: var(--accent);
-      font-size: 20px;
-      letter-spacing: -0.03em;
+    .hero-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding: var(--pad-card-sm);
+      background: var(--surface-raised);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: var(--inset-hairline), var(--shadow-card);
     }
 
-    h3 {
+    .panel-title {
+      margin: 0 0 var(--space-4);
+      color: var(--text-heading);
+      font-size: var(--text-h3);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-snug);
+    }
+
+    .panel-list {
+      display: grid;
+      gap: var(--space-3);
       margin: 0;
-      color: var(--accent);
-      font-size: 16px;
-      letter-spacing: -0.02em;
+      padding: 0;
+      list-style: none;
     }
 
-    p {
-      margin: 0 0 12px;
+    .panel-item {
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-sm);
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .panel-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text-heading);
+      font-size: var(--text-sm);
+      font-weight: var(--weight-semibold);
+    }
+
+    .panel-item span {
+      color: var(--text-body);
+      font-size: var(--text-xs);
+      line-height: var(--leading-normal);
+    }
+
+    .section {
+      margin-top: var(--space-5);
     }
 
     .section-head {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      gap: 18px;
-      margin-bottom: 12px;
+      gap: var(--space-4);
+      margin-bottom: var(--space-4);
     }
 
-    .featured-card {
-      display: grid;
-      grid-template-columns: minmax(280px, 0.92fr) minmax(0, 1.08fr);
-      gap: 20px;
-      align-items: center;
-      padding: 22px;
-      border-radius: 18px;
+    .section-head p {
+      margin: 0;
+      color: var(--text-body);
+      max-width: 60ch;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--text-heading);
+      font-size: var(--text-h1);
+      font-weight: var(--weight-semibold);
+      line-height: var(--leading-snug);
+      letter-spacing: var(--tracking-snug);
+    }
+
+    h3 {
+      margin: 0;
+      color: var(--text-heading);
+      font-size: var(--text-h2);
+      font-weight: var(--weight-semibold);
+      line-height: var(--leading-snug);
+      letter-spacing: var(--tracking-snug);
+    }
+
+    p {
+      margin: 0 0 var(--space-3);
     }
 
     .tag {
       display: inline-flex;
       align-items: center;
-      padding: 5px 9px;
-      border-radius: 12px;
-      background: rgba(22, 58, 114, 0.08);
-      color: var(--accent);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm);
+      background: var(--surface-accent);
+      color: var(--text-link);
+      border: 1px solid var(--border-accent);
+      font-size: var(--text-2xs);
+      font-weight: var(--weight-medium);
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--gap-grid);
+    }
+
+    .theme-card,
+    .demo-card,
+    .cv-card,
+    .docs-card {
+      padding: var(--pad-card-sm);
+    }
+
+    .theme-card:hover,
+    .demo-card:hover,
+    .cv-card:hover,
+    .docs-card:hover {
+      background: var(--surface-card-hover);
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .theme-card h3 {
+      margin: var(--space-3) 0 var(--space-2);
+      font-size: var(--text-sm);
+    }
+
+    .theme-card p {
+      margin: 0;
+      color: var(--text-body);
+      font-size: var(--text-xs);
+      line-height: var(--leading-normal);
+    }
+
+    .featured-card {
+      display: grid;
+      grid-template-columns: minmax(0, 0.76fr) minmax(0, 1.24fr);
+      gap: var(--gap-grid);
+      align-items: stretch;
+      padding: var(--pad-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-featured);
+    }
+
+    .featured-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-right: var(--space-1);
+      min-height: 100%;
     }
 
     .featured-copy h3 {
-      margin-top: 12px;
-      margin-bottom: 12px;
-      font-size: 24px;
+      margin: var(--space-2) 0 var(--space-3);
+      font-size: var(--text-h3);
     }
 
     .featured-copy p {
-      color: var(--muted);
-      font-size: 15px;
+      color: var(--text-body);
+      font-size: var(--text-sm);
+      line-height: var(--leading-relaxed);
+      max-width: 42ch;
     }
 
-    .screenshot-wrap {
-      padding: 12px;
-      border-radius: 16px;
-      background: linear-gradient(180deg, #f8fbff, #edf3fb);
-      border: 1px solid rgba(15, 23, 42, 0.06);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    .featured-facts {
+      display: grid;
+      gap: 0;
+      margin: var(--space-4) 0 var(--space-5);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    .featured-fact {
+      display: grid;
+      grid-template-columns: 6.5rem minmax(0, 1fr);
+      gap: var(--space-3);
+      align-items: start;
+      padding: var(--space-3) var(--space-4);
+      background: transparent;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .featured-fact:last-child {
+      border-bottom: none;
+    }
+
+    .featured-fact strong {
+      display: block;
+      margin: 0;
+      color: var(--text-link);
+      font-size: var(--text-2xs);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+    }
+
+    .featured-fact span {
+      color: var(--text-body);
+      font-size: var(--text-xs);
+      line-height: var(--leading-normal);
+    }
+
+    .action-row,
+    .links,
+    .demo-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+    }
+
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      color: var(--text-link);
+      font-size: var(--text-sm);
+      font-weight: var(--weight-semibold);
+      text-decoration: none;
+    }
+
+    .btn-link:hover {
+      color: var(--text-link-hover);
+      text-decoration: underline;
+      text-underline-offset: 0.15em;
+    }
+
+    .hero-contact {
+      font-weight: var(--weight-semibold);
+    }
+
+    .screenshot-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      align-self: stretch;
+      border-radius: var(--radius-lg);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .screenshot-frame {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background: var(--surface-raised);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+
+    .screenshot-link:hover {
+      transform: translateY(-2px);
+    }
+
+    .screenshot-link:hover .screenshot-frame {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-card-hover);
+      background: var(--surface-card-hover);
+    }
+
+    .screenshot-link:focus-visible {
+      box-shadow: var(--ring-focus);
+      border-radius: var(--radius-lg);
+    }
+
+    .screenshot-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 6px;
+      flex: none;
+    }
+
+    .window-dots i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border-strong);
+      display: block;
+    }
+
+    .screenshot-caption {
+      margin-left: var(--space-2);
+      font-size: var(--text-xs);
+      font-family: var(--font-mono);
+      color: var(--text-subtle);
+    }
+
+    .screenshot-cue {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-sm);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-semibold);
+      color: var(--text-link);
+      background: var(--surface-accent);
+      border: 1px solid var(--border-accent);
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .screenshot-link:hover .screenshot-cue {
+      background: var(--surface-accent-hover);
+      color: var(--text-link-hover);
+    }
+
+    .screenshot-well {
+      background: var(--surface-inset);
+      padding: var(--space-3);
     }
 
     .screenshot {
       display: block;
       width: 100%;
-      max-height: 680px;
-      object-fit: contain;
-      object-position: center top;
-      border-radius: 12px;
-      background: var(--card-solid);
+      height: auto;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--surface-card);
+    }
+
+    .screenshot-hint {
+      display: inline-block;
+      margin-top: var(--space-2);
+      color: var(--text-link);
+      font-size: var(--text-sm);
+      font-weight: var(--weight-semibold);
     }
 
     .demo-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .demo-card {
-      padding: 18px;
-      border-radius: 16px;
+      gap: var(--gap-grid);
     }
 
     .demo-card p {
-      margin-bottom: 0;
-      color: var(--muted);
-      font-size: 13px;
+      color: var(--text-body);
+      font-size: var(--text-xs);
+      line-height: var(--leading-normal);
     }
 
     .demo-card h3 {
-      margin-top: 10px;
+      margin-top: var(--space-3);
+      margin-bottom: var(--space-2);
+      font-size: var(--text-h3);
     }
 
-    .demo-links {
-      margin-top: 14px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px 14px;
+    .cv-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: var(--gap-grid);
     }
 
-    .demo-links a {
-      color: var(--accent);
-      font-weight: 700;
+    .cv-card h3 {
+      margin-bottom: var(--space-3);
+      font-size: var(--text-h3);
+    }
+
+    .cv-label {
+      display: block;
+      margin: 0 0 var(--space-2);
+      color: var(--text-link);
+      font-size: var(--text-2xs);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+    }
+
+    .cv-list {
+      margin: var(--space-4) 0 0;
+      padding-left: var(--space-5);
+      color: var(--text-body);
+    }
+
+    .cv-list li {
+      margin-bottom: var(--space-2);
+    }
+
+    .strength-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-3);
+      margin-top: var(--space-3);
+    }
+
+    .strength {
+      padding: var(--space-3);
+      border-radius: var(--radius-sm);
+      background: var(--surface-inset);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-body);
+      font-size: var(--text-xs);
+      line-height: var(--leading-normal);
+    }
+
+    .docs-card {
+      padding: var(--space-4);
+      display: block;
+      color: inherit;
       text-decoration: none;
     }
 
-    .secondary-card {
-      padding: 16px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.82);
+    .docs-card h3 {
+      margin: 0 0 4px;
+      font-size: var(--text-sm);
     }
 
-    .secondary-grid {
+    .docs-card p {
+      margin: 0;
+      color: var(--text-body);
+      font-size: var(--text-xs);
+      line-height: var(--leading-normal);
+    }
+
+    .doc-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
+      gap: var(--gap-grid);
     }
 
-    .resource {
-      display: block;
-      padding: 12px 14px;
-      border-radius: 12px;
-      background: rgba(248, 250, 252, 0.92);
-      border: 1px solid rgba(15, 23, 42, 0.06);
-      text-decoration: none;
-      color: var(--accent);
-      font-weight: 700;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    .section-secondary {
+      margin-top: var(--space-5);
     }
 
-    .resource small {
-      display: block;
-      margin-top: 4px;
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 12px;
+    .muted-note {
+      color: var(--text-subtle);
+      font-size: var(--text-xs);
     }
 
-    @media (max-width: 920px) {
+    .visually-muted {
+      color: var(--text-subtle);
+    }
+
+    @media (max-width: 980px) {
       .hero,
-      .featured-card {
+      .featured-card,
+      .cv-grid {
         grid-template-columns: 1fr;
       }
 
-      .secondary-grid,
-      .demo-grid {
+      .theme-grid,
+      .demo-grid,
+      .doc-grid {
         grid-template-columns: 1fr;
       }
 
-      .section-head {
-        align-items: flex-start;
-        flex-direction: column;
+      .strength-grid {
+        grid-template-columns: 1fr;
       }
     }
 
     @media (max-width: 760px) {
       .page {
-        padding: 16px 12px 36px;
+        padding: var(--space-4) var(--space-4) var(--space-8);
       }
 
-      .hero-copy,
-      .hero-panel,
+      .hero,
       .featured-card,
+      .theme-card,
       .demo-card,
-      .secondary-card {
-        padding: 20px;
+      .cv-card,
+      .docs-card {
+        padding: var(--space-4);
+      }
+
+      .hero-mark {
+        width: 48px;
+        height: 48px;
       }
 
       h1 {
-        font-size: 2.1rem;
+        font-size: 2.25rem;
       }
 
-      .featured-copy h3 {
-        font-size: 21px;
+      .hero-role {
+        font-size: var(--text-body);
       }
 
-      .lead {
-        font-size: 15px;
+      .hero-actions,
+      .action-row,
+      .links,
+      .demo-links {
+        gap: var(--space-2);
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .btn-link {
+        width: 100%;
       }
     }
   </style>
@@ -403,52 +791,105 @@
   <main class="page">
     <section class="hero">
       <div class="hero-copy">
-        <p class="eyebrow">Digital marketing · SEO · Content Ops · AI workflow</p>
-        <h1>Portfolio Demos – Reko Mäkelä</h1>
+        <div class="hero-mark" aria-hidden="true">RM</div>
+        <p class="eyebrow">Portfolio ja CV</p>
+        <h1>Reko Mäkelä</h1>
+        <p class="hero-role">SEO, Content Ops, analytiikka ja AI-avusteiset työnkulut</p>
         <p class="lead">
-          Portfolio, jossa markkinoinnin, sisällön ja AI-työn havainnot muuttuvat priorisoinniksi,
-          työnkuluiksi ja mitattaviksi toteutuksiksi.
+          Autan tiimejä löytämään, mitä sivustolla kannattaa kehittää seuraavaksi, yhdistämällä
+          hakudatan, sivusignaalit, analytiikan ja käytännön toteutuksen.
         </p>
-        <div class="flow">
-          selvitys → analyysi → priorisointi → työnkulku → toteutus → mittaaminen
+        <div class="hero-chiprow" aria-label="Keskeiset osa-alueet">
+          <span class="tag">SEO</span>
+          <span class="tag">CRO</span>
+          <span class="tag">Analytiikka</span>
+          <span class="tag">Content Ops</span>
+          <span class="tag">AI</span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#paanayte">Katso työnäyte</a>
+          <a class="btn btn-secondary" href="#cv-yhteenveto">Avaa CV-yhteenveto</a>
+          <a
+            class="btn btn-secondary hero-contact"
+            href="https://www.linkedin.com/in/reko-makela/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Avaa Reko Mäkelän LinkedIn-profiili uuteen välilehteen"
+          >
+            LinkedIn ↗
+          </a>
         </div>
       </div>
 
-      <aside class="hero-panel">
+      <aside class="hero-panel" aria-label="Sivun sisältö">
         <div>
-          <p class="panel-title">Painopisteet</p>
+          <p class="panel-title">Sivun sisältö</p>
           <ul class="panel-list">
             <li class="panel-item">
-              <strong>Pääcase</strong>
-              <span>Content Ops Platform on etusivun näkyvin kokonaisuus.</span>
+              <strong>Valittu työnäyte</strong>
+              <span>Aloita tästä.</span>
             </li>
             <li class="panel-item">
-              <strong>Demot</strong>
+              <strong>Työnäytteet</strong>
               <span>AIAuditLab, SearchAudit ja Piwik PRO Workspace.</span>
             </li>
             <li class="panel-item">
-              <strong>Muoto</strong>
-              <span>Case studyt, skenaariot, demo-kuvaukset ja taustamateriaalit.</span>
+              <strong>CV-yhteenveto</strong>
+              <span>Tiivis kuva fokuksesta, kokemuksesta ja vahvuuksista.</span>
             </li>
           </ul>
         </div>
-        <div class="panel-linkrow">
-          <a class="btn btn-primary" href="case-studies/content-ops-platform/">Avaa pääcase</a>
-          <a class="btn btn-secondary" href="scenarios/content-ops-platform-scenario.md">Skenaario</a>
-        </div>
+        <div class="muted-note">Aloita työnäytteestä ja etene CV-yhteenvetoon.</div>
       </aside>
     </section>
 
-    <section>
+    <section class="section">
       <div class="section-head">
         <div>
-          <h2>Pääcase</h2>
+          <h2>Ydinteemat</h2>
         </div>
+      </div>
+
+      <div class="theme-grid">
+        <article class="theme-card">
+          <span class="tag">Content Ops</span>
+          <h3>Sisältötyön ja sivukokonaisuuksien hallinta</h3>
+          <p>Laajat sivukokonaisuudet muutetaan selkeiksi tarkistusjonoiksi, joissa havainnot ja päätökset pysyvät yhdessä.</p>
+        </article>
+
+        <article class="theme-card">
+          <span class="tag">SEO ja kasvu</span>
+          <h3>SEO, hakudata ja kasvu</h3>
+          <p>Hakukysyntä, intentti ja sivujen parantaminen kytketään näkyvästi priorisointiin ja sisällön kehitykseen.</p>
+        </article>
+
+        <article class="theme-card">
+          <span class="tag">Analytiikka</span>
+          <h3>Analytiikka ja raportointi</h3>
+          <p>Data tiivistyy luettaviksi raporteiksi, päätöksiksi ja seuraaviksi askeliksi ilman turhaa tulkintakerrosta.</p>
+        </article>
+
+        <article class="theme-card">
+          <span class="tag">AI</span>
+          <h3>AI-avusteiset työnkulut</h3>
+          <p>AI auttaa jäsentämään, vertailemaan ja valmistelemaan työtä, mutta arviointi ja päätös pysyvät ihmisellä.</p>
+        </article>
+
+        <article class="theme-card">
+          <span class="tag">Työkalut</span>
+          <h3>Paikalliset työkalut ja datatyönkulut</h3>
+          <p>Kevyet paikalliset työkalut tukevat tarkistusta, raportointia ja priorisointia silloin kun valmis järjestelmä ei riitä.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="paanayte">
+      <div class="section-head">
+        <div></div>
       </div>
 
       <article class="featured-card">
         <div class="featured-copy">
-          <span class="tag">Pääcase</span>
           <h3>Content Ops Platform</h3>
           <p>
             Paikallinen työtila palvelusivujen, sivutyyppien ja hakukysynnän tarkistamiseen.
@@ -456,27 +897,55 @@
           <p>
             Valittu sivu, havainnot ja priorisointi näkyvät yhdessä näkymässä.
           </p>
+          <div class="featured-facts" aria-label="Työnäytön tiivistelmä">
+            <div class="featured-fact">
+              <strong>Ongelma</strong>
+              <span>Laaja sivumassa, hakukysyntä ja sivuhavainnot pitää saada samaan tarkistusnäkymään.</span>
+            </div>
+            <div class="featured-fact">
+              <strong>Ratkaisu</strong>
+              <span>Työjono, jossa valittu sivu, havainnot ja priorisointi näkyvät yhdessä.</span>
+            </div>
+            <div class="featured-fact">
+              <strong>Hyöty</strong>
+              <span>Nopeampi priorisointi, vähemmän hajanaista selvittelyä ja selkeämpi seuraava askel.</span>
+            </div>
+          </div>
           <div class="action-row">
-            <a class="btn btn-primary" href="case-studies/content-ops-platform/">Avaa case</a>
+            <a class="btn btn-primary" href="case-studies/content-ops-platform/">Avaa työnäyte</a>
             <a class="btn btn-secondary" href="scenarios/content-ops-platform-scenario.md">Käyttöskenaario</a>
             <a class="btn btn-secondary" href="demos/02-content-ops-platform/">Demo-kuvaus</a>
           </div>
         </div>
 
-        <div class="screenshot-wrap">
-          <img
-            src="assets/screenshots/content-ops/content-ops-service-classification-gynekologi.png"
-            alt="Content Ops service classification workbench"
-            class="screenshot"
-          >
-        </div>
+        <a
+          class="screenshot-link"
+          href="case-studies/content-ops-platform/"
+          aria-label="Avaa Content Ops Platform työnäyte ja näkymä"
+        >
+          <div class="screenshot-frame">
+            <div class="screenshot-bar" aria-hidden="true">
+              <span class="window-dots"><i></i><i></i><i></i></span>
+              <span class="screenshot-caption">content-ops-platform</span>
+              <span class="screenshot-cue">Avaa työnäyte ↗</span>
+            </div>
+            <div class="screenshot-well">
+            <img
+              src="assets/screenshots/content-ops/content-ops-service-classification-gynekologi.png"
+              alt="Content Ops Platform -näkymä palvelusivujen luokittelusta"
+              class="screenshot"
+            >
+              <span class="screenshot-hint">Avaa työnäyte →</span>
+            </div>
+          </div>
+        </a>
       </article>
     </section>
 
-    <section>
+    <section class="section">
       <div class="section-head">
         <div>
-          <h2>Muut demot</h2>
+          <h2>Muut työnäytteet</h2>
         </div>
       </div>
 
@@ -485,12 +954,12 @@
           <span class="tag">AI</span>
           <h3>AIAuditLab</h3>
           <p>
-            AI-näkyvyyden, prompt-pohjien, vastausten ja löydösten hallintaan tarkoitettu työtila.
+            AI-näkyvyyden, promptipohjien, vastausten ja löydösten hallintaan tarkoitettu työtila.
           </p>
           <div class="demo-links">
-            <a href="case-studies/ai-audit-lab/">Avaa case</a>
-            <a href="scenarios/ai-audit-lab-scenario.md">Käyttöskenaario</a>
-            <a href="demos/01-ai-audit-lab/">Demo-kuvaus</a>
+            <a class="btn-link" href="case-studies/ai-audit-lab/">Avaa työnäyte</a>
+            <a class="btn-link" href="scenarios/ai-audit-lab-scenario.md">Käyttöskenaario</a>
+            <a class="btn-link" href="demos/01-ai-audit-lab/">Demo-kuvaus</a>
           </div>
         </article>
 
@@ -498,11 +967,11 @@
           <span class="tag">SEO ja haku</span>
           <h3>SearchAudit</h3>
           <p>
-            Sisäisen haun termikandidaattien, kohdesivujen ja tarkistustilojen käsittelyyn.
+            Sisäisen haun hakutermien, kohdesivujen ja tarkistustilojen käsittelyyn.
           </p>
           <div class="demo-links">
-            <a href="demos/03-search-audit/">Avaa kuvaus</a>
-            <a href="scenarios/search-audit-scenario.md">Käyttöskenaario</a>
+            <a class="btn-link" href="demos/03-search-audit/">Avaa työnäyte</a>
+            <a class="btn-link" href="scenarios/search-audit-scenario.md">Käyttöskenaario</a>
           </div>
         </article>
 
@@ -510,30 +979,82 @@
           <span class="tag">Analytiikka</span>
           <h3>Piwik PRO Workspace</h3>
           <p>
-            Käyttäjäpolkujen, pudotuskohtien ja prioriteettien mallintamiseen suunniteltu työtila.
+            Käyttäjäpolkujen, pudotuskohtien ja prioriteettien mallintamiseen tarkoitettu työtila.
           </p>
           <div class="demo-links">
-            <a href="demos/04-piwik-pro-workspace/">Avaa kuvaus</a>
-            <a href="scenarios/piwik-pro-workspace-scenario.md">Käyttöskenaario</a>
+            <a class="btn-link" href="demos/04-piwik-pro-workspace/">Avaa työnäyte</a>
+            <a class="btn-link" href="scenarios/piwik-pro-workspace-scenario.md">Käyttöskenaario</a>
           </div>
         </article>
       </div>
     </section>
 
-    <section>
+    <section class="section" id="cv-yhteenveto">
       <div class="section-head">
         <div>
-          <h2>Taustamateriaalit</h2>
+          <h2>CV-yhteenveto</h2>
         </div>
       </div>
 
-      <div class="secondary-card">
-        <div class="secondary-grid">
-          <a class="resource" href="docs/reviewer-guide.md">Reviewer guide<small>Arvioinnin muistilista</small></a>
-          <a class="resource" href="docs/portfolio-positioning.md">Portfolio positioning<small>Rakenne ja viestinnän linja</small></a>
-          <a class="resource" href="docs/demo-selection-rationale.md">Demo selection rationale<small>Valintaperusteet</small></a>
-          <a class="resource" href="docs/publication-checklist.md">Publication checklist<small>Julkaisun tarkistuslista</small></a>
+      <div class="cv-grid">
+        <article class="cv-card">
+          <span class="cv-label">Nykyinen fokus</span>
+          <p>
+            Digimyynti, SEO, CRO, analytiikka, Content Ops ja AI-avusteinen työkalukehitys.
+          </p>
+
+          <span class="cv-label">Kokemus</span>
+          <p>
+            Usean vuoden käytännön kokemus siitä, miten hakudata, sivusignaalit, analytiikka ja sisältötyö
+            muutetaan selkeiksi priorisoinneiksi, päätöksiksi ja toteutettaviksi työnkuluiksi.
+          </p>
+        </article>
+
+        <article class="cv-card">
+          <span class="cv-label">Valikoidut vahvuudet</span>
+          <ul class="cv-list">
+            <li>hakudatan tulkinta ja priorisointi</li>
+            <li>palvelusivujen ja sivurakenteiden kehittäminen</li>
+            <li>analytiikan muuttaminen päätöksiksi</li>
+            <li>raporttien ja tarkistusnäkymien rakentaminen</li>
+            <li>AI-avusteisten työnkulkujen suunnittelu</li>
+          </ul>
+
+          <div class="strength-grid">
+            <div class="strength">Selkeä viestintä vaikeista aiheista</div>
+            <div class="strength">Työnkulut, jotka auttavat tiimiä etenemään</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-secondary">
+      <div class="section-head">
+        <div>
+          <h2>Taustadokumentit</h2>
         </div>
+      </div>
+
+      <div class="doc-grid">
+        <a class="docs-card" href="docs/reviewer-guide.md">
+          <h3>Arvioijan opas</h3>
+          <p>Arvioinnin muistilista.</p>
+        </a>
+
+        <a class="docs-card" href="docs/portfolio-positioning.md">
+          <h3>Portfolion asemointi</h3>
+          <p>Rakenne ja viestinnän linja.</p>
+        </a>
+
+        <a class="docs-card" href="docs/demo-selection-rationale.md">
+          <h3>Valintaperusteet</h3>
+          <p>Miksi nämä työnäytteet ovat mukana.</p>
+        </a>
+
+        <a class="docs-card" href="docs/publication-checklist.md">
+          <h3>Julkaisun tarkistuslista</h3>
+          <p>Julkaisun tarkistuslista.</p>
+        </a>
       </div>
     </section>
   </main>
