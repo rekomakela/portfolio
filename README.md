@@ -74,3 +74,4 @@ Tämän koosterepon seuraavat vaiheet:
 
 - [Portfolio positioning](docs/portfolio-positioning.md)
 - [Demo selection rationale](docs/demo-selection-rationale.md)
+- [Reviewer guide](docs/reviewer-guide.md)
