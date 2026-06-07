@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="A sanitized feedback workspace for filtering anonymized feedback, spotting recurring themes and reviewing individual observations." name="description"/>
+<title>Feedback Workspace – sanitized portfolio demo</title>
+<style>
+
+
+
+
+
+:root{
+  --tt-blue:#0046AD; --tt-navy:#1A244A; --tt-black:#212322; --tt-ice:#E8EDEE; --tt-white:#fff;
+  --muted:#59646f; --border:#D8E0E6; --surface:#fff; --soft:#F7F9FA; --focus:#FCD757;
+  --negative:#8F2B25; --positive:#1F6F50; --neutral:#5B6470; --radius:6px;
+  --font:system-ui,system-ui,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --display:system-ui,system-ui,system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--tt-ice);color:var(--tt-black);font-family:var(--font);line-height:1.45;-webkit-font-smoothing:antialiased}
+.wrap{width:min(1160px,calc(100% - 32px));margin:0 auto;padding:34px 0 72px}
+.hero{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:30px 32px;margin-bottom:18px}
+.hero-top{display:flex;justify-content:space-between;gap:24px;align-items:flex-start}
+.logo-img{width:116px;height:auto;display:block}.logo-text{font-weight:800;color:var(--tt-blue);font-size:22px}
+.meta-right{text-align:right;color:var(--muted);font-size:12px;line-height:1.55}
+.eyebrow{margin-top:34px;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--tt-blue);font-weight:800}
+h1{font-family:var(--display);font-weight:900;letter-spacing:-.04em;line-height:.94;color:var(--tt-blue);font-size:clamp(36px,5.5vw,54px);margin:6px 0 12px}
+.lead{font-size:17px;max-width:760px;margin:0 0 16px;color:var(--tt-black)}
+.notice{background:var(--soft);border-left:3px solid var(--tt-blue);padding:13px 14px;border-radius:var(--radius);font-size:13px;max-width:900px}
+.notice strong{color:var(--tt-navy)}
+.controls{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:16px}
+.controls-head{display:flex;justify-content:space-between;align-items:end;gap:14px;margin-bottom:12px}
+.controls h2{font-size:17px;color:var(--tt-navy);margin:0}
+.range-summary{font-size:12px;color:var(--muted)}
+.control-grid{display:grid;grid-template-columns:2.1fr repeat(5,1fr);gap:10px;align-items:end}
+label{display:block;font-weight:700;font-size:12px;color:var(--tt-navy);margin-bottom:5px}
+input,select,button{font:inherit}
+input,select{width:100%;height:38px;border:1px solid #C9D3DB;border-radius:var(--radius);background:#fff;padding:7px 9px;color:var(--tt-black)}
+input:focus,select:focus,button:focus-visible,.row:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.button-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.btn{border:1px solid #C7D2DB;border-radius:var(--radius);background:#fff;color:var(--tt-navy);font-weight:800;min-height:38px;padding:8px 12px;cursor:pointer}
+.btn.primary{background:var(--tt-blue);border-color:var(--tt-blue);color:#fff}
+.btn[aria-pressed="true"]{background:var(--tt-navy);border-color:var(--tt-navy);color:#fff}
+.coverage{margin-left:auto;color:var(--muted);font-size:12px}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:15px}
+.k-label{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:800}
+.k-value{font-family:var(--display);font-weight:900;color:var(--tt-blue);font-size:30px;line-height:1;margin:7px 0}
+.k-hint{font-size:12px;color:var(--muted)}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 410px;gap:16px;align-items:start}
+.panel{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:16px}
+.panel h2{font-size:20px;color:var(--tt-navy);margin:0 0 5px;letter-spacing:-.01em}
+.section-note{font-size:13px;color:var(--muted);margin:0 0 12px}
+.queue-meta{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted);margin-bottom:8px}
+.queue{display:grid;gap:8px}
+.row{display:grid;grid-template-columns:74px 64px minmax(160px,1fr);gap:12px;text-align:left;width:100%;border:1px solid var(--border);border-radius:var(--radius);background:#fff;padding:12px;cursor:pointer;align-items:start}
+.row:hover,.row[aria-current="true"]{border-color:var(--tt-blue);box-shadow:inset 3px 0 0 var(--tt-blue)}
+.row-small{font-size:11px;color:var(--muted);font-weight:800}
+.row-value{font-family:var(--display);font-size:24px;color:var(--tt-blue);font-weight:900;line-height:1.05}
+.row-main{min-width:0}
+.tag{display:inline-block;border:1px solid #E1CBD0;background:#FFF7F8;color:#7B2A32;border-radius:4px;padding:2px 7px;font-size:12px;font-weight:800;margin-right:7px}
+.tag.neutral{background:#F2F4F6;border-color:#DADFE5;color:#505A64}.tag.positive{background:#EDF7F2;border-color:#C7E3D4;color:#1F6F50}
+.row-title{font-weight:700;color:var(--tt-black);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.row-sub{font-size:12px;color:var(--muted);margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.detail{position:sticky;top:16px}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.field{background:var(--soft);border:1px solid #E2E8ED;border-radius:var(--radius);padding:9px}
+.field-label{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.field-value{font-weight:800;color:var(--tt-black);margin-top:3px;word-break:break-word}
+.full-text{white-space:pre-wrap;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin:10px 0;font-size:14px}
+.sentence{border-top:1px solid var(--border);padding:10px 0}
+.sentence:first-child{border-top:0}
+.sentence-meta{font-size:12px;color:var(--muted);font-weight:800;margin-bottom:4px}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.summary-list{display:grid;gap:7px}
+.summary-item{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;border-top:1px solid #E8EDF1;padding-top:7px;font-size:13px}
+.summary-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.summary-count{font-weight:900;color:var(--tt-blue)}
+.link-btn{background:transparent;border:0;color:var(--tt-blue);font-weight:800;cursor:pointer;padding:4px}
+.empty{border:1px dashed #C8D2DB;border-radius:var(--radius);padding:22px;text-align:center;color:var(--muted)}
+footer{margin-top:24px;color:var(--muted);font-size:12px}
+
+.floating-open{position:fixed;right:24px;bottom:24px;z-index:50;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:12px 16px;border-radius:8px;border:1px solid var(--tt-blue);background:var(--tt-blue);color:#fff;font-weight:900;text-decoration:none;box-shadow:0 2px 8px rgba(26,36,74,.16)}
+.floating-open:hover{text-decoration:underline;background:#003F9B}
+.floating-open:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.floating-open[hidden]{display:none}
+.floating-open.is-disabled{background:#EEF2F5;color:var(--muted);border-color:var(--border);pointer-events:none;box-shadow:none}
+@media(max-width:1060px){.control-grid{grid-template-columns:1fr 1fr 1fr}.kpis{grid-template-columns:repeat(3,1fr)}.layout{grid-template-columns:1fr}.detail{position:static}}
+@media(max-width:680px){.floating-open{left:16px;right:16px;bottom:16px;justify-content:center}
+.wrap{width:min(100% - 20px,1160px);padding-top:18px}.hero{padding:22px 18px}.hero-top{display:block}.meta-right{text-align:left;margin-top:14px}.control-grid,.kpis,.summary-grid{grid-template-columns:1fr}.row{grid-template-columns:58px 52px minmax(0,1fr)}.detail-grid{grid-template-columns:1fr}.coverage{width:100%;margin-left:0}}
+@media print{body{background:#fff}.controls,.summary-panel{display:none}.wrap{width:100%;padding:0}.hero,.panel,.kpi{break-inside:avoid;box-shadow:none}.layout{grid-template-columns:1fr}.detail{position:static}}
+</style>
+<style>
+.portfolio-sanitized-note{
+  margin:16px auto;
+  max-width:1120px;
+  padding:12px 16px;
+  border:1px solid rgba(96,165,250,.35);
+  border-radius:14px;
+  background:rgba(15,23,42,.72);
+  color:#dbeafe;
+  font:500 14px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.sanitized-logo-box{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:8px 14px;
+  border:1px solid currentColor;
+  border-radius:999px;
+  font:700 13px/1.2 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:inherit;
+  opacity:.85;
+}
+</style></head>
+<body><div class="portfolio-sanitized-note">Sanitized portfolio demo: customer, brand, URL and personal data have been removed or replaced with example content.</div>
+<div class="wrap">
+<header class="hero">
+<div class="hero-top"><div><div class="logo-img sanitized-logo-box">Sanitoitu demo</div></div><div class="meta-right">Source: sanitized demo material<br/>Period: example range<br/>Created: portfolio demo</div></div>
+<div class="eyebrow">Sanitized feedback data</div>
+<h1>Feedback Workspace</h1>
+<p class="lead">The workspace helps filter feedback, spot recurring themes and open a single feedback item’s details without switching to a spreadsheet.</p>
+<div class="notice"><strong>Read-only:</strong> A local analysis workspace built on sanitized demo data. The view does not save filters or decisions.</div>
+</header>
+<section aria-label="Filter view" class="controls">
+<div class="controls-head"><h2>Filter view</h2><div class="range-summary" id="rangeSummary">Date range 2026-01-01–2026-06-01</div></div>
+<div class="control-grid">
+<div><label for="q">Text search</label><input placeholder="Search the feedback, topic or page path" id="q" type="search"/></div>
+<div><label for="fromDate">Start date</label><input id="fromDate" max="2026-06-01" min="2026-01-01" type="date" value="2026-01-01"/></div>
+<div><label for="toDate">End date</label><input id="toDate" max="2026-06-01" min="2026-01-01" type="date" value="2026-06-01"/></div>
+<div><label for="pageType">Page type</label><select id="pageType"><option value="">All page types</option></select></div>
+<div><label for="typeFilter">Feedback type</label><select id="typeFilter"><option value="">All types</option></select></div>
+<div><label for="topicFilter">Topic</label><select id="topicFilter"><option value="">All topics</option></select></div>
+</div>
+<div class="button-row">
+<button aria-pressed="false" class="btn" id="negativeOnly" type="button">Negative only</button>
+<button aria-pressed="false" class="btn" id="highPriorityOnly" type="button">High priority only</button>
+<button class="btn" id="openFirst" type="button">Open first row</button>
+<button class="btn primary" id="resetBtn" type="button">Clear selection</button>
+<span class="coverage" id="coverage">Selection shows 0 / 0 rows.</span>
+</div>
+</section>
+<section aria-label="Key metrics" class="kpis">
+<div class="kpi"><div class="k-label">Rows</div><div class="k-value" id="kRows">0</div><div class="k-hint">Feedback in the current selection</div></div>
+<div class="kpi"><div class="k-label">High priority</div><div class="k-value" id="kPriority">0</div><div class="k-hint" id="kPriorityHint">0 % of selection</div></div>
+<div class="kpi"><div class="k-label">Negative</div><div class="k-value" id="kNegative">0</div><div class="k-hint" id="kNegativeHint">0 % of selection</div></div>
+<div class="kpi"><div class="k-label">Average score</div><div class="k-value" id="kScore">–</div><div class="k-hint">Lower = more critical</div></div>
+<div class="kpi"><div class="k-label">Pages</div><div class="k-value" id="kPages">0</div><div class="k-hint">Unique page paths</div></div>
+<div class="kpi"><div class="k-label">Coverage</div><div class="k-value" id="kCoverage">0 %</div><div class="k-hint">Filtered share</div></div>
+</section>
+<div class="layout">
+<main>
+<section aria-labelledby="queueTitle" class="panel">
+<h2 id="queueTitle">Review queue</h2>
+<p class="section-note">A row opens the feedback in the right panel. Priority is calculated from score, feedback type and negative sentences.</p>
+<div class="queue-meta"><span id="queueCount">Selection shows 0 rows</span><label for="sortBy" style="display:flex;gap:8px;align-items:center;margin:0">Sort order <select id="sortBy"><option value="recommended">Recommended</option><option value="date-desc">Newest first</option><option value="priority-desc">Highest priority first</option><option value="score-asc">Lowest score first</option><option value="negative-desc">Most negative sentences</option></select></label></div>
+<div class="queue" id="queue"></div>
+<div class="empty" hidden="" id="emptyState">No rows were found for this selection. Remove some filters.</div>
+</section>
+<section aria-labelledby="summaryTitle" class="panel summary-panel">
+<h2 id="summaryTitle">Dynamic summaries</h2>
+<p class="section-note">The lists update with the current selection. The Show action narrows the queue to the selected value.</p>
+<div class="summary-grid"><div><h3>Top pages</h3><div class="summary-list" id="topPages"></div></div><div><h3>Top topics</h3><div class="summary-list" id="topTopics"></div></div></div>
+</section>
+</main>
+<aside aria-labelledby="detailTitle" class="panel detail">
+<h2 id="detailTitle">Feedback details</h2>
+<p class="section-note">Read-only view. No saving, approval or decision actions.</p>
+<div id="detailContent"><div class="empty">Select a feedback item from the review queue to see the original text, date, topics, sentence-level analysis and technical metadata.</div></div>
+</aside>
+</div>
+<footer>feedback source items · local HTML · user data does not leave the browser.</footer>
+</div>
+<a aria-label="Open the active feedback page in a new tab" class="floating-open" hidden="" href="#" id="openPage" rel="noopener noreferrer" target="_blank">Open page in a new tab ↗</a>
+<script id="report-data" type="application/json">{"items":[{"id":"DEMO-001","comment":"Login failed on mobile.","translatedComment":"The mobile login flow did not work.","score":1,"type":"detractor","date":"2026-05-01T10:00:00.000","dateKey":"2026-05-01","weekKey":"2026-W18","monthKey":"2026-05","page":"/service/digital-service","pageType":"Digital service","primaryTopic":"Digital service experience > Login","topics":["Digital service experience > Login"],"negativeSentenceCount":1,"positiveSentenceCount":0,"neutralSentenceCount":0,"sentenceCount":1,"priority":10,"sentimentMean":-0.85,"browser":"demo-browser","device":"demo-device","os":"demo-operating-system","trigger":"demo","environment":"sanitized","language":"en","sentences":[{"sentenceId":"DEMO-001_0","sentenceText":"The mobile login flow did not work.","sentimentCategory":"Negative","sentimentScore":-0.85,"topics":["Digital service experience > Login"]}]},{"id":"DEMO-002","comment":"The next step in booking was unclear.","translatedComment":"It was not clear what to do next in the booking flow.","score":2,"type":"detractor","date":"2026-05-02T10:00:00.000","dateKey":"2026-05-02","weekKey":"2026-W18","monthKey":"2026-05","page":"/service/booking","pageType":"Booking","primaryTopic":"User journey > Booking","topics":["User journey > Booking"],"negativeSentenceCount":1,"positiveSentenceCount":0,"neutralSentenceCount":0,"sentenceCount":1,"priority":9,"sentimentMean":-0.7,"browser":"demo-browser","device":"demo-device","os":"demo-operating-system","trigger":"demo","environment":"sanitized","language":"en","sentences":[{"sentenceId":"DEMO-002_0","sentenceText":"It was not clear what to do next in the booking flow.","sentimentCategory":"Negative","sentimentScore":-0.7,"topics":["User journey > Booking"]}]},{"id":"DEMO-003","comment":"The search result took me to the right page, but the page lacked clear guidance.","translatedComment":"The search result reached the right page, but the page did not guide the next action clearly.","score":3,"type":"passive","date":"2026-05-03T10:00:00.000","dateKey":"2026-05-03","weekKey":"2026-W19","monthKey":"2026-05","page":"/service/example-service","pageType":"Service page","primaryTopic":"Site content > Next action","topics":["Site content > Next action"],"negativeSentenceCount":0,"positiveSentenceCount":0,"neutralSentenceCount":1,"sentenceCount":1,"priority":7,"sentimentMean":-0.2,"browser":"demo-browser","device":"demo-device","os":"demo-operating-system","trigger":"demo","environment":"sanitized","language":"en","sentences":[{"sentenceId":"DEMO-003_0","sentenceText":"The search result reached the right page, but the page did not guide the next action clearly.","sentimentCategory":"Neutral","sentimentScore":-0.2,"topics":["Site content > Next action"]}]},{"id":"DEMO-004","comment":"I found the price and booking path quickly.","translatedComment":"The price and booking path were easy to find.","score":5,"type":"promoter","date":"2026-05-04T10:00:00.000","dateKey":"2026-05-04","weekKey":"2026-W19","monthKey":"2026-05","page":"/service/example-service","pageType":"Service page","primaryTopic":"User journey > Successful path","topics":["User journey > Successful path"],"negativeSentenceCount":0,"positiveSentenceCount":1,"neutralSentenceCount":0,"sentenceCount":1,"priority":3,"sentimentMean":0.8,"browser":"demo-browser","device":"demo-device","os":"demo-operating-system","trigger":"demo","environment":"sanitized","language":"en","sentences":[{"sentenceId":"DEMO-004_0","sentenceText":"The price and booking path were easy to find.","sentimentCategory":"Positive","sentimentScore":0.8,"topics":["User journey > Successful path"]}]},{"id":"DEMO-005","comment":"The page title matched the search, but the content needed to be tighter.","translatedComment":"The page title matched the query, but the content needed to be more concise.","score":3,"type":"passive","date":"2026-05-05T10:00:00.000","dateKey":"2026-05-05","weekKey":"2026-W20","monthKey":"2026-05","page":"/article/example-topic","pageType":"Article","primaryTopic":"Content work > Clarity","topics":["Content work > Clarity"],"negativeSentenceCount":0,"positiveSentenceCount":0,"neutralSentenceCount":1,"sentenceCount":1,"priority":6,"sentimentMean":-0.1,"browser":"demo-browser","device":"demo-device","os":"demo-operating-system","trigger":"demo","environment":"sanitized","language":"en","sentences":[{"sentenceId":"DEMO-005_0","sentenceText":"The page title matched the query, but the content needed to be more concise.","sentimentCategory":"Neutral","sentimentScore":-0.1,"topics":["Content work > Clarity"]}]},{"id":"DEMO-006","comment":"The customer service contact was easy to find.","translatedComment":"Customer service contact details were easy to find.","score":5,"type":"promoter","date":"2026-05-06T10:00:00.000","dateKey":"2026-05-06","weekKey":"2026-W20","monthKey":"2026-05","page":"/customer-service","pageType":"Customer service","primaryTopic":"Customer service > Findability","topics":["Customer service > Findability"],"negativeSentenceCount":0,"positiveSentenceCount":1,"neutralSentenceCount":0,"sentenceCount":1,"priority":2,"sentimentMean":0.75,"browser":"demo-browser","device":"demo-device","os":"demo-operating-system","trigger":"demo","environment":"sanitized","language":"en","sentences":[{"sentenceId":"DEMO-006_0","sentenceText":"Customer service contact details were easy to find.","sentimentCategory":"Positive","sentimentScore":0.75,"topics":["Customer service > Findability"]}]},{"id":"DEMO-007","comment":"The payment path instructions were hard to find.","translatedComment":"The instructions for the payment flow were hard to find.","score":2,"type":"detractor","date":"2026-05-07T10:00:00.000","dateKey":"2026-05-07","weekKey":"2026-W21","monthKey":"2026-05","page":"/guide/payment","pageType":"Guide page","primaryTopic":"User journey > Payment","topics":["User journey > Payment"],"negativeSentenceCount":1,"positiveSentenceCount":0,"neutralSentenceCount":0,"sentenceCount":1,"priority":8,"sentimentMean":-0.65,"browser":"demo-browser","device":"demo-device","os":"demo-operating-system","trigger":"demo","environment":"sanitized","language":"en","sentences":[{"sentenceId":"DEMO-007_0","sentenceText":"The instructions for the payment flow were hard to find.","sentimentCategory":"Negative","sentimentScore":-0.65,"topics":["User journey > Payment"]}]},{"id":"DEMO-008","comment":"The page loaded slowly and the form felt unreliable.","translatedComment":"The page loaded slowly and the form felt unreliable.","score":1,"type":"detractor","date":"2026-05-08T10:00:00.000","dateKey":"2026-05-08","weekKey":"2026-W21","monthKey":"2026-05","page":"/form/contact","pageType":"Form","primaryTopic":"Technical experience > Form","topics":["Technical experience > Form"],"negativeSentenceCount":1,"positiveSentenceCount":0,"neutralSentenceCount":0,"sentenceCount":1,"priority":10,"sentimentMean":-0.8,"browser":"demo-browser","device":"demo-device","os":"demo-operating-system","trigger":"demo","environment":"sanitized","language":"en","sentences":[{"sentenceId":"DEMO-008_0","sentenceText":"The page loaded slowly and the form felt unreliable.","sentimentCategory":"Negative","sentimentScore":-0.8,"topics":["Technical experience > Form"]}]},{"id":"DEMO-009","comment":"Internal search helped me find the right guide.","translatedComment":"Internal search helped me find the right guide.","score":4,"type":"promoter","date":"2026-05-09T10:00:00.000","dateKey":"2026-05-09","weekKey":"2026-W22","monthKey":"2026-05","page":"/search","pageType":"Search","primaryTopic":"Site search > Success","topics":["Site search > Success"],"negativeSentenceCount":0,"positiveSentenceCount":1,"neutralSentenceCount":0,"sentenceCount":1,"priority":4,"sentimentMean":0.55,"browser":"demo-browser","device":"demo-device","os":"demo-operating-system","trigger":"demo","environment":"sanitized","language":"en","sentences":[{"sentenceId":"DEMO-009_0","sentenceText":"Internal search helped me find the right guide.","sentimentCategory":"Positive","sentimentScore":0.55,"topics":["Site search > Success"]}]},{"id":"DEMO-010","comment":"The service description was helpful, but the booking button was too far down.","translatedComment":"The service description was useful, but the booking button was placed too low on the page.","score":3,"type":"passive","date":"2026-05-10T10:00:00.000","dateKey":"2026-05-10","weekKey":"2026-W22","monthKey":"2026-05","page":"/service/example-service-2","pageType":"Service page","primaryTopic":"Conversion > Action button","topics":["Conversion > Action button"],"negativeSentenceCount":0,"positiveSentenceCount":0,"neutralSentenceCount":1,"sentenceCount":1,"priority":6,"sentimentMean":-0.15,"browser":"demo-browser","device":"demo-device","os":"demo-operating-system","trigger":"demo","environment":"sanitized","language":"en","sentences":[{"sentenceId":"DEMO-010_0","sentenceText":"The service description was useful, but the booking button was placed too low on the page.","sentimentCategory":"Neutral","sentimentScore":-0.15,"topics":["Conversion > Action button"]}]}]}</script>
+<script>
+(function(){
+  'use strict';
+  const data = JSON.parse(document.getElementById('report-data').textContent);
+  const items = data.items || [];
+  const $ = (id) => document.getElementById(id);
+  const state = {q:'',from:'2026-01-01',to:'2026-06-01',pageType:'',type:'',topic:'',negative:false,high:false,sort:'recommended',selected:null};
+  const els = {q:$('q'),from:$('fromDate'),to:$('toDate'),pageType:$('pageType'),type:$('typeFilter'),topic:$('topicFilter'),sort:$('sortBy'),neg:$('negativeOnly'),high:$('highPriorityOnly'),queue:$('queue'),empty:$('emptyState')};
+  function norm(v){return String(v==null?'':v).toLowerCase();}
+  function pct(a,b){return b?Math.round((a/b)*100):0;}
+  function uniq(arr){return Array.from(new Set(arr.filter(Boolean)));}
+  function fmtDate(iso){if(!iso)return 'No data'; const d=new Date(iso); if(Number.isNaN(d.getTime()))return iso; return d.toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'});}
+  function pageUrl(page){
+    const value = String(page || '').trim();
+    if(!value || value === 'URL puuttuu') return '';
+    if(value.startsWith('http://') || value.startsWith('https://')) return value;
+    if(value.startsWith('/')) return 'https://www.esimerkkisivusto.fi' + value;
+    return '';
+  }
+  function updateOpenPage(it){
+    const link = $('openPage');
+    if(!link) return;
+    const url = it ? pageUrl(it.page) : '';
+    if(url){
+      link.href = url;
+      link.hidden = false;
+      link.classList.remove('is-disabled');
+      link.setAttribute('aria-label','Open the active feedback page in a new tab: '+(it.page || url));
+      link.textContent = 'Open page in a new tab ↗';
+    } else {
+      link.href = '#';
+      link.hidden = true;
+      link.classList.add('is-disabled');
+      link.setAttribute('aria-label','The active feedback item has no openable page URL');
+      link.textContent = 'Page unavailable';
+    }
+  }
+  function fillSelect(el, vals){ vals.sort((a,b)=>a.localeCompare(b,'en')).forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;el.appendChild(o);}); }
+  fillSelect(els.pageType, uniq(items.map(i=>i.pageType)));
+  fillSelect(els.type, uniq(items.map(i=>i.type)));
+  fillSelect(els.topic, uniq(items.flatMap(i=>i.topics||[])).filter(v=>v!=='Yleinen > Yleinen > Yleinen'));
+  function matches(it){
+    if(state.from && it.dateKey && it.dateKey < state.from) return false;
+    if(state.to && it.dateKey && it.dateKey > state.to) return false;
+    if(state.pageType && it.pageType !== state.pageType) return false;
+    if(state.type && it.type !== state.type) return false;
+    if(state.topic && !(it.topics||[]).includes(state.topic)) return false;
+    if(state.negative && it.negativeSentenceCount < 1) return false;
+    if(state.high && it.priority < 7) return false;
+    if(state.q){
+      const hay = norm([it.comment,it.translatedComment,it.page,it.pageType,it.primaryTopic,(it.topics||[]).join(' '),it.browser,it.device,it.os,it.trigger,it.environment].join(' '));
+      if(!hay.includes(norm(state.q))) return false;
+    }
+    return true;
+  }
+  function sortItems(arr){
+    return arr.slice().sort((a,b)=>{
+      if(state.sort==='date-desc') return String(b.date||'').localeCompare(String(a.date||''));
+      if(state.sort==='priority-desc') return (b.priority||0)-(a.priority||0);
+      if(state.sort==='score-asc') return (a.score??99)-(b.score??99) || (b.priority||0)-(a.priority||0);
+      if(state.sort==='negative-desc') return (b.negativeSentenceCount||0)-(a.negativeSentenceCount||0) || (b.priority||0)-(a.priority||0);
+      return (b.priority||0)-(a.priority||0) || (a.score??99)-(b.score??99) || String(b.date||'').localeCompare(String(a.date||''));
+    });
+  }
+  function updateState(){state.q=els.q.value.trim();state.from=els.from.value;state.to=els.to.value;state.pageType=els.pageType.value;state.type=els.type.value;state.topic=els.topic.value;state.sort=els.sort.value;}
+  function setText(id, v){$(id).textContent=v;}
+  function render(){
+    updateState();
+    const filtered = sortItems(items.filter(matches));
+    const total = items.length;
+    const negCount = filtered.filter(i=>i.negativeSentenceCount>0).length;
+    const highCount = filtered.filter(i=>i.priority>=7).length;
+    const scores = filtered.map(i=>i.score).filter(v=>typeof v==='number');
+    setText('kRows', filtered.length);
+    setText('kPriority', highCount); setText('kPriorityHint', pct(highCount, filtered.length)+' % of selection');
+    setText('kNegative', negCount); setText('kNegativeHint', pct(negCount, filtered.length)+' % of selection');
+    setText('kScore', scores.length ? (scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(1) : '–');
+    setText('kPages', uniq(filtered.map(i=>i.page)).length);
+    setText('kCoverage', pct(filtered.length,total)+' %');
+    setText('coverage', 'Selection shows '+filtered.length+' / '+total+' rows.');
+    setText('queueCount', 'Selection shows '+filtered.length+' / '+total+' rows');
+    setText('rangeSummary', 'Date range '+(state.from||'start')+'–'+(state.to||'end')); 
+    renderQueue(filtered);
+    renderSummaries(filtered);
+    if(state.selected && !filtered.some(i=>i.id===state.selected)) state.selected=null;
+    if(!state.selected && filtered.length) state.selected = filtered[0].id;
+    renderDetail(items.find(i=>i.id===state.selected));
+  }
+  function textEl(tag, cls, text){const e=document.createElement(tag); if(cls)e.className=cls; e.textContent=text==null?'':text; return e;}
+  function renderQueue(arr){
+    els.queue.textContent='';
+    $('emptyState').hidden = arr.length !== 0;
+    arr.slice(0,120).forEach(it=>{
+      const btn=document.createElement('button'); btn.type='button'; btn.className='row'; btn.setAttribute('aria-current', it.id===state.selected?'true':'false');
+      btn.addEventListener('click',()=>{state.selected=it.id; renderDetail(it); renderQueue(arr);});
+      const p=document.createElement('div'); p.append(textEl('div','row-small','Priority'), textEl('div','row-value',it.priority));
+      const s=document.createElement('div'); s.append(textEl('div','row-small','Score'), textEl('div','row-value',it.score ?? '–'));
+      const m=document.createElement('div'); m.className='row-main';
+      const meta=document.createElement('div'); const tag=document.createElement('span'); tag.className='tag '+(it.type==='promoter'?'positive':it.type==='passive'?'neutral':''); tag.textContent=(it.type||'no type')+(it.negativeSentenceCount?' · negative':''); meta.appendChild(tag); meta.append(document.createTextNode(it.pageType||''));
+      m.append(meta, textEl('div','row-title',it.comment || it.translatedComment || 'No comment'), textEl('div','row-sub',fmtDate(it.date)+' · '+(it.page||'URL missing')));
+      btn.append(p,s,m); els.queue.appendChild(btn);
+    });
+  }
+  function renderSummaries(arr){
+    makeList('topPages', arr, i=>i.page, v=>{state.q='';els.q.value='';els.pageType.value='';state.pageType='';state.topic='';els.topic.value=''; state.selected=null; els.q.value=v; render();});
+    makeList('topTopics', arr, i=>i.primaryTopic, v=>{els.topic.value=v;state.topic=v;state.selected=null;render();});
+  }
+  function makeList(id, arr, keyFn, action){
+    const box=$(id); box.textContent=''; const c=new Map(); arr.forEach(i=>{const k=keyFn(i)||'No data'; c.set(k,(c.get(k)||0)+1);});
+    Array.from(c.entries()).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'en')).slice(0,8).forEach(([name,count])=>{
+      const row=document.createElement('div'); row.className='summary-item';
+      row.append(textEl('div','summary-name',name), textEl('div','summary-count',String(count)));
+      const b=document.createElement('button'); b.type='button'; b.className='link-btn'; b.textContent='Show'; b.addEventListener('click',()=>action(name)); row.appendChild(b); box.appendChild(row);
+    });
+    if(!box.children.length) box.appendChild(textEl('div','section-note','No rows.'));
+  }
+  function renderDetail(it){
+    const box=$('detailContent'); box.textContent='';
+    if(!it){updateOpenPage(null); box.appendChild(textEl('div','empty','Select a feedback item from the review queue.')); return;}
+    updateOpenPage(it);
+    const grid=document.createElement('div'); grid.className='detail-grid';
+    [['ID',it.id],['Priority',it.priority],['Score',it.score ?? '–'],['Type',it.type||'No data'],['Sentiment',it.negativeSentenceCount?'negative':it.positiveSentenceCount?'positive':'neutral'],['Date',fmtDate(it.date)],['Page type',it.pageType],['Page path',it.page]].forEach(([l,v])=>{const f=document.createElement('div');f.className='field';f.append(textEl('div','field-label',l),textEl('div','field-value',v));grid.appendChild(f);});
+    box.appendChild(grid);
+    box.append(textEl('h3',null,'Original feedback'));
+    box.append(textEl('div','full-text',it.comment || 'No comment'));
+    if(it.translatedComment){box.append(textEl('h3',null,'Translation')); box.append(textEl('div','full-text',it.translatedComment));}
+    box.append(textEl('h3',null,'Topics'));
+    box.append(textEl('div','full-text',(it.topics||[]).join('\\n')));
+    box.append(textEl('h3',null,'Sentence-level analysis'));
+    (it.sentences||[]).forEach(s=>{const d=document.createElement('div'); d.className='sentence'; d.append(textEl('div','sentence-meta',(s.sentimentCategory||'Neutral')+' · score '+(s.sentimentScore ?? '0')+' · '+(s.topics||[]).join(' | ')), textEl('div',null,s.sentenceText||'')); box.appendChild(d);});
+    box.append(textEl('h3',null,'Technical metadata'));
+    box.append(textEl('div','full-text',['Browser: '+(it.browser||'–'),'Device: '+(it.device||'–'),'OS: '+(it.os||'–'),'Trigger: '+(it.trigger||'–'),'Environment: '+(it.environment||'–'),'Language: '+(it.language||'–')].join('\\n')));
+  }
+  ['input','change'].forEach(ev=>{els.q.addEventListener(ev,()=>{state.selected=null;render();}); els.from.addEventListener(ev,()=>{state.selected=null;render();}); els.to.addEventListener(ev,()=>{state.selected=null;render();});});
+  [els.pageType,els.type,els.topic,els.sort].forEach(el=>el.addEventListener('change',()=>{state.selected=null;render();}));
+  els.neg.addEventListener('click',()=>{state.negative=!state.negative;els.neg.setAttribute('aria-pressed',String(state.negative));state.selected=null;render();});
+  els.high.addEventListener('click',()=>{state.high=!state.high;els.high.setAttribute('aria-pressed',String(state.high));state.selected=null;render();});
+  $('openFirst').addEventListener('click',()=>{const first=sortItems(items.filter(matches))[0]; if(first){state.selected=first.id; renderDetail(first); render();}});
+  $('resetBtn').addEventListener('click',()=>{state.q='';state.from='2026-01-01';state.to='2026-06-01';state.pageType='';state.type='';state.topic='';state.negative=false;state.high=false;state.sort='recommended';state.selected=null;els.q.value='';els.from.value=state.from;els.to.value=state.to;els.pageType.value='';els.type.value='';els.topic.value='';els.sort.value='recommended';els.neg.setAttribute('aria-pressed','false');els.high.setAttribute('aria-pressed','false');render();});
+  render();
+})();
+</script>
+</body>
+</html>
