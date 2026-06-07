@@ -6,264 +6,513 @@
   <title>Portfolio Demos – Reko Mäkelä</title>
   <style>
     :root {
-      --bg: #f6f8fb;
-      --card: #ffffff;
-      --ink: #111827;
-      --muted: #4b5563;
-      --line: #e5e7eb;
-      --accent: #14306b;
-      --soft: #eef3ff;
-      --soft-2: #f8fafc;
+      --bg: #eef4fb;
+      --card: rgba(255, 255, 255, 0.93);
+      --card-solid: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --muted-2: #64748b;
+      --line: rgba(15, 23, 42, 0.08);
+      --accent: #163a72;
+      --accent-2: #2b6cb0;
+      --soft: #e8f1ff;
+      --soft-2: #f6f9fd;
+      --shadow: 0 16px 36px rgba(15, 23, 42, 0.06);
+      --shadow-soft: 0 10px 22px rgba(15, 23, 42, 0.05);
     }
 
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      background: var(--bg);
+      background: linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
       color: var(--ink);
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: "Aptos", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
       line-height: 1.55;
     }
 
     .page {
-      max-width: 1120px;
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 42px 22px 56px;
+      padding: 34px 20px 56px;
     }
 
-    header,
-    .card,
-    .panel {
+    .hero,
+    .featured-card,
+    .demo-card,
+    .secondary-card {
       background: var(--card);
       border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(10px);
     }
 
-    header {
-      padding: 34px;
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      gap: 16px;
       margin-bottom: 22px;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .hero-copy {
+      position: relative;
+      overflow: hidden;
+      padding: 28px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(245, 249, 253, 0.9));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy::after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      bottom: -80px;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(43, 108, 176, 0.14), transparent 68%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent-2);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
     }
 
     h1 {
-      margin: 0 0 10px;
+      margin: 0 0 14px;
       color: var(--accent);
-      font-size: 38px;
-      letter-spacing: -0.04em;
-      line-height: 1.08;
+      font-size: clamp(2.15rem, 3vw, 3.2rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
     }
 
     .lead {
-      max-width: 850px;
-      margin: 0 0 18px;
+      max-width: 62ch;
+      margin: 0;
       color: var(--muted);
-      font-size: 18px;
+      font-size: 17px;
     }
 
     .flow {
-      display: inline-block;
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
       padding: 10px 12px;
+      border-radius: 14px;
       background: var(--soft);
-      border: 1px solid #dbe4ff;
       color: var(--accent);
       font-weight: 700;
-      font-size: 14px;
+      font-size: 13px;
+    }
+
+    .hero-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 22px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(240, 245, 251, 0.96));
+    }
+
+    .panel-title {
+      margin: 0;
+      color: var(--accent);
+      font-size: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .panel-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .panel-item {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(15, 23, 42, 0.06);
+    }
+
+    .panel-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    .panel-item span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .panel-linkrow,
+    .action-row,
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .panel-linkrow {
+      margin-top: 2px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    .btn:hover,
+    .resource:hover,
+    .demo-links a:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 14px 26px rgba(22, 58, 114, 0.18);
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      color: var(--accent);
+      border: 1px solid rgba(22, 58, 114, 0.16);
     }
 
     section {
-      margin-top: 26px;
+      margin-top: 24px;
     }
 
     h2 {
       margin: 0 0 14px;
       color: var(--accent);
-      font-size: 22px;
+      font-size: 20px;
+      letter-spacing: -0.03em;
     }
 
     h3 {
-      margin: 0 0 8px;
+      margin: 0;
       color: var(--accent);
-      font-size: 20px;
+      font-size: 16px;
+      letter-spacing: -0.02em;
     }
 
     p {
       margin: 0 0 12px;
     }
 
-    ul {
-      margin: 8px 0 0;
-      padding-left: 20px;
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 18px;
+      margin-bottom: 12px;
     }
 
-    li {
-      margin-bottom: 6px;
-    }
-
-    .grid {
+    .featured-card {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .card {
+      grid-template-columns: minmax(280px, 0.92fr) minmax(0, 1.08fr);
+      gap: 20px;
+      align-items: center;
       padding: 22px;
-    }
-
-    .panel {
-      padding: 22px;
-      background: var(--soft-2);
+      border-radius: 18px;
     }
 
     .tag {
-      display: inline-block;
-      margin-bottom: 12px;
-      padding: 5px 8px;
-      background: var(--soft);
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 9px;
+      border-radius: 12px;
+      background: rgba(22, 58, 114, 0.08);
       color: var(--accent);
-      border: 1px solid #dbe4ff;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
     }
 
-    .proof {
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px solid var(--line);
+    .featured-copy h3 {
+      margin-top: 12px;
+      margin-bottom: 12px;
+      font-size: 24px;
     }
 
-    .proof-title {
-      margin: 0 0 6px;
-      color: var(--ink);
-      font-weight: 700;
+    .featured-copy p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .screenshot-wrap {
+      padding: 12px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #f8fbff, #edf3fb);
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
     }
 
     .screenshot {
       display: block;
       width: 100%;
-      max-height: 620px;
-      object-fit: cover;
-      object-position: top center;
-      margin: 16px 0 0;
-      border: 1px solid var(--line);
-      background: #ffffff;
+      max-height: 680px;
+      object-fit: contain;
+      object-position: center top;
+      border-radius: 12px;
+      background: var(--card-solid);
     }
 
-    .links {
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .demo-card {
+      padding: 18px;
+      border-radius: 16px;
+    }
+
+    .demo-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .demo-card h3 {
+      margin-top: 10px;
+    }
+
+    .demo-links {
       margin-top: 14px;
       display: flex;
       flex-wrap: wrap;
-      gap: 10px 16px;
+      gap: 10px 14px;
     }
 
-    a {
+    .demo-links a {
       color: var(--accent);
       font-weight: 700;
+      text-decoration: none;
     }
 
-    .footer-note {
-      margin-top: 28px;
+    .secondary-card {
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .secondary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .resource {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(248, 250, 252, 0.92);
+      border: 1px solid rgba(15, 23, 42, 0.06);
+      text-decoration: none;
+      color: var(--accent);
+      font-weight: 700;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .resource small {
+      display: block;
+      margin-top: 4px;
       color: var(--muted);
-      font-size: 14px;
+      font-weight: 600;
+      font-size: 12px;
     }
 
-    @media (max-width: 760px) {
-      h1 {
-        font-size: 30px;
-      }
-
-      .grid {
+    @media (max-width: 920px) {
+      .hero,
+      .featured-card {
         grid-template-columns: 1fr;
       }
 
-      header,
-      .card,
-      .panel {
-        padding: 22px;
+      .secondary-grid,
+      .demo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        padding: 16px 12px 36px;
+      }
+
+      .hero-copy,
+      .hero-panel,
+      .featured-card,
+      .demo-card,
+      .secondary-card {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 2.1rem;
+      }
+
+      .featured-copy h3 {
+        font-size: 21px;
+      }
+
+      .lead {
+        font-size: 15px;
       }
     }
   </style>
 </head>
 <body>
   <main class="page">
-    <header>
-      <h1>Portfolio Demos – Reko Mäkelä</h1>
-      <p class="lead">
-        Tämä portfolio näyttää, miten muutan markkinoinnin, SEO:n, sisällön,
-        analytiikan ja AI:n mahdollisuuksia käytännön työnkuluiksi,
-        tarkistusnäkymiksi, raporteiksi ja toteutettaviksi kehitystehtäviksi.
-      </p>
-      <div class="flow">
-        selvitys → analyysi → priorisointi → työnkulku → toteutus → mittaaminen
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Digital marketing · SEO · Content Ops · AI workflow</p>
+        <h1>Portfolio Demos – Reko Mäkelä</h1>
+        <p class="lead">
+          Portfolio, jossa markkinoinnin, sisällön ja AI-työn havainnot muuttuvat priorisoinniksi,
+          työnkuluiksi ja mitattaviksi toteutuksiksi.
+        </p>
+        <div class="flow">
+          selvitys → analyysi → priorisointi → työnkulku → toteutus → mittaaminen
+        </div>
       </div>
-    </header>
+
+      <aside class="hero-panel">
+        <div>
+          <p class="panel-title">Painopisteet</p>
+          <ul class="panel-list">
+            <li class="panel-item">
+              <strong>Pääcase</strong>
+              <span>Content Ops Platform on etusivun näkyvin kokonaisuus.</span>
+            </li>
+            <li class="panel-item">
+              <strong>Demot</strong>
+              <span>AIAuditLab, SearchAudit ja Piwik PRO Workspace.</span>
+            </li>
+            <li class="panel-item">
+              <strong>Muoto</strong>
+              <span>Case studyt, skenaariot, demo-kuvaukset ja taustamateriaalit.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="panel-linkrow">
+          <a class="btn btn-primary" href="case-studies/content-ops-platform/">Avaa pääcase</a>
+          <a class="btn btn-secondary" href="scenarios/content-ops-platform-scenario.md">Skenaario</a>
+        </div>
+      </aside>
+    </section>
 
     <section>
-      <h2>Pääcase</h2>
-      <article class="card">
-        <span class="tag">Content Ops</span>
-        <h3>Content Ops Platform</h3>
-        <p>
-          Paikallinen tarkistustyötila palvelusivujen, sivutyyppien,
-          hakukysynnän ja lähdeaineistojen tarkistustyöhön.
-        </p>
-        <p>
-          Case näyttää, miten laajasta sivumassasta rakennetaan hallittava
-          työjono, jossa valittu sivu, hakukysyntä ja live-sisällön havainnot
-          näkyvät samassa päätöstyötilassa.
-        </p>
-        <img
-          src="assets/screenshots/content-ops/content-ops-service-classification-gynekologi.png"
-          alt="Content Ops service classification workbench"
-          class="screenshot"
-        >
-        <div class="links">
-          <a href="case-studies/content-ops-platform/">Avaa case</a>
-          <a href="scenarios/content-ops-platform-scenario.md">Käyttöskenaario</a>
-          <a href="demos/02-content-ops-platform/">Demo-kuvaus</a>
+      <div class="section-head">
+        <div>
+          <h2>Pääcase</h2>
+        </div>
+      </div>
+
+      <article class="featured-card">
+        <div class="featured-copy">
+          <span class="tag">Pääcase</span>
+          <h3>Content Ops Platform</h3>
+          <p>
+            Paikallinen työtila palvelusivujen, sivutyyppien ja hakukysynnän tarkistamiseen.
+          </p>
+          <p>
+            Valittu sivu, havainnot ja priorisointi näkyvät yhdessä näkymässä.
+          </p>
+          <div class="action-row">
+            <a class="btn btn-primary" href="case-studies/content-ops-platform/">Avaa case</a>
+            <a class="btn btn-secondary" href="scenarios/content-ops-platform-scenario.md">Käyttöskenaario</a>
+            <a class="btn btn-secondary" href="demos/02-content-ops-platform/">Demo-kuvaus</a>
+          </div>
+        </div>
+
+        <div class="screenshot-wrap">
+          <img
+            src="assets/screenshots/content-ops/content-ops-service-classification-gynekologi.png"
+            alt="Content Ops service classification workbench"
+            class="screenshot"
+          >
         </div>
       </article>
     </section>
 
     <section>
-      <h2>Muut demot</h2>
+      <div class="section-head">
+        <div>
+          <h2>Muut demot</h2>
+        </div>
+      </div>
 
-      <div class="grid">
-
-        <article class="card">
-          <span class="tag">Content Ops</span>
-          <h3>Content Ops Platform</h3>
+      <div class="demo-grid">
+        <article class="demo-card">
+          <span class="tag">AI</span>
+          <h3>AIAuditLab</h3>
           <p>
-            Päätöstyötila laajan sisältö- ja sivumassan tarkistamiseen,
-            priorisointiin ja päätösten valmisteluun.
+            AI-näkyvyyden, prompt-pohjien, vastausten ja löydösten hallintaan tarkoitettu työtila.
           </p>
-          <div class="links">
-            <a href="demos/02-content-ops-platform/">Avaa kuvaus</a>
-            <a href="scenarios/content-ops-platform-scenario.md">Käyttöskenaario</a>
+          <div class="demo-links">
+            <a href="case-studies/ai-audit-lab/">Avaa case</a>
+            <a href="scenarios/ai-audit-lab-scenario.md">Käyttöskenaario</a>
+            <a href="demos/01-ai-audit-lab/">Demo-kuvaus</a>
           </div>
         </article>
 
-        <article class="card">
+        <article class="demo-card">
           <span class="tag">SEO ja haku</span>
           <h3>SearchAudit</h3>
           <p>
-            Työkalu sisäisen haun termikandidaattien, kohdesivuprofiilien,
-            tarkistustilojen ja vientipakettien käsittelyyn.
+            Sisäisen haun termikandidaattien, kohdesivujen ja tarkistustilojen käsittelyyn.
           </p>
-          <div class="links">
+          <div class="demo-links">
             <a href="demos/03-search-audit/">Avaa kuvaus</a>
             <a href="scenarios/search-audit-scenario.md">Käyttöskenaario</a>
           </div>
         </article>
 
-        <article class="card">
+        <article class="demo-card">
           <span class="tag">Analytiikka</span>
           <h3>Piwik PRO Workspace</h3>
           <p>
-            Paikallinen työtila käyttäjäpolkujen, pudotuskohtien,
-            diagnoosikorttien ja prioriteettitaulukoiden mallintamiseen.
+            Käyttäjäpolkujen, pudotuskohtien ja prioriteettien mallintamiseen suunniteltu työtila.
           </p>
-          <div class="links">
+          <div class="demo-links">
             <a href="demos/04-piwik-pro-workspace/">Avaa kuvaus</a>
             <a href="scenarios/piwik-pro-workspace-scenario.md">Käyttöskenaario</a>
           </div>
@@ -271,22 +520,22 @@
       </div>
     </section>
 
-
     <section>
-      <h2>Taustamateriaalit</h2>
-      <div class="panel">
-        <ul>
-          <li><a href="docs/reviewer-guide.md">Reviewer guide</a></li>
-          <li><a href="docs/portfolio-positioning.md">Portfolio positioning</a></li>
-          <li><a href="docs/demo-selection-rationale.md">Demo selection rationale</a></li>
-          <li><a href="docs/publication-checklist.md">Publication checklist</a></li>
-        </ul>
+      <div class="section-head">
+        <div>
+          <h2>Taustamateriaalit</h2>
+        </div>
+      </div>
+
+      <div class="secondary-card">
+        <div class="secondary-grid">
+          <a class="resource" href="docs/reviewer-guide.md">Reviewer guide<small>Arvioinnin muistilista</small></a>
+          <a class="resource" href="docs/portfolio-positioning.md">Portfolio positioning<small>Rakenne ja viestinnän linja</small></a>
+          <a class="resource" href="docs/demo-selection-rationale.md">Demo selection rationale<small>Valintaperusteet</small></a>
+          <a class="resource" href="docs/publication-checklist.md">Publication checklist<small>Julkaisun tarkistuslista</small></a>
+        </div>
       </div>
     </section>
-
-    <p class="footer-note">
-      Demot ovat portfolio- ja kehityskäyttöön tarkoitettuja kuvauksia. Ne eivät sisällä julkista asiakasdataa.
-    </p>
   </main>
 </body>
 </html>
