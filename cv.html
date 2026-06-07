@@ -543,16 +543,68 @@
 
     @media print {
       @page {
-        margin: 14mm;
+        margin: 12mm;
+      }
+
+      html {
+        font-size: 10.5px;
       }
 
       body {
         background: #ffffff;
         color: #111827;
+        line-height: 1.45;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      h1,
+      h2,
+      h3,
+      .section-title,
+      .section h2,
+      .job h3,
+      .skill-card h3,
+      .tool-card h3 {
+        color: #111827 !important;
+        opacity: 1 !important;
+      }
+
+      .meta,
+      .eyebrow,
+      .label,
+      .contact-label,
+      .tag {
+        color: #374151 !important;
+        opacity: 1 !important;
+      }
+
+      .contact-title,
+      .proof strong,
+      .impact-label {
+        color: #1f2937 !important;
+        opacity: 1 !important;
+      }
+
+      .headline,
+      .intro,
+      .card p,
+      .job p,
+      .proof p,
+      .impact-card p,
+      .feature-note,
+      .impact-note,
+      .section-note,
+      .list,
+      .tag-list span {
+        color: #1f2937 !important;
+        opacity: 1 !important;
       }
 
       a {
         color: #111827;
+        text-decoration: underline;
+        text-underline-offset: 0.12em;
       }
 
       .page {
@@ -574,10 +626,87 @@
         color: #111827;
         border: 1px solid #d1d5db;
         box-shadow: none;
+        opacity: 1;
       }
 
-      .hero,
-      section,
+      .hero {
+        display: block;
+        margin-bottom: 0.8rem;
+        padding: 0 0 0.8rem;
+        border: 0;
+        border-bottom: 1px solid #d1d5db;
+        border-radius: 0;
+      }
+
+      .hero > div {
+        margin-bottom: 0.65rem;
+      }
+
+      .hero > .contact-card {
+        margin-top: 0;
+      }
+
+      .contact-card {
+        padding: 0;
+        background: transparent;
+        border: 0;
+      }
+
+      .contact-title {
+        margin-bottom: 0.4rem;
+        color: #0f172a;
+        font-size: 0.8rem;
+        letter-spacing: 0.04em;
+      }
+
+      .contact {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem 0.9rem;
+      }
+
+      .contact li {
+        display: flex;
+        align-items: baseline;
+        gap: 0.3rem;
+        padding: 0;
+        border: 0;
+      }
+
+      .contact-label {
+        display: inline;
+        margin: 0;
+        color: #4b5563;
+        font-size: 0.78rem;
+        letter-spacing: 0.03em;
+        text-transform: none;
+      }
+
+      .contact a {
+        display: inline;
+        min-height: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: #111827;
+        box-shadow: none;
+        text-decoration: underline;
+        text-underline-offset: 0.12em;
+      }
+
+      .contact a:hover {
+        transform: none;
+        background: transparent;
+        border-color: transparent;
+        box-shadow: none;
+      }
+
+      main,
+      section {
+        break-inside: auto;
+        page-break-inside: auto;
+      }
+
       .card,
       .job,
       .skill-card,
@@ -588,17 +717,66 @@
         page-break-inside: avoid;
       }
 
+      main {
+        gap: 0.7rem;
+      }
+
+      section {
+        margin: 0;
+      }
+
+      .section-head {
+        margin-bottom: 0.45rem;
+      }
+
+      .section-head h2 {
+        color: #0f172a;
+        font-size: 1.02rem;
+        opacity: 1;
+      }
+
       .eyebrow,
       .contact-label,
       .contact-title,
       .proof strong,
       .impact-label {
         color: #1d4ed8;
+        opacity: 1;
+      }
+
+      h1 {
+        color: #0f172a;
+        font-size: 1.7rem;
+        margin-bottom: 0.25rem;
+        opacity: 1;
+      }
+
+      .headline {
+        color: #111827;
+        font-size: 1rem;
+        margin-bottom: 0.45rem;
+        max-width: none;
+        opacity: 1;
+      }
+
+      .intro {
+        color: #111827;
+        font-size: 0.93rem;
+        opacity: 1;
+      }
+
+      .intro + .intro {
+        margin-top: 0.28rem;
+      }
+
+      .meta {
+        color: #4b5563;
+        font-size: 0.8rem;
+        margin-bottom: 0.35rem;
+        opacity: 1;
       }
 
       .headline,
-      .intro,
-      .meta,
       .section-note,
       .contact,
       .card p,
@@ -621,12 +799,111 @@
       .chip,
       .tag-list span {
         background: #ffffff;
+        border-color: #d1d5db;
+        color: #111827;
+        opacity: 1;
       }
 
-      .contact a {
-        background: #ffffff;
-        color: #111827;
-        border-color: #d1d5db;
+      .card,
+      .job,
+      .skill-card,
+      .tool-card,
+      .proof,
+      .impact-card {
+        padding: 0.55rem 0.7rem;
+      }
+
+      .card h3,
+      .job h3,
+      .skill-card h3,
+      .tool-card h3 {
+        color: #0f172a;
+        font-size: 0.98rem;
+        margin-bottom: 0.22rem;
+        opacity: 1;
+      }
+
+      .card p,
+      .job p,
+      .proof p,
+      .impact-card p,
+      .feature-note,
+      .impact-note,
+      .section-note,
+      .list,
+      .tag-list span {
+        font-size: 0.86rem;
+      }
+
+      .card p:last-child,
+      .job p:last-child {
+        margin-bottom: 0;
+      }
+
+      .list {
+        margin-top: 0.25rem;
+      }
+
+      .list li {
+        margin-bottom: 0.18rem;
+      }
+
+      .skill-grid,
+      .tool-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.45rem;
+      }
+
+      .skill-grid > .skill-card:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .skill-card p,
+      .tool-card p {
+        margin-bottom: 0.22rem;
+      }
+
+      .tag-list {
+        gap: 0.28rem;
+        margin-top: 0.35rem;
+      }
+
+      .tag-list span {
+        min-height: 0;
+        padding: 0.28rem 0.5rem;
+      }
+
+      .job + .job {
+        margin-top: 0.45rem;
+      }
+
+      .card-grid,
+      .impact-grid {
+        gap: 0.45rem;
+      }
+
+      .impact {
+        gap: 0.45rem;
+      }
+
+      .impact-card {
+        padding-top: 0.5rem;
+      }
+
+      .impact-metric {
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+        opacity: 1;
+      }
+
+      .hero,
+      .card,
+      .job,
+      .skill-card,
+      .tool-card,
+      .proof,
+      .contact-card,
+      .impact-card {
         box-shadow: none;
       }
 
@@ -636,15 +913,14 @@
       }
 
       .hero,
-      main,
-      section,
-      .card,
       .job,
       .skill-card,
       .tool-card,
       .proof,
-      .contact-card {
+      .contact-card,
+      .impact-card {
         break-inside: avoid;
+        page-break-inside: avoid;
       }
     }
   </style>
