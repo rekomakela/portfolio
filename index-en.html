@@ -153,9 +153,9 @@
     .hero {
       display: grid;
       grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
-      gap: var(--gap-grid);
-      padding: var(--pad-card);
-      margin-bottom: var(--space-5);
+      gap: var(--gap-card);
+      padding: var(--space-5);
+      margin-bottom: var(--space-4);
       align-items: start;
     }
 
@@ -230,15 +230,15 @@
 
     .hero-contact-card {
       align-self: start;
-      padding: var(--pad-card-sm);
+      padding: var(--space-4);
       border-radius: var(--radius-md);
       background: var(--surface-raised);
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-card);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: none;
     }
 
     .hero-contact-title {
-      margin: 0 0 var(--space-2);
+      margin: 0 0 var(--space-3);
       color: var(--text-heading);
       font-size: var(--text-h3);
       line-height: var(--leading-snug);
@@ -248,7 +248,7 @@
 
     .hero-contact {
       display: grid;
-      gap: var(--space-3);
+      gap: var(--space-2);
       list-style: none;
       padding: 0;
       margin: 0;
@@ -257,38 +257,43 @@
     }
 
     .hero-contact li {
-      padding: var(--space-2) 0;
-      border-bottom: 1px solid var(--border-subtle);
+      padding: 0;
+      border-bottom: none;
       word-break: break-word;
     }
 
-    .hero-contact li:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
+    .hero-contact li + li {
+      margin-top: 0.05rem;
     }
 
-    .hero-contact-label {
-      display: block;
-      margin-bottom: 0.15rem;
+    .hero-contact li:last-child {
       color: var(--text-subtle);
-      font-size: var(--text-2xs);
-      font-weight: var(--weight-semibold);
-      letter-spacing: var(--tracking-wide);
-      text-transform: uppercase;
+      font-size: var(--text-xs);
+      line-height: 1.4;
+      padding-top: 0.15rem;
     }
 
     .hero-contact a {
-      display: inline-flex;
+      display: flex;
       align-items: center;
+      justify-content: flex-start;
       gap: var(--space-2);
+      width: 100%;
       min-height: 44px;
-      padding: 0.55rem 0.75rem;
+      padding: 0.7rem 0.85rem;
       border-radius: var(--radius-sm);
-      border: 1px solid var(--border-subtle);
-      background: var(--surface-card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: transparent;
       color: var(--text-heading);
       text-decoration: none;
-      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease, color 0.15s ease;
+    }
+
+    .hero-contact a.hero-contact-primary {
+      background: var(--action-primary-strong);
+      border-color: transparent;
+      color: var(--text-on-accent);
+      font-weight: var(--weight-semibold);
     }
 
     .hero-contact a:hover {
@@ -296,7 +301,12 @@
       border-color: var(--border-strong);
       color: var(--text-link-hover);
       transform: translateY(-1px);
-      box-shadow: var(--shadow-card-hover);
+    }
+
+    .hero-contact a.hero-contact-primary:hover {
+      background: var(--action-primary-strong-hover);
+      border-color: transparent;
+      color: var(--text-on-accent);
     }
 
     .btn {
@@ -413,7 +423,7 @@
 
     .featured-card {
       display: grid;
-      grid-template-columns: minmax(0, 0.76fr) minmax(0, 1.24fr);
+      grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr);
       gap: var(--gap-grid);
       align-items: stretch;
       padding: var(--pad-card);
@@ -427,6 +437,7 @@
       justify-content: center;
       padding-right: var(--space-1);
       min-height: 100%;
+      max-width: 48ch;
     }
 
     .featured-copy h3 {
@@ -445,10 +456,10 @@
       display: grid;
       gap: 0;
       margin: var(--space-4) 0 var(--space-5);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--radius-sm);
       overflow: hidden;
-      background: rgba(255, 255, 255, 0.01);
+      background: rgba(255, 255, 255, 0.012);
     }
 
     .featured-fact {
@@ -456,9 +467,9 @@
       grid-template-columns: 6.5rem minmax(0, 1fr);
       gap: var(--space-3);
       align-items: start;
-      padding: var(--space-3) var(--space-4);
+      padding: 0.7rem 0.9rem;
       background: transparent;
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .featured-fact:last-child {
@@ -469,7 +480,7 @@
       display: block;
       margin: 0;
       color: var(--text-link);
-      font-size: var(--text-2xs);
+      font-size: 0.78rem;
       font-weight: var(--weight-semibold);
       letter-spacing: var(--tracking-wide);
       text-transform: uppercase;
@@ -698,7 +709,7 @@
       }
 
       .hero-contact-card {
-        padding: var(--space-4);
+        padding: var(--space-3);
       }
     }
   
@@ -733,29 +744,30 @@
         </p>
       </div>
 
-      <aside class="hero-contact-card" aria-label="Contact details">
-        <h2 class="hero-contact-title">Contact</h2>
+      <aside class="hero-contact-card" aria-label="Contact and work samples">
+        <h2 class="hero-contact-title">Contact and work samples</h2>
         <ul class="hero-contact">
           <li>
-            <span class="hero-contact-label">CV</span>
-            <a href="cv-en.html">Open English CV</a>
+            <a class="hero-contact-primary" href="cv-en.html">Open English CV</a>
           </li>
           <li>
-            <span class="hero-contact-label">Finnish portfolio</span>
-            <a href="index.html">Open Finnish portfolio</a>
+            <a href="#paanayte">Work samples</a>
           </li>
           <li>
-            <span class="hero-contact-label">Email</span>
+            <a href="cv.html">Finnish CV</a>
+          </li>
+          <li>
+            <a href="index.html">Finnish portfolio</a>
+          </li>
+          <li>
             <a href="mailto:reko.makela@gmail.com">Send email</a>
           </li>
           <li>
-            <span class="hero-contact-label">LinkedIn</span>
             <a href="https://www.linkedin.com/in/reko-makela/" target="_blank" rel="noopener noreferrer">
               LinkedIn ↗
             </a>
           </li>
           <li>
-            <span class="hero-contact-label">Location</span>
             Helsinki, Finland
           </li>
         </ul>
@@ -775,7 +787,7 @@
               <span>A large page inventory, search demand and page signals need to be reviewed in one place.</span>
             </div>
             <div class="featured-fact">
-              <strong>Approach</strong>
+              <strong>Solution</strong>
               <span>The workspace brings the selected page, findings and prioritization into one decision-support view.</span>
             </div>
             <div class="featured-fact">
