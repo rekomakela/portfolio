@@ -44,3 +44,17 @@ Lisää myöhemmin:
 - `assets/screenshots/ai-audit-lab-pages.png`
 - `assets/screenshots/ai-audit-lab-prompt-render.png`
 - `assets/screenshots/ai-audit-lab-workflow-run.png`
+
+## Screenshots
+
+### Run overview
+
+![AIAuditLab run overview](../../assets/screenshots/ai-audit-lab/ai-audit-lab-run-overview.png)
+
+### Scorecard comparison
+
+![AIAuditLab scorecard comparison](../../assets/screenshots/ai-audit-lab/ai-audit-lab-scorecard-comparison.png)
+
+### Findings
+
+![AIAuditLab findings](../../assets/screenshots/ai-audit-lab/ai-audit-lab-findings.png)
