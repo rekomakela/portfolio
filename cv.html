@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reko Mäkelä – CV</title>
+  <style>
+    :root {
+      --bg: #202124;
+      --surface: #2b2c30;
+      --surface-2: #303134;
+      --surface-3: #18191b;
+      --ink: #e8eaed;
+      --text: #bdc1c6;
+      --muted: #b0b7c0;
+      --line: #3c4043;
+      --line-strong: #45484c;
+      --accent: #8ab4f8;
+      --accent-hover: #aecbfa;
+      --accent-strong: #1a73e8;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+      --shadow-2: 0 4px 14px rgba(0, 0, 0, 0.24);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --max: 1120px;
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --space-7: 2.5rem;
+      --space-8: 3rem;
+      --space-9: 4rem;
+      --space-10: 5rem;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+      --font-mono: ui-monospace, "SF Mono", SFMono-Regular, "Menlo", "Consolas", "Liberation Mono", monospace;
+      --h1: clamp(2.2rem, 4vw, 3.4rem);
+      --h2: 1.5rem;
+      --h3: 1.125rem;
+      --body: 1rem;
+      --small: 0.875rem;
+      --ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    a:hover {
+      color: var(--accent-hover);
+    }
+
+    :focus-visible {
+      outline: none;
+      box-shadow: var(--ring);
+      border-radius: var(--radius-sm);
+    }
+
+    a:focus-visible,
+    .contact a:focus-visible {
+      outline: none;
+      box-shadow: var(--ring);
+      border-radius: var(--radius-sm);
+    }
+
+    .page {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: var(--space-6) var(--space-6) var(--space-9);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: var(--space-5);
+      padding: var(--space-6);
+      background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      margin-bottom: var(--space-5);
+    }
+
+    .eyebrow {
+      margin: 0 0 var(--space-3);
+      color: var(--accent);
+      font-size: var(--small);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      color: var(--ink);
+      font-size: var(--h1);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: var(--space-3);
+    }
+
+    .headline {
+      margin-bottom: var(--space-4);
+      color: var(--ink);
+      font-size: 1.125rem;
+      line-height: 1.45;
+      font-weight: 700;
+      max-width: 60ch;
+    }
+
+    .intro {
+      max-width: 66ch;
+      color: var(--text);
+      font-size: var(--body);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-top: var(--space-5);
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.4rem 0.7rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--line);
+      background: var(--surface-3);
+      color: var(--ink);
+      font-size: var(--small);
+      line-height: 1;
+    }
+
+    .contact-card {
+      align-self: start;
+      padding: var(--space-4);
+      border-radius: var(--radius-lg);
+      background: var(--surface-raised);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-card);
+    }
+
+    .contact-title {
+      margin-bottom: var(--space-2);
+      color: var(--ink);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .contact {
+      display: grid;
+      gap: var(--space-3);
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: var(--text);
+      font-size: var(--small);
+    }
+
+    .contact li {
+      padding: var(--space-2) 0;
+      border-bottom: 1px solid var(--line);
+      word-break: break-word;
+    }
+
+    .contact li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .contact-label {
+      display: block;
+      margin-bottom: 0.15rem;
+      color: var(--muted);
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .contact a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      min-height: 44px;
+      padding: 0.55rem 0.75rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--line);
+      background: var(--surface-3);
+      color: var(--ink);
+      text-decoration: none;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+    }
+
+    .contact a:hover {
+      color: var(--accent-hover);
+      background: var(--surface-2);
+      border-color: var(--line-strong);
+      box-shadow: var(--shadow-2);
+      transform: translateY(-1px);
+    }
+
+    main {
+      display: grid;
+      gap: var(--space-5);
+    }
+
+    section {
+      scroll-margin-top: 1rem;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-4);
+      margin-bottom: var(--space-3);
+    }
+
+    .section-head h2 {
+      color: var(--ink);
+      font-size: var(--h2);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .section-note {
+      color: var(--muted);
+      font-size: var(--small);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+
+    .card-grid.featured-example {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card-grid.featured-example > .card:first-child {
+      grid-column: span 2;
+    }
+
+    .card,
+    .job,
+    .skill-card,
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: var(--space-5);
+      box-shadow: var(--shadow-2);
+    }
+
+    .card h3,
+    .job h3,
+    .skill-card h3,
+    .tool-card h3 {
+      color: var(--ink);
+      font-size: var(--h3);
+      margin-bottom: var(--space-2);
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: var(--small);
+      margin-bottom: var(--space-3);
+    }
+
+    .card p,
+    .job p {
+      color: var(--text);
+      font-size: var(--body);
+    }
+
+    .card p:last-child,
+    .job p:last-child {
+      margin-bottom: 0;
+    }
+
+    .list {
+      margin: var(--space-3) 0 0;
+      padding: 0;
+      list-style: none;
+      color: var(--text);
+    }
+
+    .list li {
+      position: relative;
+      margin-bottom: 0.45rem;
+      padding-left: 1rem;
+    }
+
+    .list li::before {
+      content: "›";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--text-link);
+      font-weight: var(--weight-bold);
+    }
+
+    .impact {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: var(--space-4);
+      align-items: start;
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+
+    .impact-card {
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: var(--surface-raised);
+      box-shadow: var(--shadow-card);
+    }
+
+    .impact-card.emphasis {
+      border-color: var(--line-strong);
+      background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-raised) 100%);
+    }
+
+    .impact-label {
+      display: inline-flex;
+      margin-bottom: var(--space-3);
+      color: var(--accent);
+      font-size: var(--small);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .impact-metric {
+      color: var(--ink);
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: var(--space-3);
+    }
+
+    .impact-card p {
+      color: var(--text);
+      font-size: var(--body);
+      margin: 0;
+    }
+
+    .impact-note {
+      display: block;
+      margin-top: var(--space-2);
+      color: var(--muted);
+      font-size: var(--small);
+      line-height: var(--leading-normal);
+    }
+
+    .proof {
+      padding: var(--space-4) var(--space-5);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .proof strong {
+      display: block;
+      margin-bottom: var(--space-2);
+      color: var(--accent);
+      font-size: var(--small);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .proof p {
+      color: var(--text);
+      font-size: var(--body);
+    }
+
+    .skill-grid,
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+
+    .skill-grid > .skill-card:last-child {
+      grid-column: 1 / -1;
+    }
+
+    .skill-card,
+    .tool-card {
+      background: var(--surface-raised);
+      box-shadow: var(--inset-hairline);
+    }
+
+    .skill-card,
+    .tool-card {
+      padding: var(--space-4);
+    }
+
+    .skill-card p {
+      margin: 0 0 var(--space-3);
+      color: var(--text-body);
+      font-size: var(--small);
+      line-height: var(--leading-normal);
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: var(--space-3);
+    }
+
+    .tag-list span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 0.4rem 0.7rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--line);
+      background: var(--surface-3);
+      color: var(--ink);
+      font-size: var(--small);
+    }
+
+    .job + .job {
+      margin-top: var(--space-4);
+    }
+
+    .card-grid.tight {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .footer-note {
+      margin-top: var(--space-4);
+      color: var(--muted);
+      font-size: var(--small);
+    }
+
+    .feature-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .feature-metric {
+      color: var(--ink);
+      font-size: 1.75rem;
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .feature-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: var(--small);
+      line-height: var(--leading-normal);
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .impact,
+      .impact-grid,
+      .card-grid,
+      .skill-grid,
+      .tool-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card-grid.featured-example > .card:first-child {
+        grid-column: auto;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        padding: var(--space-4);
+      }
+
+      .hero {
+        padding: var(--space-5);
+      }
+
+      .contact-card,
+      .card,
+      .job,
+      .skill-card,
+      .tool-card,
+      .proof {
+        padding: var(--space-4);
+      }
+
+      h1 {
+        font-size: 2.1rem;
+      }
+    }
+
+    @media print {
+      @page {
+        margin: 14mm;
+      }
+
+      body {
+        background: #ffffff;
+        color: #111827;
+      }
+
+      a {
+        color: #111827;
+      }
+
+      .page {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+
+      .hero,
+      .contact-card,
+      .card,
+      .job,
+      .skill-card,
+      .tool-card,
+      .proof,
+      .impact-card {
+        background: #ffffff;
+        color: #111827;
+        border: 1px solid #d1d5db;
+        box-shadow: none;
+      }
+
+      .hero,
+      section,
+      .card,
+      .job,
+      .skill-card,
+      .tool-card,
+      .proof,
+      .contact-card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .eyebrow,
+      .contact-label,
+      .contact-title,
+      .proof strong,
+      .impact-label {
+        color: #1d4ed8;
+      }
+
+      .headline,
+      .intro,
+      .meta,
+      .section-note,
+      .contact,
+      .card p,
+      .job p,
+      .proof p,
+      .list,
+      .tag-list span,
+      .feature-metric,
+      .impact-metric,
+      .impact-card p,
+      .impact-note,
+      .feature-note {
+        color: #111827;
+      }
+
+      .list li::before {
+        color: #1d4ed8;
+      }
+
+      .chip,
+      .tag-list span {
+        background: #ffffff;
+      }
+
+      .contact a {
+        background: #ffffff;
+        color: #111827;
+        border-color: #d1d5db;
+        box-shadow: none;
+      }
+
+      a:focus-visible,
+      .contact a:focus-visible {
+        box-shadow: none;
+      }
+
+      .hero,
+      main,
+      section,
+      .card,
+      .job,
+      .skill-card,
+      .tool-card,
+      .proof,
+      .contact-card {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <article class="page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">CV · Reko Mäkelä</p>
+        <h1>Reko Mäkelä</h1>
+        <p class="headline">
+          Sivuston kehityksen, hakukoneoptimoinnin, konversio-optimoinnin ja analytiikan asiantuntija
+        </p>
+        <p class="intro">
+          Autan tunnistamaan, mitä sivustolla kannattaa kehittää seuraavaksi. Työni yhdistää
+          hakukysynnän, käyttäjäpolut, analytiikan, sisällöntuotannon ja käytännön toteutuksen.
+        </p>
+
+        <div class="chips" aria-label="Keskeiset osa-alueet">
+          <span class="chip">Hakukoneoptimointi</span>
+          <span class="chip">Konversio-optimointi</span>
+          <span class="chip">Analytiikka</span>
+          <span class="chip">Sisältötyö</span>
+          <span class="chip">Tekoäly</span>
+        </div>
+      </div>
+
+      <aside class="contact-card" aria-label="Yhteystiedot">
+        <div class="contact-title">Yhteystiedot</div>
+        <ul class="contact">
+          <li>
+            <span class="contact-label">Sijainti</span>
+            Helsinki, Suomi
+          </li>
+          <li>
+            <span class="contact-label">Sähköposti</span>
+            <a href="mailto:reko.makela@gmail.com">reko.makela@gmail.com</a>
+          </li>
+          <li>
+            <span class="contact-label">LinkedIn</span>
+            <a href="https://www.linkedin.com/in/reko-makela/" target="_blank" rel="noopener noreferrer">
+              LinkedIn ↗
+            </a>
+          </li>
+          <li>
+            <span class="contact-label">Portfolio</span>
+            <a href="index.html">Avaa portfolio</a>
+          </li>
+        </ul>
+      </aside>
+    </header>
+
+    <main>
+      <section>
+        <div class="section-head">
+          <h2>Työkokemus</h2>
+        </div>
+
+        <article class="job">
+          <h3>Sivuston kehitys, konversio-optimointi, käyttäjäkokemus, hakukoneoptimointi ja sisällöntuotanto</h3>
+          <p class="meta">Terveystalo · 05/2025–nykyhetki · Helsinki / hybridi</p>
+          <ul class="list">
+            <li>Kehitän palvelusivujen roolia, käyttäjäpolkuja ja ajanvaraukseen siirtymistä suuressa, brändiherkässä ja säännellyssä terveysalan organisaatiossa.</li>
+            <li>Analysoin Google Search Console- ja Piwik PRO -dataa sekä hakukoneoptimoinnin, sisällön ja käyttäjäpolkujen havaintoja ja muutan ne priorisoiduiksi kehitystoimiksi.</li>
+            <li>Suunnittelen ja tuotan raportteja, tarkistusnäkymiä ja työjonoja, jotka auttavat tiimejä näkemään, mitä kannattaa tehdä seuraavaksi.</li>
+            <li>Hyödynnän tekoälytyökaluja analyysin jäsentämisessä, kehitystehtävien muotoilussa, dokumentoinnissa ja tarkistamisessa.</li>
+            <li>Teen yhteistyötä hakukoneoptimoinnin, konversio-optimoinnin, analytiikan, käyttökokemuksen, sisällön, kehityksen, brändin ja liiketoiminnan kanssa.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <h3>Digimyynnin asiantuntijatyö, mainonta, hakukoneoptimointi ja analytiikka</h3>
+          <p class="meta">Terveystalo · 09/2022–04/2025 · Helsinki / hybridi</p>
+          <ul class="list">
+            <li>Työskentelin hakukoneoptimoinnin, sisältöjen, hakukysynnän, sivurakenteiden ja orgaanisen kasvun parissa.</li>
+            <li>Tein Google Ads -hakusanamainontaa ja Meta-mainontaa osana digimyynnin kokonaisuutta.</li>
+            <li>Yhdistin hakukysyntää, mainonnan havaintoja, analytiikkaa ja käyttäjäpolkujen kehittämistä käytännön toimenpiteiksi.</li>
+            <li>Osallistuin palvelusivujen, terveysartikkeleiden ja hakunäkyvyyttä tukevien sisältöjen kehittämiseen.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <h3>Terveystalo-uran alkuvaihe: digimarkkinointi, sisältö ja analytiikka</h3>
+          <p class="meta">Terveystalo · 09/2021–08/2022 · Helsinki / hybridi</p>
+          <ul class="list">
+            <li>Tein digimarkkinoinnin, hakukysynnän, sisällön ja analytiikan käytännön työtä.</li>
+            <li>Osallistuin sivuston kehittämisen, löydettävyyden ja sisältöjen tukemiseen.</li>
+            <li>Rakensin pohjaa myöhemmälle digimyynnin, hakukoneoptimoinnin ja analytiikan yhdistelmälle.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <h3>Affiliate-markkinointi ja hakukoneoptimoinnin konsultointi</h3>
+          <p class="meta">Itsenäinen työ · 2018–2021</p>
+          <ul class="list">
+            <li>Elätin itseni affiliate-markkinoinnilla ja hakukoneoptimoinnin konsultoinnilla.</li>
+            <li>Kokemus antoi käytännön pohjan hakukysynnän, sisältöjen, kaupallisen intentin, konversion ja tulospohjaisen digimarkkinoinnin yhdistämiseen.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>Ydinosaaminen</h2>
+        </div>
+
+        <div class="skill-grid">
+          <article class="skill-card">
+            <h3>Strateginen sivustokehitys</h3>
+            <p>Autan tunnistamaan, mitkä sivut, sisällöt ja käyttäjäpolut tarvitsevat kehitystä.</p>
+            <ul class="list">
+              <li>hakukysynnän tulkinta</li>
+              <li>palvelusivujen kehittäminen</li>
+              <li>sivurakenteiden selkeyttäminen</li>
+              <li>orgaanisen näkyvyyden parantaminen</li>
+            </ul>
+          </article>
+
+          <article class="skill-card">
+            <h3>Konversio ja käyttäjäpolut</h3>
+            <p>Kehitän sivuja ja polkuja niin, että käyttäjän seuraava askel on selkeämpi.</p>
+            <ul class="list">
+              <li>ajanvaraukseen siirtymisen kehittäminen</li>
+              <li>käyttäjän seuraavan askeleen selkeyttäminen</li>
+              <li>kokeilujen suunnittelu ja tulkinta</li>
+              <li>kitkakohtien tunnistaminen</li>
+            </ul>
+          </article>
+
+          <article class="skill-card">
+            <h3>Analytiikka ja raportointi</h3>
+            <p>Muutan mittaus- ja hakunäkyvyyshavainnot raporteiksi, joista näkee mitä kannattaa tehdä seuraavaksi.</p>
+            <ul class="list">
+              <li>Google Search Console</li>
+              <li>Piwik PRO</li>
+              <li>vertailut ja muutosten tulkinta</li>
+              <li>raportit, jotka johtavat päätöksiin</li>
+            </ul>
+          </article>
+
+          <article class="skill-card">
+            <h3>Sisältötyön toimintamallit</h3>
+            <p>Jäsennän laajoja sivu- ja sisältökokonaisuuksia tarkistettaviksi ja priorisoitaviksi.</p>
+            <ul class="list">
+              <li>tarkistusnäkymät</li>
+              <li>työjonot</li>
+              <li>luokittelut</li>
+              <li>havaintojen muuttaminen tehtäviksi</li>
+            </ul>
+          </article>
+
+          <article class="skill-card">
+            <h3>AI-avusteinen valmistelu ja työkalukehitys</h3>
+            <p>Käytän tekoälyä ja pieniä työkaluja valmistelun, tarkistuksen ja dokumentoinnin tukena.</p>
+            <ul class="list">
+              <li>analyysin jäsentäminen</li>
+              <li>tehtävänantojen valmistelu</li>
+              <li>dokumentointi ja tarkistus</li>
+              <li>pienet paikalliset työkalut ja prototyypit</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>Työkalut ja käytännön osaaminen</h2>
+        </div>
+
+        <div class="tool-grid">
+          <article class="tool-card">
+            <h3>Keskeiset työkalut</h3>
+            <div class="tag-list" aria-label="Työkalut">
+              <span>Google Search Console</span>
+              <span>Piwik PRO</span>
+              <span>VWO</span>
+              <span>STAT</span>
+              <span>Semrush</span>
+              <span>Google Ads</span>
+              <span>Meta-mainonta</span>
+              <span>Excel</span>
+              <span>Optimizely CMS</span>
+            </div>
+          </article>
+
+          <article class="tool-card">
+            <h3>Datan käsittely ja prototypointi</h3>
+            <div class="tag-list" aria-label="Tekninen osaaminen">
+              <span>Python</span>
+              <span>pandas</span>
+              <span>CSV</span>
+              <span>Excel-aineistot</span>
+              <span>JSON</span>
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>perustason JavaScript</span>
+              <span>SvelteKit-prototyypit</span>
+              <span>FastAPI-suunnittelu</span>
+              <span>Git / GitHub</span>
+            </div>
+          </article>
+        </div>
+
+        <p class="footer-note">
+          CV on tarkoitettu käytettäväksi myös PDF-muodossa. Tulostusnäkymä vaihtaa vaaleaksi ja säilyttää rakenteen selkeänä.
+        </p>
+      </section>
+    </main>
+  </article>
+</body>
+</html>

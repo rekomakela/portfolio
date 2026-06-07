@@ -16,8 +16,8 @@
 
       --text-heading: #e8eaed;
       --text-body: #bdc1c6;
-      --text-subtle: #9aa0a6;
-      --text-faint: #80868b;
+      --text-subtle: #b0b7c0;
+      --text-faint: #959ca6;
       --text-on-accent: #ffffff;
       --text-link: #8ab4f8;
       --text-link-hover: #aecbfa;
@@ -29,8 +29,8 @@
 
       --action-primary: #8ab4f8;
       --action-primary-strong: #1a73e8;
-      --action-primary-strong-hover: #1f7df0;
-      --action-primary-strong-press: #1765cc;
+      --action-primary-strong-hover: #1765cc;
+      --action-primary-strong-press: #1457b2;
 
       --status-positive: #81c995;
       --status-attention: #fdd663;
@@ -73,8 +73,8 @@
       --text-lead: 1.1875rem;
       --text-body-size: 1rem;
       --text-sm: 0.9375rem;
-      --text-xs: 0.8125rem;
-      --text-2xs: 0.75rem;
+      --text-xs: 0.875rem;
+      --text-2xs: 0.8125rem;
       --weight-medium: 500;
       --weight-semibold: 600;
       --weight-bold: 700;
@@ -141,10 +141,7 @@
 
     .hero,
     .featured-card,
-    .theme-card,
-    .demo-card,
-    .cv-card,
-    .docs-card {
+    .demo-card {
       background: var(--surface-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
@@ -154,23 +151,17 @@
 
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(290px, 0.75fr);
+      grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
       gap: var(--gap-grid);
       padding: var(--pad-card);
       margin-bottom: var(--space-5);
+      align-items: start;
     }
 
     .hero-copy {
       position: relative;
-      min-height: 100%;
+      max-width: 62ch;
       padding: var(--space-2) 0 var(--space-1);
-    }
-
-    .hero-chiprow {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-2);
-      margin-top: var(--space-5);
     }
 
     .hero-mark {
@@ -232,13 +223,84 @@
       margin-top: var(--space-6);
     }
 
+    .hero-contact-card {
+      align-self: start;
+      padding: var(--pad-card-sm);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-card);
+    }
+
+    .hero-contact-title {
+      margin: 0 0 var(--space-2);
+      color: var(--text-heading);
+      font-size: var(--text-h3);
+      line-height: var(--leading-snug);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-snug);
+    }
+
+    .hero-contact {
+      display: grid;
+      gap: var(--space-3);
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: var(--text-body);
+      font-size: var(--text-sm);
+    }
+
+    .hero-contact li {
+      padding: var(--space-2) 0;
+      border-bottom: 1px solid var(--border-subtle);
+      word-break: break-word;
+    }
+
+    .hero-contact li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .hero-contact-label {
+      display: block;
+      margin-bottom: 0.15rem;
+      color: var(--text-subtle);
+      font-size: var(--text-2xs);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+    }
+
+    .hero-contact a {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 44px;
+      padding: 0.55rem 0.75rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--surface-card);
+      color: var(--text-heading);
+      text-decoration: none;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+    }
+
+    .hero-contact a:hover {
+      background: var(--surface-card-hover);
+      border-color: var(--border-strong);
+      color: var(--text-link-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-card-hover);
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: var(--space-2);
-      padding: 0 var(--space-5);
-      height: 40px;
+      min-height: 44px;
+      padding: 0.65rem var(--space-5);
       border-radius: var(--radius-sm);
       border: 1px solid transparent;
       text-decoration: none;
@@ -276,55 +338,6 @@
       transform: translateY(-1px);
       box-shadow: var(--shadow-card-hover);
       color: var(--text-heading);
-    }
-
-    .hero-panel {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: var(--space-4);
-      padding: var(--pad-card-sm);
-      background: var(--surface-raised);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      box-shadow: var(--inset-hairline), var(--shadow-card);
-    }
-
-    .panel-title {
-      margin: 0 0 var(--space-4);
-      color: var(--text-heading);
-      font-size: var(--text-h3);
-      font-weight: var(--weight-semibold);
-      letter-spacing: var(--tracking-snug);
-    }
-
-    .panel-list {
-      display: grid;
-      gap: var(--space-3);
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .panel-item {
-      padding: var(--space-3) var(--space-4);
-      border-radius: var(--radius-sm);
-      background: var(--surface-card);
-      border: 1px solid var(--border-subtle);
-    }
-
-    .panel-item strong {
-      display: block;
-      margin-bottom: 4px;
-      color: var(--text-heading);
-      font-size: var(--text-sm);
-      font-weight: var(--weight-semibold);
-    }
-
-    .panel-item span {
-      color: var(--text-body);
-      font-size: var(--text-xs);
-      line-height: var(--leading-normal);
     }
 
     .section {
@@ -382,39 +395,15 @@
       white-space: nowrap;
     }
 
-    .theme-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: var(--gap-grid);
-    }
-
-    .theme-card,
-    .demo-card,
-    .cv-card,
-    .docs-card {
+    .demo-card {
       padding: var(--pad-card-sm);
     }
 
-    .theme-card:hover,
-    .demo-card:hover,
-    .cv-card:hover,
-    .docs-card:hover {
+    .demo-card:hover {
       background: var(--surface-card-hover);
       border-color: var(--border-strong);
       transform: translateY(-1px);
       box-shadow: var(--shadow-card-hover);
-    }
-
-    .theme-card h3 {
-      margin: var(--space-3) 0 var(--space-2);
-      font-size: var(--text-sm);
-    }
-
-    .theme-card p {
-      margin: 0;
-      color: var(--text-body);
-      font-size: var(--text-xs);
-      line-height: var(--leading-normal);
     }
 
     .featured-card {
@@ -498,20 +487,17 @@
     .btn-link {
       display: inline-flex;
       align-items: center;
+      min-height: 44px;
+      padding: 0.35rem 0;
       color: var(--text-link);
       font-size: var(--text-sm);
       font-weight: var(--weight-semibold);
-      text-decoration: none;
-    }
-
-    .btn-link:hover {
-      color: var(--text-link-hover);
       text-decoration: underline;
       text-underline-offset: 0.15em;
     }
 
-    .hero-contact {
-      font-weight: var(--weight-semibold);
+    .btn-link:hover {
+      color: var(--text-link-hover);
     }
 
     .screenshot-link {
@@ -639,37 +625,6 @@
       font-size: var(--text-h3);
     }
 
-    .cv-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
-      gap: var(--gap-grid);
-    }
-
-    .cv-card h3 {
-      margin-bottom: var(--space-3);
-      font-size: var(--text-h3);
-    }
-
-    .cv-label {
-      display: block;
-      margin: 0 0 var(--space-2);
-      color: var(--text-link);
-      font-size: var(--text-2xs);
-      font-weight: var(--weight-semibold);
-      letter-spacing: var(--tracking-wide);
-      text-transform: uppercase;
-    }
-
-    .cv-list {
-      margin: var(--space-4) 0 0;
-      padding-left: var(--space-5);
-      color: var(--text-body);
-    }
-
-    .cv-list li {
-      margin-bottom: var(--space-2);
-    }
-
     .strength-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -687,60 +642,18 @@
       line-height: var(--leading-normal);
     }
 
-    .docs-card {
-      padding: var(--space-4);
-      display: block;
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .docs-card h3 {
-      margin: 0 0 4px;
-      font-size: var(--text-sm);
-    }
-
-    .docs-card p {
-      margin: 0;
-      color: var(--text-body);
-      font-size: var(--text-xs);
-      line-height: var(--leading-normal);
-    }
-
-    .doc-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: var(--gap-grid);
-    }
-
-    .section-secondary {
-      margin-top: var(--space-5);
-    }
-
-    .muted-note {
-      color: var(--text-subtle);
-      font-size: var(--text-xs);
-    }
-
-    .visually-muted {
-      color: var(--text-subtle);
-    }
-
     @media (max-width: 980px) {
       .hero,
       .featured-card,
-      .cv-grid {
+      .skill-grid,
+      .tool-grid {
         grid-template-columns: 1fr;
       }
 
-      .theme-grid,
-      .demo-grid,
-      .doc-grid {
+      .demo-grid {
         grid-template-columns: 1fr;
       }
 
-      .strength-grid {
-        grid-template-columns: 1fr;
-      }
     }
 
     @media (max-width: 760px) {
@@ -750,10 +663,7 @@
 
       .hero,
       .featured-card,
-      .theme-card,
-      .demo-card,
-      .cv-card,
-      .docs-card {
+      .demo-card {
         padding: var(--space-4);
       }
 
@@ -777,12 +687,13 @@
         gap: var(--space-2);
       }
 
-      .btn {
+      .btn,
+      .btn-link {
         width: 100%;
       }
 
-      .btn-link {
-        width: 100%;
+      .hero-contact-card {
+        padding: var(--space-4);
       }
     }
   </style>
@@ -794,108 +705,47 @@
         <div class="hero-mark" aria-hidden="true">RM</div>
         <p class="eyebrow">Portfolio ja CV</p>
         <h1>Reko Mäkelä</h1>
-        <p class="hero-role">SEO, Content Ops, analytiikka ja AI-avusteiset työnkulut</p>
+        <p class="hero-role">Hakukoneoptimointi, konversio-optimointi, analytiikka, sisältötyö ja tekoälyavusteiset työnkulut</p>
         <p class="lead">
-          Autan tiimejä löytämään, mitä sivustolla kannattaa kehittää seuraavaksi, yhdistämällä
-          hakudatan, sivusignaalit, analytiikan ja käytännön toteutuksen.
+          Autan kehittämään sivustoja, jotka löytyvät paremmin, ohjaavat käyttäjää selkeämmin ja
+          tukevat parempaa päätöksentekoa.
         </p>
-        <div class="hero-chiprow" aria-label="Keskeiset osa-alueet">
-          <span class="tag">SEO</span>
-          <span class="tag">CRO</span>
-          <span class="tag">Analytiikka</span>
-          <span class="tag">Content Ops</span>
-          <span class="tag">AI</span>
-        </div>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#paanayte">Katso työnäyte</a>
-          <a class="btn btn-secondary" href="#cv-yhteenveto">Avaa CV-yhteenveto</a>
-          <a
-            class="btn btn-secondary hero-contact"
-            href="https://www.linkedin.com/in/reko-makela/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Avaa Reko Mäkelän LinkedIn-profiili uuteen välilehteen"
-          >
-            LinkedIn ↗
-          </a>
         </div>
       </div>
 
-      <aside class="hero-panel" aria-label="Sivun sisältö">
-        <div>
-          <p class="panel-title">Sivun sisältö</p>
-          <ul class="panel-list">
-            <li class="panel-item">
-              <strong>Valittu työnäyte</strong>
-              <span>Aloita tästä.</span>
-            </li>
-            <li class="panel-item">
-              <strong>Työnäytteet</strong>
-              <span>AIAuditLab, SearchAudit ja Piwik PRO Workspace.</span>
-            </li>
-            <li class="panel-item">
-              <strong>CV-yhteenveto</strong>
-              <span>Tiivis kuva fokuksesta, kokemuksesta ja vahvuuksista.</span>
-            </li>
-          </ul>
-        </div>
-        <div class="muted-note">Aloita työnäytteestä ja etene CV-yhteenvetoon.</div>
+      <aside class="hero-contact-card" aria-label="Yhteystiedot">
+        <h2 class="hero-contact-title">Yhteystiedot</h2>
+        <ul class="hero-contact">
+          <li>
+            <span class="hero-contact-label">Sijainti</span>
+            Helsinki, Suomi
+          </li>
+          <li>
+            <span class="hero-contact-label">Sähköposti</span>
+            <a href="mailto:reko.makela@gmail.com">reko.makela@gmail.com</a>
+          </li>
+          <li>
+            <span class="hero-contact-label">LinkedIn</span>
+            <a href="https://www.linkedin.com/in/reko-makela/" target="_blank" rel="noopener noreferrer">
+              LinkedIn ↗
+            </a>
+          </li>
+          <li>
+            <span class="hero-contact-label">CV</span>
+            <a href="cv.html">Avaa CV</a>
+          </li>
+        </ul>
       </aside>
     </section>
 
-    <section class="section">
-      <div class="section-head">
-        <div>
-          <h2>Ydinteemat</h2>
-        </div>
-      </div>
-
-      <div class="theme-grid">
-        <article class="theme-card">
-          <span class="tag">Content Ops</span>
-          <h3>Sisältötyön ja sivukokonaisuuksien hallinta</h3>
-          <p>Laajat sivukokonaisuudet muutetaan selkeiksi tarkistusjonoiksi, joissa havainnot ja päätökset pysyvät yhdessä.</p>
-        </article>
-
-        <article class="theme-card">
-          <span class="tag">SEO ja kasvu</span>
-          <h3>SEO, hakudata ja kasvu</h3>
-          <p>Hakukysyntä, intentti ja sivujen parantaminen kytketään näkyvästi priorisointiin ja sisällön kehitykseen.</p>
-        </article>
-
-        <article class="theme-card">
-          <span class="tag">Analytiikka</span>
-          <h3>Analytiikka ja raportointi</h3>
-          <p>Data tiivistyy luettaviksi raporteiksi, päätöksiksi ja seuraaviksi askeliksi ilman turhaa tulkintakerrosta.</p>
-        </article>
-
-        <article class="theme-card">
-          <span class="tag">AI</span>
-          <h3>AI-avusteiset työnkulut</h3>
-          <p>AI auttaa jäsentämään, vertailemaan ja valmistelemaan työtä, mutta arviointi ja päätös pysyvät ihmisellä.</p>
-        </article>
-
-        <article class="theme-card">
-          <span class="tag">Työkalut</span>
-          <h3>Paikalliset työkalut ja datatyönkulut</h3>
-          <p>Kevyet paikalliset työkalut tukevat tarkistusta, raportointia ja priorisointia silloin kun valmis järjestelmä ei riitä.</p>
-        </article>
-      </div>
-    </section>
-
     <section class="section" id="paanayte">
-      <div class="section-head">
-        <div></div>
-      </div>
-
       <article class="featured-card">
         <div class="featured-copy">
           <h3>Content Ops Platform</h3>
           <p>
             Paikallinen työtila palvelusivujen, sivutyyppien ja hakukysynnän tarkistamiseen.
-          </p>
-          <p>
-            Valittu sivu, havainnot ja priorisointi näkyvät yhdessä näkymässä.
           </p>
           <div class="featured-facts" aria-label="Työnäytön tiivistelmä">
             <div class="featured-fact">
@@ -912,7 +762,7 @@
             </div>
           </div>
           <div class="action-row">
-            <a class="btn btn-primary" href="case-studies/content-ops-platform/">Avaa työnäyte</a>
+            <a class="btn btn-primary" href="case-studies/content-ops-platform/">Avaa Content Ops Platform -työnäyte</a>
             <a class="btn btn-secondary" href="scenarios/content-ops-platform-scenario.md">Käyttöskenaario</a>
             <a class="btn btn-secondary" href="demos/02-content-ops-platform/">Demo-kuvaus</a>
           </div>
@@ -921,27 +771,25 @@
         <a
           class="screenshot-link"
           href="case-studies/content-ops-platform/"
-          aria-label="Avaa Content Ops Platform työnäyte ja näkymä"
+          aria-label="Avaa Content Ops Platform -työnäyte"
         >
           <div class="screenshot-frame">
             <div class="screenshot-bar" aria-hidden="true">
               <span class="window-dots"><i></i><i></i><i></i></span>
               <span class="screenshot-caption">content-ops-platform</span>
-              <span class="screenshot-cue">Avaa työnäyte ↗</span>
+              <span class="screenshot-cue">Avaa Content Ops Platform ↗</span>
             </div>
             <div class="screenshot-well">
             <img
               src="assets/screenshots/content-ops/content-ops-service-classification-gynekologi.png"
-              alt="Content Ops Platform -näkymä palvelusivujen luokittelusta"
+              alt="Content Ops Platform -työnäytön näkymä, jossa palvelusivujen luokittelu, havainnot ja priorisointi näkyvät yhdessä"
               class="screenshot"
             >
-              <span class="screenshot-hint">Avaa työnäyte →</span>
             </div>
           </div>
         </a>
       </article>
     </section>
-
     <section class="section">
       <div class="section-head">
         <div>
@@ -957,7 +805,7 @@
             AI-näkyvyyden, promptipohjien, vastausten ja löydösten hallintaan tarkoitettu työtila.
           </p>
           <div class="demo-links">
-            <a class="btn-link" href="case-studies/ai-audit-lab/">Avaa työnäyte</a>
+            <a class="btn-link" href="case-studies/ai-audit-lab/">Avaa AIAuditLab-työnäyte</a>
             <a class="btn-link" href="scenarios/ai-audit-lab-scenario.md">Käyttöskenaario</a>
             <a class="btn-link" href="demos/01-ai-audit-lab/">Demo-kuvaus</a>
           </div>
@@ -970,7 +818,7 @@
             Sisäisen haun hakutermien, kohdesivujen ja tarkistustilojen käsittelyyn.
           </p>
           <div class="demo-links">
-            <a class="btn-link" href="demos/03-search-audit/">Avaa työnäyte</a>
+            <a class="btn-link" href="demos/03-search-audit/">Avaa SearchAudit-työnäyte</a>
             <a class="btn-link" href="scenarios/search-audit-scenario.md">Käyttöskenaario</a>
           </div>
         </article>
@@ -982,81 +830,14 @@
             Käyttäjäpolkujen, pudotuskohtien ja prioriteettien mallintamiseen tarkoitettu työtila.
           </p>
           <div class="demo-links">
-            <a class="btn-link" href="demos/04-piwik-pro-workspace/">Avaa työnäyte</a>
+            <a class="btn-link" href="demos/04-piwik-pro-workspace/">Avaa Piwik PRO Workspace -työnäyte</a>
             <a class="btn-link" href="scenarios/piwik-pro-workspace-scenario.md">Käyttöskenaario</a>
           </div>
         </article>
       </div>
     </section>
 
-    <section class="section" id="cv-yhteenveto">
-      <div class="section-head">
-        <div>
-          <h2>CV-yhteenveto</h2>
-        </div>
-      </div>
-
-      <div class="cv-grid">
-        <article class="cv-card">
-          <span class="cv-label">Nykyinen fokus</span>
-          <p>
-            Digimyynti, SEO, CRO, analytiikka, Content Ops ja AI-avusteinen työkalukehitys.
-          </p>
-
-          <span class="cv-label">Kokemus</span>
-          <p>
-            Usean vuoden käytännön kokemus siitä, miten hakudata, sivusignaalit, analytiikka ja sisältötyö
-            muutetaan selkeiksi priorisoinneiksi, päätöksiksi ja toteutettaviksi työnkuluiksi.
-          </p>
-        </article>
-
-        <article class="cv-card">
-          <span class="cv-label">Valikoidut vahvuudet</span>
-          <ul class="cv-list">
-            <li>hakudatan tulkinta ja priorisointi</li>
-            <li>palvelusivujen ja sivurakenteiden kehittäminen</li>
-            <li>analytiikan muuttaminen päätöksiksi</li>
-            <li>raporttien ja tarkistusnäkymien rakentaminen</li>
-            <li>AI-avusteisten työnkulkujen suunnittelu</li>
-          </ul>
-
-          <div class="strength-grid">
-            <div class="strength">Selkeä viestintä vaikeista aiheista</div>
-            <div class="strength">Työnkulut, jotka auttavat tiimiä etenemään</div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section section-secondary">
-      <div class="section-head">
-        <div>
-          <h2>Taustadokumentit</h2>
-        </div>
-      </div>
-
-      <div class="doc-grid">
-        <a class="docs-card" href="docs/reviewer-guide.md">
-          <h3>Arvioijan opas</h3>
-          <p>Arvioinnin muistilista.</p>
-        </a>
-
-        <a class="docs-card" href="docs/portfolio-positioning.md">
-          <h3>Portfolion asemointi</h3>
-          <p>Rakenne ja viestinnän linja.</p>
-        </a>
-
-        <a class="docs-card" href="docs/demo-selection-rationale.md">
-          <h3>Valintaperusteet</h3>
-          <p>Miksi nämä työnäytteet ovat mukana.</p>
-        </a>
-
-        <a class="docs-card" href="docs/publication-checklist.md">
-          <h3>Julkaisun tarkistuslista</h3>
-          <p>Julkaisun tarkistuslista.</p>
-        </a>
-      </div>
-    </section>
   </main>
+
 </body>
 </html>
