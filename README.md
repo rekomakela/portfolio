@@ -69,3 +69,8 @@ Tämän koosterepon seuraavat vaiheet:
 | Content Ops Platform | Valittu päädemoksi | Tee public-safe yleiskuvaus |
 | SearchAudit | Valittu päädemoksi | Korosta sisäisen haun ja termikandidaattien työnkulkua |
 | Piwik PRO Workspace | Tukidemo | Korosta analytiikan muuttamista prioriteeteiksi |
+
+## Taustadokumentit
+
+- [Portfolio positioning](docs/portfolio-positioning.md)
+- [Demo selection rationale](docs/demo-selection-rationale.md)
