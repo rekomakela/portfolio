@@ -422,7 +422,7 @@
     .tool-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: var(--space-4);
+      gap: var(--space-5);
     }
 
     .skill-grid > .skill-card:last-child {
@@ -438,6 +438,24 @@
     .skill-card,
     .tool-card {
       padding: var(--space-4);
+    }
+
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      padding: var(--space-5);
+    }
+
+    .tool-card h3 {
+      margin-bottom: 0;
+    }
+
+    .tool-card .tool-usecase {
+      margin: 0;
+      color: var(--text-body);
+      font-size: var(--small);
+      line-height: var(--leading-normal);
     }
 
     .skill-card p {
@@ -467,17 +485,17 @@
     }
 
     .tool-card .tag-list {
-      gap: 0.4rem;
-      margin-top: var(--space-2);
+      gap: 0.35rem;
+      margin-top: 0;
     }
 
     .tool-card .tag-list span {
-      min-height: 32px;
-      padding: 0.35rem 0.6rem;
+      min-height: 30px;
+      padding: 0.3rem 0.55rem;
       border-radius: var(--radius-xs);
-      background: var(--surface-2);
-      border-color: var(--line-strong);
-      color: var(--text-heading);
+      background: var(--surface-3);
+      border-color: var(--line);
+      color: var(--text-body);
       font-size: var(--text-2xs);
       line-height: 1.2;
     }
@@ -832,6 +850,29 @@
         opacity: 1;
       }
 
+      .tool-grid {
+        gap: 0.5rem;
+      }
+
+      .tool-card {
+        padding: 0.5rem 0.6rem;
+      }
+
+      .tool-card .tool-usecase {
+        color: #1f2937;
+        font-size: 0.84rem;
+      }
+
+      .tool-card .tag-list {
+        gap: 0.28rem;
+      }
+
+      .tool-card .tag-list span {
+        min-height: 0;
+        padding: 0.24rem 0.45rem;
+        font-size: 0.78rem;
+      }
+
       .card,
       .job,
       .skill-card,
@@ -1115,7 +1156,8 @@
 
         <div class="tool-grid">
           <article class="tool-card">
-            <h3>Analytiikka, hakunäkyvyys ja sivuhavainnot</h3>
+            <h3>SEO, analytiikka ja käyttäjäpolut</h3>
+            <p class="tool-usecase">Hakukysynnän, orgaanisen näkyvyyden ja käyttäjäpolkujen analysointi.</p>
             <div class="tag-list" aria-label="Työkalut">
               <span>Google Search Console</span>
               <span>Piwik PRO</span>
@@ -1125,9 +1167,11 @@
           </article>
 
           <article class="tool-card">
-            <h3>Kokeilut, konversio ja digimyynti</h3>
+            <h3>CRO, kokeilut ja digimyynti</h3>
+            <p class="tool-usecase">Konversiopolkujen, kokeiluhypoteesien ja digimyynnin pullonkaulojen arviointi.</p>
             <div class="tag-list" aria-label="Työkalut">
               <span>VWO</span>
+              <span>Piwik PRO</span>
               <span>Google Ads</span>
               <span>Meta-mainonta</span>
             </div>
@@ -1135,23 +1179,28 @@
 
           <article class="tool-card">
             <h3>Kevyt prototypointi ja datan käsittely</h3>
+            <p class="tool-usecase">Datan yhdistäminen, tarkistaminen ja raportoinnin valmistelu tarkoitukseen sopivilla työkaluilla.</p>
             <div class="tag-list" aria-label="Työkalut">
               <span>Python</span>
-              <span>pandas</span>
-              <span>CSV / JSON</span>
-              <span>HTML / CSS</span>
+              <span>JavaScript</span>
+              <span>HTML / CSS / Tailwind</span>
               <span>Git / GitHub</span>
             </div>
           </article>
 
           <article class="tool-card">
-            <h3>Käytännön työskentelytavat</h3>
+            <h3>Sisältötyön työnkulut, AI-tuki ja toteutuksen ohjaus</h3>
+            <p class="tool-usecase">Laajojen sivu- ja sisältökokonaisuuksien jäsentäminen hallittaviksi kehityskokonaisuuksiksi.</p>
             <div class="tag-list" aria-label="Työskentelytavat">
+              <span>CMS-rakenteet</span>
+              <span>ChatGPT</span>
+              <span>Claude</span>
+              <span>Gemini</span>
+              <span>Codex</span>
+              <span>Local LLMs</span>
               <span>Priorisointimallit</span>
               <span>Työjonot</span>
-              <span>Raportointimallit</span>
               <span>Tarkistuslistat</span>
-              <span>Kevyet prototyypit</span>
             </div>
           </article>
         </div>

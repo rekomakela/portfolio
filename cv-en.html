@@ -423,7 +423,7 @@
     .tool-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: var(--space-4);
+      gap: var(--space-5);
     }
 
     .skill-grid > .skill-card:last-child {
@@ -439,6 +439,24 @@
     .skill-card,
     .tool-card {
       padding: var(--space-4);
+    }
+
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      padding: var(--space-5);
+    }
+
+    .tool-card h3 {
+      margin-bottom: 0;
+    }
+
+    .tool-card .tool-usecase {
+      margin: 0;
+      color: var(--text-body);
+      font-size: var(--small);
+      line-height: var(--leading-normal);
     }
 
     .skill-card p {
@@ -468,17 +486,17 @@
     }
 
     .tool-card .tag-list {
-      gap: 0.4rem;
-      margin-top: var(--space-2);
+      gap: 0.35rem;
+      margin-top: 0;
     }
 
     .tool-card .tag-list span {
-      min-height: 32px;
-      padding: 0.35rem 0.6rem;
+      min-height: 30px;
+      padding: 0.3rem 0.55rem;
       border-radius: var(--radius-xs);
-      background: var(--surface-2);
-      border-color: var(--line-strong);
-      color: var(--text-heading);
+      background: var(--surface-3);
+      border-color: var(--line);
+      color: var(--text-body);
       font-size: var(--text-2xs);
       line-height: 1.2;
     }
@@ -833,6 +851,29 @@
         opacity: 1;
       }
 
+      .tool-grid {
+        gap: 0.5rem;
+      }
+
+      .tool-card {
+        padding: 0.5rem 0.6rem;
+      }
+
+      .tool-card .tool-usecase {
+        color: #1f2937;
+        font-size: 0.84rem;
+      }
+
+      .tool-card .tag-list {
+        gap: 0.28rem;
+      }
+
+      .tool-card .tag-list span {
+        min-height: 0;
+        padding: 0.24rem 0.45rem;
+        font-size: 0.78rem;
+      }
+
       .card,
       .job,
       .skill-card,
@@ -1112,7 +1153,8 @@
 
         <div class="tool-grid">
           <article class="tool-card">
-            <h3>Analytics, search visibility and page signals</h3>
+            <h3>SEO, analytics and user journeys</h3>
+            <p class="tool-usecase">Analyzing search demand, organic visibility and user journeys.</p>
             <div class="tag-list" aria-label="Tools">
               <span>Google Search Console</span>
               <span>Piwik PRO</span>
@@ -1122,9 +1164,11 @@
           </article>
 
           <article class="tool-card">
-            <h3>Testing, conversion and digital sales</h3>
+            <h3>CRO, testing and digital sales</h3>
+            <p class="tool-usecase">Evaluating conversion paths, test hypotheses and digital sales bottlenecks.</p>
             <div class="tag-list" aria-label="Tools">
               <span>VWO</span>
+              <span>Piwik PRO</span>
               <span>Google Ads</span>
               <span>Meta advertising</span>
             </div>
@@ -1132,23 +1176,28 @@
 
           <article class="tool-card">
             <h3>Lightweight prototyping and data handling</h3>
+            <p class="tool-usecase">Combining, checking and preparing data for reporting with fit-for-purpose tools.</p>
             <div class="tag-list" aria-label="Tools">
               <span>Python</span>
-              <span>pandas</span>
-              <span>CSV / JSON</span>
-              <span>HTML / CSS</span>
+              <span>JavaScript</span>
+              <span>HTML / CSS / Tailwind</span>
               <span>Git / GitHub</span>
             </div>
           </article>
 
           <article class="tool-card">
-            <h3>Practical working methods</h3>
+            <h3>Content workflows, AI support and implementation guidance</h3>
+            <p class="tool-usecase">Structuring large page and content areas into manageable improvement work.</p>
             <div class="tag-list" aria-label="Working methods">
+              <span>CMS structures</span>
+              <span>ChatGPT</span>
+              <span>Claude</span>
+              <span>Gemini</span>
+              <span>Codex</span>
+              <span>Local LLMs</span>
               <span>Prioritization models</span>
               <span>Work queues</span>
-              <span>Reporting models</span>
               <span>Checklists</span>
-              <span>Lightweight prototypes</span>
             </div>
           </article>
         </div>
