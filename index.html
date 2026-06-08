@@ -615,6 +615,12 @@
       gap: var(--gap-grid);
     }
 
+    .achievement-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--gap-grid);
+    }
+
     .demo-card p {
       color: var(--text-body);
       font-size: var(--text-xs);
@@ -625,6 +631,42 @@
       margin-top: var(--space-3);
       margin-bottom: var(--space-2);
       font-size: var(--text-h3);
+    }
+
+    .achievement-card {
+      padding: var(--pad-card-sm);
+      background: var(--surface-raised);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: none;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .achievement-card:hover {
+      background: var(--surface-card-hover);
+      border-color: var(--border-strong);
+    }
+
+    .achievement-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-bottom: var(--space-3);
+    }
+
+    .achievement-card .tag {
+      padding: 0.35rem 0.55rem;
+      background: rgba(138, 180, 248, 0.08);
+      color: var(--text-subtle);
+      border-color: rgba(138, 180, 248, 0.18);
+      font-size: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .achievement-card p {
+      color: var(--text-body);
+      font-size: var(--text-xs);
+      line-height: var(--leading-normal);
     }
 
     .strength-grid {
@@ -653,6 +695,10 @@
       }
 
       .demo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .achievement-grid {
         grid-template-columns: 1fr;
       }
 
@@ -880,6 +926,95 @@
           <div class="demo-links">
             <a class="btn-link" href="work-samples/sanitized-html/04-feedback-workspace.html">Avaa palautetyöpöytä</a>
           </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Käytännön onnistumisia</h2>
+          <p>Valikoituja esimerkkejä siitä, miten analytiikka, kokeilut, hakukoneoptimointi, mainonta ja AI-avusteiset työnkulut ovat muuttuneet käytännön päätöksiksi, työkaluiksi ja seuraaviksi toimenpiteiksi.</p>
+        </div>
+      </div>
+
+      <div class="achievement-grid">
+        <article class="achievement-card">
+          <div class="achievement-tags">
+            <span class="tag">CRO</span>
+            <span class="tag">VWO</span>
+            <span class="tag">Palvelusivut</span>
+            <span class="tag">Käyttäjäpolut</span>
+          </div>
+          <h3>Palvelusivujen ajanvarauspolun kehittäminen kokeilun avulla</h3>
+          <p>
+            Suunnittelin ja validoin palvelusivujen kokeilun, jossa käyttäjän seuraavaa askelta kevennettiin ajanvarauspolun alkuvaiheessa. Kontrollissa painike oli “Varaa aika” ja variaatiossa “Katso vapaat ajat”. Siirtymät palvelusivuilta ajanvaraukseen kasvoivat 11,30 prosentista 13,41 prosenttiin. Tulos kuvaa ajanvaraukseen siirtymistä, ei vahvistettuja varauksia.
+          </p>
+        </article>
+
+        <article class="achievement-card">
+          <div class="achievement-tags">
+            <span class="tag">Google Ads</span>
+            <span class="tag">Python</span>
+            <span class="tag">Automaatio</span>
+            <span class="tag">Kaupunki- ja erikoistaso</span>
+          </div>
+          <h3>Saatavuustiedon hyödyntäminen Google Ads -budjettien ohjauksessa</h3>
+          <p>
+            Rakensin scriptin, joka haki päivittäin varattavissa olevia lääkäriaikoja kaupunki- ja erikoisalatasolla. Saatavuustieto auttoi ohjaamaan mainontaa järkevämmin niin, ettei panostusta lisätty alueisiin tai erikoisaloihin, joissa käyttäjälle ei ollut käytännössä sopivia aikoja.
+          </p>
+        </article>
+
+        <article class="achievement-card">
+          <div class="achievement-tags">
+            <span class="tag">CRO</span>
+            <span class="tag">Kokeilutoiminta</span>
+            <span class="tag">Priorisointi</span>
+            <span class="tag">Oppien dokumentointi</span>
+          </div>
+          <h3>Systemaattinen kokeilu- ja testausprosessi Airtablen päälle</h3>
+          <p>
+            Rakensin Airtablen päälle toimintamallin testihypoteesien, priorisoinnin, statusten, tulosten, oppien ja jatkotoimenpiteiden hallintaan. Malli auttoi tekemään kokeilutoiminnasta jatkuvampaa ja näkyvämpää.
+          </p>
+        </article>
+
+        <article class="achievement-card">
+          <div class="achievement-tags">
+            <span class="tag">Google Search Console</span>
+            <span class="tag">SEO-raportointi</span>
+            <span class="tag">HTML-raportit</span>
+            <span class="tag">Päätösnostot</span>
+          </div>
+          <h3>GSC-raportoinnin kehittäminen toimintalähtöiseksi</h3>
+          <p>
+            Kehitin orgaanisen haun viikko- ja kuukausiraportointia niin, että raportit eivät jääneet pelkiksi lukujen listauksiksi. Tavoitteena oli vastata kysymyksiin: mitä muuttui, miksi sillä voi olla merkitystä ja mitä seuraavaksi kannattaa tarkistaa tai tehdä.
+          </p>
+        </article>
+
+        <article class="achievement-card">
+          <div class="achievement-tags">
+            <span class="tag">SEO</span>
+            <span class="tag">Luokittelumallit</span>
+            <span class="tag">Tarkistusjonot</span>
+            <span class="tag">Sivu- ja sisältökokonaisuudet</span>
+          </div>
+          <h3>Palvelusivujen luokittelun ja tarkistusjonojen suunnittelu</h3>
+          <p>
+            Suunnittelin palvelusivujen tarkistus- ja luokittelulogiikkaa, jossa eri lähteitä käsitellään erillisinä havaintokerroksina. Tavoitteena oli luoda työjonoja ja näkymiä, jotka auttavat sisältö-, SEO- ja digimyyntityötä tekemään parempia päätöksiä suurten sivumassojen keskellä.
+          </p>
+        </article>
+
+        <article class="achievement-card">
+          <div class="achievement-tags">
+            <span class="tag">AI-avusteiset työnkulut</span>
+            <span class="tag">Lähdeaineisto</span>
+            <span class="tag">Tarkistusprosessi</span>
+            <span class="tag">Tutkimuksellinen selvitystyö</span>
+          </div>
+          <h3>AI-avusteinen lähde- ja tarkistuslogiikka väitöskirjatutkimuksen tueksi</h3>
+          <p>
+            Rakensin väitöskirjatutkimusta tekevälle kumppanille työkalukonseptin, jossa käyttäjä määrittää itse tutkimuskysymyksen ja hakusanat. Olennaista oli kontrolloitu työnkulku, jossa lähteet, löydökset ja tarkistusvaiheet pysyvät mukana.
+          </p>
         </article>
       </div>
     </section>
