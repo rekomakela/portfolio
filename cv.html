@@ -466,6 +466,22 @@
       font-size: var(--small);
     }
 
+    .tool-card .tag-list {
+      gap: 0.4rem;
+      margin-top: var(--space-2);
+    }
+
+    .tool-card .tag-list span {
+      min-height: 32px;
+      padding: 0.35rem 0.6rem;
+      border-radius: var(--radius-xs);
+      background: var(--surface-2);
+      border-color: var(--line-strong);
+      color: var(--text-heading);
+      font-size: var(--text-2xs);
+      line-height: 1.2;
+    }
+
     .job + .job {
       margin-top: var(--space-4);
     }
@@ -808,7 +824,8 @@
       }
 
       .chip,
-      .tag-list span {
+      .tag-list span,
+      .tool-card .tag-list span {
         background: #ffffff;
         border-color: #d1d5db;
         color: #111827;
@@ -1130,11 +1147,11 @@
           <article class="tool-card">
             <h3>Käytännön työskentelytavat</h3>
             <div class="tag-list" aria-label="Työskentelytavat">
-              <span>priorisointimallit</span>
-              <span>työjonot</span>
-              <span>raportointimallit</span>
-              <span>tarkistuslistat</span>
-              <span>kevyet prototyypit</span>
+              <span>Priorisointimallit</span>
+              <span>Työjonot</span>
+              <span>Raportointimallit</span>
+              <span>Tarkistuslistat</span>
+              <span>Kevyet prototyypit</span>
             </div>
           </article>
         </div>
