@@ -612,7 +612,13 @@
 
     .demo-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--gap-grid);
+    }
+
+    .achievement-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: var(--gap-grid);
     }
 
@@ -626,6 +632,42 @@
       margin-top: var(--space-3);
       margin-bottom: var(--space-2);
       font-size: var(--text-h3);
+    }
+
+    .achievement-card {
+      padding: var(--pad-card-sm);
+      background: var(--surface-raised);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: none;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .achievement-card:hover {
+      background: var(--surface-card-hover);
+      border-color: var(--border-strong);
+    }
+
+    .achievement-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-bottom: var(--space-3);
+    }
+
+    .achievement-card .tag {
+      padding: 0.35rem 0.55rem;
+      background: rgba(138, 180, 248, 0.08);
+      color: var(--text-subtle);
+      border-color: rgba(138, 180, 248, 0.18);
+      font-size: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .achievement-card p {
+      color: var(--text-body);
+      font-size: var(--text-xs);
+      line-height: var(--leading-normal);
     }
 
     .strength-grid {
@@ -654,6 +696,10 @@
       }
 
       .demo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .achievement-grid {
         grid-template-columns: 1fr;
       }
 
@@ -881,6 +927,95 @@
           <div class="demo-links">
             <a class="btn-link" href="work-samples/sanitized-html-en/04-feedback-workspace.html">Open feedback workspace</a>
           </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Practical achievements</h2>
+          <p>Selected examples of how analytics, experiments, SEO, advertising and AI-assisted workflows have turned into practical decisions, tools and next actions.</p>
+        </div>
+      </div>
+
+      <div class="achievement-grid">
+        <article class="achievement-card">
+          <div class="achievement-tags">
+            <span class="tag">CRO</span>
+            <span class="tag">VWO</span>
+            <span class="tag">Service pages</span>
+            <span class="tag">User journeys</span>
+          </div>
+          <h3>Improving the booking path on service pages through an experiment</h3>
+          <p>
+            I designed and validated a service-page experiment where the user’s next step was made lighter at the start of the booking path. The control button was “Book an appointment” and the variation was “See available times”. Transitions from service pages to booking increased from 11.30% to 13.41%. The result describes movement toward booking, not confirmed appointments.
+          </p>
+        </article>
+
+        <article class="achievement-card">
+          <div class="achievement-tags">
+            <span class="tag">Google Ads</span>
+            <span class="tag">Python</span>
+            <span class="tag">Automation</span>
+            <span class="tag">City and specialty level</span>
+          </div>
+          <h3>Using appointment availability to guide Google Ads budgets</h3>
+          <p>
+            I built a script that fetched available doctor appointments daily at city and specialty level. Availability data helped guide advertising more sensibly, so spend was not increased in areas or specialties where users did not have suitable appointment times available in practice.
+          </p>
+        </article>
+
+        <article class="achievement-card">
+          <div class="achievement-tags">
+            <span class="tag">CRO</span>
+            <span class="tag">Experimentation</span>
+            <span class="tag">Prioritization</span>
+            <span class="tag">Learning documentation</span>
+          </div>
+          <h3>Building a systematic experimentation process on Airtable</h3>
+          <p>
+            I built an Airtable-based operating model for managing test hypotheses, prioritization, statuses, results, learnings and next steps. The model helped make experimentation more continuous and visible.
+          </p>
+        </article>
+
+        <article class="achievement-card">
+          <div class="achievement-tags">
+            <span class="tag">Google Search Console</span>
+            <span class="tag">SEO reporting</span>
+            <span class="tag">HTML reports</span>
+            <span class="tag">Decision highlights</span>
+          </div>
+          <h3>Making GSC reporting more action-oriented</h3>
+          <p>
+            I developed weekly and monthly organic search reporting so the reports did not remain simple lists of metrics. The goal was to answer: what changed, why it may matter and what should be checked or done next.
+          </p>
+        </article>
+
+        <article class="achievement-card">
+          <div class="achievement-tags">
+            <span class="tag">SEO</span>
+            <span class="tag">Classification models</span>
+            <span class="tag">Review queues</span>
+            <span class="tag">Page and content areas</span>
+          </div>
+          <h3>Designing service-page classification and review queues</h3>
+          <p>
+            I designed service-page review and classification logic where different sources are treated as separate observation layers. The goal was to create work queues and views that help content, SEO and digital sales work make better decisions across large page sets.
+          </p>
+        </article>
+
+        <article class="achievement-card">
+          <div class="achievement-tags">
+            <span class="tag">AI-assisted workflows</span>
+            <span class="tag">Source material</span>
+            <span class="tag">Review process</span>
+            <span class="tag">Research support</span>
+          </div>
+          <h3>AI-assisted source and review logic for doctoral research</h3>
+          <p>
+            I built a tool concept for a partner working on doctoral research, where the user defines the research question and search terms themselves. The key idea was a controlled workflow where sources, findings and review steps stay visible.
+          </p>
         </article>
       </div>
     </section>
